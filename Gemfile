@@ -9,7 +9,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'jquery-rails'
-gem 'slim-rails'
+gem 'haml-rails'
 gem 'bootstrap-sass'
 
 gem 'turbolinks', '~> 5'
@@ -18,6 +18,8 @@ gem 'awesome_print'
 # TODO: move this after we actually start populating live data
 gem 'factory_girl_rails'
 gem 'faker'
+
+gem 'kaminari'
 
 group :production, :staging do
   gem 'rails_12factor'

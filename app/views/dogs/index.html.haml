@@ -1,0 +1,13 @@
+%h1 Dogs
+%table.table.table-bordered.table-hover
+  %thead
+    %th Name
+    %th Status
+    %th Actions
+  - @dogs.each do |dog|
+    %tr
+      %td= link_to dog.name, dog_path(dog)
+      %td In Foster
+      %td 
+        %span= link_to 'edit', edit_dog_path(dog), class: 'btn btn-primary btn-sm'
+= paginate @dogs
