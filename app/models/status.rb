@@ -11,4 +11,14 @@
 #
 
 class Status < ActiveRecord::Base
+  NEEDS_FOSTER = 'Needs Foster'
+  FOSTER_PENDING = 'Foster Pending'
+  IN_FOSTER = 'In Foster'
+  ADOPTION_PENDING = 'Adoption Pending'
+  ADOPTED = 'Adopted'
+
+  STATUSES = [NEEDS_FOSTER, FOSTER_PENDING, IN_FOSTER, ADOPTION_PENDING, ADOPTED]
+
+  belongs_to :user
+  belongs_to :dog
 end

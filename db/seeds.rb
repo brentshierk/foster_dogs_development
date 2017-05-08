@@ -7,5 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 100.times do
-  FactoryGirl.create(:dog)
+  dog = FactoryGirl.create(:dog)
+  statuses = Status::STATUSES
+  FactoryGirl.create(:status, dog: dog, status: statuses[rand(statuses.length)])
 end

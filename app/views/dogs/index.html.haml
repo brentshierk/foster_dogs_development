@@ -3,11 +3,13 @@
   %thead
     %th Name
     %th Status
+    %th Associated To
     %th Actions
   - @dogs.each do |dog|
     %tr
       %td= link_to dog.name, dog_path(dog)
-      %td In Foster
+      %td= dog.current_status.status
+      %td= dog.current_user.name
       %td 
         %span= link_to 'edit', edit_dog_path(dog), class: 'btn btn-primary btn-sm'
 = paginate @dogs

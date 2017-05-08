@@ -2,7 +2,7 @@ class DogsController < ApplicationController
   before_action :load_dog, except: [:index]
 
   def index
-    @dogs = Dog.order(:name).page(params[:page])
+    @dogs = Dog.includes(:statuses).order(:name).page(params[:page])
   end
 
   def show

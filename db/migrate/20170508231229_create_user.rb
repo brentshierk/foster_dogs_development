@@ -6,7 +6,7 @@ class CreateUser < ActiveRecord::Migration[5.0]
       t.uuid :uuid
     end
 
-    add_index :users, :email
-    add_index :users, :uuid
+    add_index :users, :email, unique: true
+    add_index :users, :uuid, unique: true
   end
 end

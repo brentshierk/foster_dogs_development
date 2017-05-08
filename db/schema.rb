@@ -10,19 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170508231229) do
+ActiveRecord::Schema.define(version: 20170508235430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "dogs", force: :cascade do |t|
     t.string   "name"
-    t.uuid     "uuid"
     t.text     "short_code"
     t.text     "image_url"
     t.datetime "archived_at"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.date     "age"
+    t.boolean  "urgent",      default: false
+    t.index ["short_code"], name: "index_dogs_on_short_code", unique: true, using: :btree
   end
 
   create_table "statuses", force: :cascade do |t|
