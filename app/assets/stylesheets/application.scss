@@ -1,2 +1,11 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.dog-header__short-code {
+  color: #777777;
+  text-transform: uppercase;
+}
+
+.dog-info__label {
+  font-weight: 800; 
+}
