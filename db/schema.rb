@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20170508235430) do
     t.datetime "archived_at"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.date     "age"
+    t.date     "birthday"
     t.boolean  "urgent",      default: false
     t.index ["short_code"], name: "index_dogs_on_short_code", unique: true, using: :btree
   end
@@ -41,8 +41,8 @@ ActiveRecord::Schema.define(version: 20170508235430) do
     t.string "name"
     t.string "email"
     t.uuid   "uuid"
-    t.index ["email"], name: "index_users_on_email", using: :btree
-    t.index ["uuid"], name: "index_users_on_uuid", using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
   end
 
 end
