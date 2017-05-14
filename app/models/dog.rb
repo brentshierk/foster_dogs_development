@@ -20,11 +20,9 @@ class Dog < ActiveRecord::Base
   validates_uniqueness_of :short_code
 
   has_many :statuses
-  # has_one :current_status # TODO: use this to make it more performant
+  has_one :current_status, -> { order('statuses.created_at') }, class_name: 'Status'
 
-  def current_status
-    statuses.order(:created_at).last
-  end
+  default_scope { includes(current_status: :user) }
 
   def current_user
     current_status.user
