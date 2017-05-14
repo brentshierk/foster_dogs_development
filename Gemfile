@@ -20,6 +20,7 @@ gem 'factory_girl_rails'
 gem 'faker'
 
 gem 'kaminari'
+gem 'stamp'
 
 group :production, :staging do
   gem 'rails_12factor'
