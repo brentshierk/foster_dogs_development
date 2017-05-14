@@ -11,6 +11,8 @@
 #  updated_at  :datetime         not null
 #  birthday    :date
 #  urgent      :boolean          default(FALSE)
+#  breed       :string
+#  weight      :integer
 #
 
 class Dog < ActiveRecord::Base
