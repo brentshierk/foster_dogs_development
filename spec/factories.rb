@@ -3,6 +3,8 @@ FactoryGirl.define do
     name { Faker::Name.first_name }  
     image_url { Faker::LoremPixel.image }
     birthday { Date.current - rand(10).years - rand(3).months }
+    breed { ['Doggo', 'Pupperino', 'Bork'][rand(3)] }
+    weight { rand(100) }
 
     trait :urgent do
       urgent true

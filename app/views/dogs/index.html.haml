@@ -3,13 +3,11 @@
   %thead
     %th Name
     %th Status
-    %th Current Hooman
     %th Actions
   - @dogs.each do |dog|
     %tr
       %td= link_to dog.name, dog_path(dog)
-      %td= dog.current_status.status
-      %td= dog.current_user.name
+      %td= status(dog)
       %td 
         %span= link_to 'view', dog_path(dog), class: 'btn btn-primary btn-sm'
         %span= link_to 'edit', edit_dog_path(dog), class: 'btn btn-warning btn-sm'

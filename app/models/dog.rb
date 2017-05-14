@@ -18,9 +18,10 @@
 class Dog < ActiveRecord::Base
   paginates_per 40
   
-  before_save :ensure_short_code
+  before_validation :ensure_short_code
 
   validates_uniqueness_of :short_code
+  validates_presence_of :short_code, :name, :birthday, :breed, :weight
 
   has_many :statuses
   has_one :current_status, -> { order('statuses.created_at') }, class_name: 'Status'
@@ -34,6 +35,6 @@ class Dog < ActiveRecord::Base
   private
 
   def ensure_short_code
-    self.short_code ||= SecureRandom.hex(3)
+    self.short_code ||= SecureRandom.hex(3).upcase
   end
 end
