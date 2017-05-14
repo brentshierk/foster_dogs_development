@@ -9,7 +9,8 @@
 #  archived_at :datetime
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  age         :date
+#  birthday    :date
+#  urgent      :boolean          default(FALSE)
 #
 
 class Dog < ActiveRecord::Base
