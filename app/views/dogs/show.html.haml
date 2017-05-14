@@ -2,5 +2,5 @@
   %span= @dog.name
   %span.dog-header__short-code= "(#{@dog.short_code})"
 .dog-info
-  %span.dog-info__label Birthday:
-  %span.dog-info__info= @dog.birthday.strftime("%D")
+  %span.dog-info__label Age:
+  %span.dog-info__info= age(@dog)
