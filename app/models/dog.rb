@@ -18,7 +18,7 @@
 class Dog < ActiveRecord::Base
   paginates_per 40
   
-  before_validation :ensure_short_code
+  before_validation :ensure_short_code, :initialize_status
 
   validates_uniqueness_of :short_code
   validates_presence_of :short_code, :name, :birthday, :breed, :weight
@@ -36,5 +36,9 @@ class Dog < ActiveRecord::Base
 
   def ensure_short_code
     self.short_code ||= SecureRandom.hex(3).upcase
+  end
+
+  def initialize_status(status = Status::NEEDS_FOSTER)
+    statuses.build(status: status)
   end
 end

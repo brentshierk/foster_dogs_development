@@ -13,7 +13,6 @@ FactoryGirl.define do
 
   factory :status do
     dog
-    user
 
     trait :needs_foster do
       status Status::NEEDS_FOSTER
@@ -21,14 +20,22 @@ FactoryGirl.define do
 
     trait :foster_pending do
       status Status::FOSTER_PENDING
+      user
     end
     
     trait :in_foster do
       status Status::IN_FOSTER
+      user
     end
 
     trait :adoption_pending do
       status Status::ADOPTION_PENDING
+      user
+    end
+
+    trait :adopted do
+      status Status::ADOPTED
+      user
     end
   end
 

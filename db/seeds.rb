@@ -8,9 +8,9 @@
 
 100.times do
   dog = FactoryGirl.create(:dog)
-  statuses = Status::STATUSES
+  statuses = [:foster_pending, :in_foster, :adoption_pending, :adopted]
 
-  rand(1..10).times do
-    FactoryGirl.create(:status, dog: dog, status: statuses[rand(statuses.length)])
+  rand(5).times do
+    FactoryGirl.create(:status, statuses[rand(statuses.length)], dog: dog)
   end
 end
