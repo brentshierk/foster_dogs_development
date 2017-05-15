@@ -81,5 +81,4 @@ test:
 production:
   <<: *default
   database: foster-roster_production
-  username: foster-roster
-  password: <%= ENV['FOSTER-ROSTER_DATABASE_PASSWORD'] %>
+  url: <%= ENV["DATABASE_URL"] %>
