@@ -10,7 +10,7 @@
   dog = FactoryGirl.create(:dog)
   statuses = Status::STATUSES
 
-  rand(5).times do
+  rand(1..10).times do
     FactoryGirl.create(:status, dog: dog, status: statuses[rand(statuses.length)])
   end
 end

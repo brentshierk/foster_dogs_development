@@ -1,5 +1,7 @@
 module ApplicationHelper
   def print_status(dog, status)
+    return '' unless status.present?
+    
     string = status.status
     string += " with #{link_to(status.user.name, user_path(status.user))}" if status.user.present?
     string.html_safe

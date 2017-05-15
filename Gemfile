@@ -32,6 +32,7 @@ group :development, :test do
   gem 'guard-livereload'
   gem 'guard-rspec'
   gem 'guard-bundler'
+  gem 'binding_of_caller'
   gem 'better_errors'
 end
 
