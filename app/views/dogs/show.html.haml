@@ -2,5 +2,27 @@
   %span= @dog.name
   %span.dog-header__short-code= "(#{@dog.short_code})"
 .dog-info
-  %span.dog-info__label Age:
-  %span.dog-info__info= age(@dog)
+  %div
+    %span.dog-info__label Current Status:
+    %span.dog-info__info= print_status(@dog, @dog.current_status)
+  %div
+    %span.dog-info__label Urgent:
+    %span.dog-info__info= @dog.urgent?
+  %div
+    %span.dog-info__label Age:
+    %span.dog-info__info= age(@dog)
+  %div
+    %span.dog-info__label Breed:
+    %span.dog-info__info= @dog.breed
+  %div
+    %span.dog-info__label Weight:
+    %span.dog-info__info= "#{@dog.weight} lbs"
+%h3 Timeline
+%table.table.table-bordered.table-hover
+  %thead
+    %th Timestamp
+    %th Status
+  - @dog.statuses.each do |status|
+    %tr
+      %td= status.created_at.stamp("May 20, 1989")
+      %td= print_status(@dog, status)

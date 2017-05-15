@@ -24,9 +24,9 @@ class Dog < ActiveRecord::Base
   validates_presence_of :short_code, :name, :birthday, :breed, :weight
 
   has_many :statuses
-  has_one :current_status, -> { order('statuses.created_at') }, class_name: 'Status'
+  has_one :current_status, -> { order('statuses.created_at DESC') }, class_name: 'Status'
 
-  default_scope { includes(current_status: :user) }
+  default_scope { includes(statuses: :user, current_status: :user) }
 
   def current_user
     current_status.user

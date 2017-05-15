@@ -7,7 +7,7 @@
   - @dogs.each do |dog|
     %tr
       %td= link_to dog.name, dog_path(dog)
-      %td= status(dog)
+      %td= print_status(dog, dog.current_status)
       %td 
         %span= link_to 'view', dog_path(dog), class: 'btn btn-primary btn-sm'
         %span= link_to 'edit', edit_dog_path(dog), class: 'btn btn-warning btn-sm'
