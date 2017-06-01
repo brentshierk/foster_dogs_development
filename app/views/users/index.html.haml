@@ -1,0 +1,9 @@
+%h1 Dogs
+%table.table.table-bordered.table-hover
+  %thead
+    %th Name
+    %th E-mail
+  - @users.each do |user|
+    %tr
+      %td= link_to user.name, user_path(user)
+      %td= user.email
