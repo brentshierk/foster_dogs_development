@@ -6,14 +6,13 @@
 #  name              :string
 #  email             :string
 #  uuid              :uuid
-#  experience        :string
-#  schedule          :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  fostered_before   :boolean
 #  fospice           :boolean
 #  accepted_terms_at :datetime
-#  other_pets        :text
-#  kids              :text
-#  created_at        :datetime
-#  updated_at        :datetime
+#  other_pets        :boolean
+#  kids              :boolean
 #
 
 class User < ActiveRecord::Base
@@ -24,7 +23,8 @@ class User < ActiveRecord::Base
 
   before_validation :ensure_uuid
 
-  has_many :notes, foreign_key: "user_id"
+  acts_as_taggable
+  acts_as_taggable_on :experience, :schedule, :size_preferences, :activity_preferences
 
   private
 

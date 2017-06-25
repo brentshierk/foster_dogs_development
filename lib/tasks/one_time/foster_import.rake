@@ -6,35 +6,71 @@ namespace :one_time do
     task import: :environment do
       CSV.foreach("data/roster.csv") do |row|
         begin
-          timestamp = row[0]
-          first_name = row[1]
-          last_name = row[2]
-        rescue => e
+          ActiveRecord::Base.transaction do
+            timestamp = row[0] #datetime
+            first_name = row[1].capitalize #string
+            last_name = row[2].capitalize #string
+            email = row[3] #string
+            address = row[7] #address model
+            size_preferences = row[8] #array to tags
+            activity_preferences = row[9] #array to tags
+            experience = row[10] #array to tags
+            fostered_before = row[11].present? ? true : false #bool
+            other_pets = (row[13] == "No other pets") ? false : true #bool
+            kids = (row[14] == "No") ? false : true #bool
+            schedule = row[15] #array to tags
+            fospice = (row[18] == "No / Not Now") ? false : true #bool
+            accepted_terms_at = (row[20] == "I understand and accept") ? DateTime.current : nil #datetime
 
+            year = timestamp[/\d{4}/].to_i
+            quarter = timestamp[/Q{1}\d/]
+
+            case quarter
+            when 'Q1'
+              timestamp = Date.new(year, 1, 1)
+            when 'Q2'
+              timestamp = Date.new(year, 4, 1)
+            when 'Q3'
+              timestamp = Date.new(year, 7, 1)
+            when 'Q4'
+              timestamp = Date.new(year, 10, 1)
+            end
+
+            size_preferences = size_preferences.gsub(/ \(([^\)]+)\)/, "")
+
+            sanitized_activity_preferences = ""
+
+            ["Young Puppy", "Active", "Moderately active", "Low activity"].each do |opts|
+              sanitized_activity_preferences << "#{opts.capitalize}, " if activity_preferences[opts].present?
+            end
+
+            name = "#{first_name} #{last_name}"
+
+            # address = PARSE THE ADDRESS
+
+            user = User.find_or_create_by(email: email) do |u|
+              u.created_at = timestamp
+              u.name = name
+              u.fostered_before = fostered_before
+              u.other_pets = other_pets
+              u.kids = kids
+              u.fospice = fospice
+              u.accepted_terms_at = accepted_terms_at
+            end
+
+            user.size_preference_list = size_preferences
+            user.activity_preference_list = sanitized_activity_preferences
+            user.schedule_list = schedule
+            user.experience_list = experience
+
+            user.save!
+            Rails.logger.info("Successfully imported #{user.name}")
+          end
+        rescue => e
+          Rails.logger.info("Failed to import: #{row}")
+          Rails.logger.info("Error: #{e.message}")
         end
       end
     end
   end
 end
-
-# 2017 (Q2)
-# Chris
-# Soper
-# chrisrsoper@gmail.com
-# 21-35
-# NYC: Brooklyn
-# Greenpoint
-# 154 Freeman St Apt 3R, Brooklyn, NY 11222
-# Small (Up to 25 lbs), Medium (25 - 50 lbs), Large (50+ lbs)
-# Young Puppy (not yet housetrained, chews, stays indoors versus outside walks due to limited vaccinations), Active: Frisky, playful, energetic, jogging buddy, Moderately active: Enjoys walks and chilling, with occasional playtime, Low activity: Couch potato / senior dog.
-# Own / Owned a dog
-#
-# I recently had two dogs move out of my home when a significant other moved out and have plenty of room to love a pup! My current situation is not ideal for the long term commitment of adopting, but if I can foster and help socialize a dog to give them a better chance of adoption success, I think it will be a win-win. The two dogs that I helped care for the past 4 years were large, pit-mix rescues from the ACC in Harlem.
-# No other pets
-# No
-# 4-7 hours per day
-# I am a record producer and work out of my own studio. Many days I work alone, in which case I would bring a dog to work with me.
-# One roomate, who is happy to have a dog in the house.
-# No / Not Now
-# Google search
-# I understand and accept

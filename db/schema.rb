@@ -41,15 +41,6 @@ ActiveRecord::Schema.define(version: 20170625154723) do
     t.index ["short_code"], name: "index_dogs_on_short_code", unique: true, using: :btree
   end
 
-  create_table "notes", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "author_id"
-    t.text     "note"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id", "author_id"], name: "index_notes_on_user_id_and_author_id", using: :btree
-  end
-
   create_table "statuses", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "dog_id"
@@ -89,14 +80,13 @@ ActiveRecord::Schema.define(version: 20170625154723) do
     t.string   "name"
     t.string   "email"
     t.uuid     "uuid"
-    t.string   "experience"
-    t.string   "schedule"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.boolean  "fostered_before"
     t.boolean  "fospice"
     t.datetime "accepted_terms_at"
-    t.text     "other_pets"
-    t.text     "kids"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.boolean  "other_pets"
+    t.boolean  "kids"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
   end
