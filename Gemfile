@@ -14,6 +14,7 @@ gem 'bootstrap-sass'
 
 gem 'turbolinks', '~> 5'
 gem 'awesome_print'
+gem 'acts-as-taggable-on'
 
 # TODO: move this after we actually start populating live data
 gem 'factory_girl_rails'

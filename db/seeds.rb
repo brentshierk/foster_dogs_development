@@ -5,12 +5,3 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
-100.times do
-  dog = FactoryGirl.create(:dog)
-  statuses = [:foster_pending, :in_foster, :adoption_pending, :adopted]
-
-  rand(5).times do
-    FactoryGirl.create(:status, statuses[rand(statuses.length)], dog: dog)
-  end
-end
