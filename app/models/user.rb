@@ -13,6 +13,9 @@
 #  accepted_terms_at :datetime
 #  other_pets        :boolean
 #  kids              :boolean
+#  address           :string
+#  latitude          :float
+#  longitude         :float
 #
 
 class User < ActiveRecord::Base
@@ -25,6 +28,9 @@ class User < ActiveRecord::Base
 
   acts_as_taggable
   acts_as_taggable_on :experience, :schedule, :size_preferences, :activity_preferences
+
+  geocoded_by :address
+  after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
 
   private
 

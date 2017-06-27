@@ -15,18 +15,6 @@ ActiveRecord::Schema.define(version: 20170625154723) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "addresses", force: :cascade do |t|
-    t.string   "line_one"
-    t.string   "line_two"
-    t.string   "city"
-    t.string   "zip"
-    t.decimal  "latitude"
-    t.decimal  "longitude"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "dogs", force: :cascade do |t|
     t.string   "name"
     t.text     "short_code"
@@ -87,6 +75,9 @@ ActiveRecord::Schema.define(version: 20170625154723) do
     t.datetime "accepted_terms_at"
     t.boolean  "other_pets"
     t.boolean  "kids"
+    t.string   "address"
+    t.float    "latitude"
+    t.float    "longitude"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
   end

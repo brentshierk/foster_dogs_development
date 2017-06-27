@@ -46,8 +46,6 @@ namespace :one_time do
 
             name = "#{first_name} #{last_name}"
 
-            # address = PARSE THE ADDRESS
-
             user = User.find_or_create_by(email: email) do |u|
               u.created_at = timestamp
               u.name = name
@@ -56,6 +54,7 @@ namespace :one_time do
               u.kids = kids
               u.fospice = fospice
               u.accepted_terms_at = accepted_terms_at
+              u.address = address
             end
 
             user.size_preference_list = size_preferences
@@ -70,6 +69,8 @@ namespace :one_time do
           Rails.logger.info("Failed to import: #{row}")
           Rails.logger.info("Error: #{e.message}")
         end
+
+        sleep 2
       end
     end
   end

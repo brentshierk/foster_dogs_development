@@ -36,6 +36,7 @@ group :development, :test do
   gem 'guard-bundler'
   gem 'binding_of_caller'
   gem 'better_errors'
+  gem 'dotenv-rails'
 end
 
 group :development do
