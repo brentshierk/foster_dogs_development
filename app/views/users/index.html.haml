@@ -10,7 +10,10 @@
           %h5 Active Filters
           - @active_filters.each do |k, v|
             %strong= "#{k.titleize}:"
-            = v.join(', ')
+            - if v.is_a?(String)
+              = v
+            - elsif v.is_a?(Array)
+              = v.join(', ')
   .row
     - @categories.keys.each do |key|
       .col-md-3= label_tag key
