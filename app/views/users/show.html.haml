@@ -1,37 +1,41 @@
 %h1= @user.name
 %div
-  %span.dog-info__label Created At
-  %span.dog-info__info= @user.created_at.stamp("May 20, 1989")
+  %span.info__label Submitted Application At:
+  %span.info__text= @user.created_at.stamp("May 20, 1989")
 %div
-  %span.dog-info__label Email
-  %span.dog-info__info= mail_to @user.email
+  %span.info__label Email:
+  %span.info__text= mail_to @user.email
 %div
-  %span.dog-info__label Experience
-  %span.dog-info__info= @user.experience_list
+  %span.info__label Experience:
+  %span.info__text= @user.experience_list
 %div
-  %span.dog-info__label Schedule
-  %span.dog-info__info= @user.schedule_list
+  %span.info__label Schedule:
+  %span.info__text= @user.schedule_list
 %div
-  %span.dog-info__label Size Preferences
-  %span.dog-info__info= @user.size_preference_list
+  %span.info__label Size Preferences:
+  %span.info__text= @user.size_preference_list
 %div
-  %span.dog-info__label Activity Preferences
-  %span.dog-info__info= @user.activity_preference_list
+  %span.info__label Activity Preferences:
+  %span.info__text= @user.activity_preference_list
 %div
-  %span.dog-info__label Fostered Before?
-  %span.dog-info__info= @user.fostered_before?
+  %span.info__label Fostered Before?:
+  %span.info__text= @user.fostered_before?
 %div
-  %span.dog-info__label Fospice?
-  %span.dog-info__info= @user.fospice?
+  %span.info__label Fospice?:
+  %span.info__text= @user.fospice?
 %div
-  %span.dog-info__label Has other pets?
-  %span.dog-info__info= @user.other_pets?
+  %span.info__label Has other pets?:
+  %span.info__text= @user.other_pets?
 %div
-  %span.dog-info__label Has kids?
-  %span.dog-info__info= @user.kids?
+  %span.info__label Has children?
+  %span.info__text= @user.kids?
 %div
-  %span.dog-info__label Address
-  %span.dog-info__info= @user.address
+  %span.info__label Address:
+  %span.info__text= @user.address
 %div
-  %span.dog-info__label Accepted Terms?
-  %span.dog-info__info= @user.accepted_terms_at.present?
+  %span.info__label Lat/Long:
+  %span.info__text= "#{@user.latitude}/#{@user.longitude}"
+
+%div
+  %span.info__label Accepted Terms?:
+  %span.info__text= @user.accepted_terms_at.present?

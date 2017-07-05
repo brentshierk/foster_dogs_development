@@ -6,6 +6,23 @@
   text-transform: uppercase;
 }
 
-.dog-info__label {
-  font-weight: 800; 
+.info__label {
+  font-weight: 800;
+}
+
+.filter-select {
+  width: 100%;
+}
+
+.filter-form {
+  margin-bottom: 20px;
+}
+
+.filter-form__submit {
+  float: right;
+}
+
+.active-filters {
+  background-color: yellow;
+  margin-bottom: 20px;
 }

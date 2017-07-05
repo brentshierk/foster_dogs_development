@@ -3,20 +3,20 @@
   %span.dog-header__short-code= "(#{@dog.short_code})"
 .dog-info
   %div
-    %span.dog-info__label Current Status:
-    %span.dog-info__info= print_status(@dog, @dog.current_status)
+    %span.info__label Current Status:
+    %span.info__text= print_status(@dog, @dog.current_status)
   %div
-    %span.dog-info__label Urgent:
-    %span.dog-info__info= @dog.urgent?
+    %span.info__label Urgent:
+    %span.info__text= @dog.urgent?
   %div
-    %span.dog-info__label Age:
-    %span.dog-info__info= age(@dog)
+    %span.info__label Age:
+    %span.info__text= age(@dog)
   %div
-    %span.dog-info__label Breed:
-    %span.dog-info__info= @dog.breed
+    %span.info__label Breed:
+    %span.info__text= @dog.breed
   %div
-    %span.dog-info__label Weight:
-    %span.dog-info__info= "#{@dog.weight} lbs"
+    %span.info__label Weight:
+    %span.info__text= "#{@dog.weight} lbs"
 %h3 Timeline
 %table.table.table-bordered.table-hover
   %thead

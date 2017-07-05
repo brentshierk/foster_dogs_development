@@ -1,4 +1,23 @@
-%h1 Fosters
+= form_tag(users_path, method: :get, class: 'filter-form') do
+  .row
+    .col-md-12
+      %h1.pull-left Fosters
+      = submit_tag 'Filter', class: 'pull-right btn btn-primary'
+  - if @active_filters.present?
+    .row
+      .col-md-12
+        .active-filters
+          %h5 Active Filters
+          - @active_filters.each do |k, v|
+            %strong= "#{k.capitalize}:"
+            = v.join(', ')
+  .row
+    - @categories.keys.each do |key|
+      .col-md-3= label_tag key
+  .row
+    = form_tag do
+      - @categories.each do |k, v|
+        .col-md-3= select_tag k, options_for_select(v), multiple: true, include_blank: true, class: "form-control filter-select"
 %table.table.table-bordered.table-hover
   %thead
     %th Name
