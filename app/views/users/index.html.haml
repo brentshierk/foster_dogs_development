@@ -9,7 +9,7 @@
         .active-filters
           %h5 Active Filters
           - @active_filters.each do |k, v|
-            %strong= "#{k.capitalize}:"
+            %strong= "#{k.titleize}:"
             = v.join(', ')
   .row
     - @categories.keys.each do |key|
