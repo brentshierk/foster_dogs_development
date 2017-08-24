@@ -12,7 +12,6 @@ module Admin
           query = query.tagged_with(values, in: key)
         end
       end
-
       @users = query.page(params[:page])
     end
 

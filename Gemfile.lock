@@ -44,7 +44,7 @@ GEM
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 12.0)
     arel (7.1.4)
-    autoprefixer-rails (6.7.7.2)
+    autoprefixer-rails (7.1.2.6)
       execjs
     awesome_print (1.7.0)
     better_errors (2.1.1)
@@ -228,7 +228,11 @@ GEM
     rspec-support (3.5.0)
     ruby_parser (3.9.0)
       sexp_processor (~> 4.1)
-    sass (3.4.23)
+    sass (3.5.1)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
@@ -310,4 +314,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.15.1
+   1.15.4

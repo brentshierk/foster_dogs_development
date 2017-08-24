@@ -1,41 +1,51 @@
-%h1= @user.name
-%div
-  %span.info__label Submitted Application At:
-  %span.info__text= @user.created_at.stamp("May 20, 1989")
-%div
-  %span.info__label Email:
-  %span.info__text= mail_to @user.email
-%div
-  %span.info__label Experience:
-  %span.info__text= @user.experience_list
-%div
-  %span.info__label Schedule:
-  %span.info__text= @user.schedule_list
-%div
-  %span.info__label Size Preferences:
-  %span.info__text= @user.size_preference_list
-%div
-  %span.info__label Activity Preferences:
-  %span.info__text= @user.activity_preference_list
-%div
-  %span.info__label Fostered Before?:
-  %span.info__text= @user.fostered_before?
-%div
-  %span.info__label Fospice?:
-  %span.info__text= @user.fospice?
-%div
-  %span.info__label Has other pets?:
-  %span.info__text= @user.other_pets?
-%div
-  %span.info__label Has children?
-  %span.info__text= @user.kids?
-%div
-  %span.info__label Address:
-  %span.info__text= @user.address
-%div
-  %span.info__label Lat/Long:
-  %span.info__text= "#{@user.latitude}/#{@user.longitude}"
-
-%div
-  %span.info__label Accepted Terms?:
-  %span.info__text= @user.accepted_terms_at.present?
+.row
+  .col-md-6
+    %h1= @user.name
+.row
+  .col-md-6
+    %h3 Basic Info
+    %div
+      %span.info__label Email:
+      %span.info__text= mail_to @user.email
+    %div
+      %span.info__label Experience:
+      %span.info__text= @user.experience_list
+    %div
+      %span.info__label Schedule:
+      %span.info__text= @user.schedule_list
+    %div
+      %span.info__label Submitted Application At:
+      %span.info__text= @user.created_at.stamp("May 20, 1989")
+    %div
+      %span.info__label Address:
+      %span.info__text= @user.address
+    %div
+      %span.info__label Lat/Long:
+      %span.info__text= "#{@user.latitude}/#{@user.longitude}"
+    %div
+      %span.info__label Accepted Terms and Conditions:
+      %span.info__text= @user.accepted_terms_at.present?
+    %h3 Preferences
+    %div
+      %span.info__label Size Preferences:
+      %span.info__text= @user.size_preference_list
+    %div
+      %span.info__label Activity Preferences:
+      %span.info__text= @user.activity_preference_list
+    %div
+      %span.info__label Fostered Before?:
+      %span.info__text= @user.fostered_before?
+    %div
+      %span.info__label Fospice?:
+      %span.info__text= @user.fospice?
+    %div
+      %span.info__label Has other pets?:
+      %span.info__text= @user.other_pets?
+    %div
+      %span.info__label Has children?
+      %span.info__text= @user.kids?
+  .col-md-6
+    -# %h3 Email Communications
+    -#   - @user.email_logs.each do |email_log|
+    -#     %span.info__text
+    -#
