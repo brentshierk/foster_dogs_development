@@ -1,4 +1,4 @@
-= form_tag(users_path, method: :get, class: 'filter-form') do
+= form_tag(admin_users_path, method: :get, class: 'filter-form') do
   .row
     .col-md-12
       %h1.pull-left Fosters
@@ -36,7 +36,7 @@
     %th Address
   - @users.each do |user|
     %tr
-      %td= link_to user.name, user_path(user)
+      %td= link_to user.name, admin_user_path(user)
       %td= mail_to user.email
       %td= list_to_link(:experience, user.experience_list)
       %td= list_to_link(:schedule, user.schedule_list)
