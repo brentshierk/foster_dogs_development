@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :dogs
   namespace :admin do
     resources :users
-    resources :email_logs
+    resources :email_logs, only: [:new, :create]
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

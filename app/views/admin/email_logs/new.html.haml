@@ -1,0 +1,19 @@
+.row
+  .col-md-12
+    %h2
+      Create Email Blast
+      %small.text-muted record who you contacted and the subject line, we'll take note
+= form_for [:admin, @email_log] do |f|
+  .row
+    .col-md-6
+      .form-group
+        = f.label 'Fosters Contacted:'
+        = f.select :user_id, options_for_select(@users_select), { }, { multiple: true, class: 'form-control', required: true }
+  .row
+    .col-md-6
+      .form-group
+        = f.label 'Subject Line'
+        = f.text_field :subject, class: 'form-control', required: true
+  .row
+    .col-md-6
+      = f.submit 'Log It!', class: 'btn btn-primary'
