@@ -53,10 +53,12 @@
         %thead
           %th Subject
           %th Date Contacted
+          %th On Behalf Of
         - @user.email_logs.order("created_at DESC").each do |email_log|
           %tr
             %td= email_log.subject
             %td= email_log.created_at.stamp('May 20, 1989')
+            %td= email_log.organization
     %div
       %h3 Admin Notes
       %table.table.table-bordered.table-hover

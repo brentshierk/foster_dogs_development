@@ -9,11 +9,10 @@
       .form-group
         = f.label 'Fosters Contacted:'
         = f.select :user_id, options_for_select(@users_select), { }, { multiple: true, class: 'form-control', required: true }
-  .row
-    .col-md-6
       .form-group
         = f.label 'Subject Line'
         = f.text_field :subject, class: 'form-control', required: true
-  .row
-    .col-md-6
+      .form-group
+        = f.label 'Rescue'
+        = f.select :organization, Organization.all, { }, { class: 'form-control', required: true }
       = f.submit 'Log It!', class: 'btn btn-primary'
