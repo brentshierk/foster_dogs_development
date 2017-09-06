@@ -12,6 +12,7 @@ module Admin
       redirect_to admin_users_path
     rescue => e
       flash[:alert] = e.message
+      redirect_back(fallback_location: root_path)
       # TODO: honeybadger
     end
 
@@ -21,7 +22,7 @@ module Admin
       log_params = params[:email_log]
       log_params.require(:subject)
       log_params.require(:user_id)
-      log_params
+      log_params.permit(:subject, :user_id)
     end
 
     def user_ids

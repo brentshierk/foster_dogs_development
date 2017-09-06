@@ -27,7 +27,8 @@ class User < ActiveRecord::Base
   before_validation :ensure_uuid
 
   has_many :email_logs
-  
+  has_many :notes
+
   acts_as_taggable
   acts_as_taggable_on :experience, :schedule, :size_preferences, :activity_preferences
 

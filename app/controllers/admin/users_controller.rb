@@ -17,6 +17,7 @@ module Admin
 
     def show
       @user = User.find(params[:id])
+      @note = Note.new
     end
 
     private
