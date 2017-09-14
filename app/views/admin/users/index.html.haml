@@ -1,50 +1,39 @@
-= form_tag(admin_users_path, method: :get, class: 'filter-form') do
+- if @active_filters.present?
   .row
     .col-md-12
-      %h1.pull-left Fosters
-      = submit_tag 'Filter', class: 'pull-right btn btn-primary'
-  - if @active_filters.present?
-    .row
-      .col-md-12
-        .active-filters
-          %h5 Active Filters
-          - @active_filters.each do |k, v|
-            %strong= "#{k.titleize}:"
-            - if v.is_a?(String)
-              = v
-            - elsif v.is_a?(Array)
-              = v.join(', ')
-  .row
-    - @categories.keys.each do |key|
-      .col-md-3= label_tag key
-  .row
-    = form_tag do
-      - @categories.each do |k, v|
-        .col-md-3= select_tag k, options_for_select(v), multiple: true, include_blank: true, class: "form-control filter-select"
-%table.table.table-bordered.table-hover
-  %thead
-    %th Name
-    %th E-mail
-    %th Experience
-    %th Schedule
-    %th Size Preferences
-    %th Activity Preferences
-    %th Fostered Before?
-    %th Fospice
-    %th Other Pets
-    %th Kids
-    %th Address
-  - @users.each do |user|
-    %tr
-      %td= link_to user.name, admin_user_path(user)
-      %td= mail_to user.email
-      %td= list_to_link(:experience, user.experience_list)
-      %td= list_to_link(:schedule, user.schedule_list)
-      %td= list_to_link(:size_preferences, user.size_preference_list)
-      %td= list_to_link(:activity_preferences, user.activity_preference_list)
-      %td= user.fostered_before?
-      %td= user.fospice?
-      %td= user.other_pets?
-      %td= user.kids?
-      %td= user.address
+      .active-filters
+        %h5 Active Filters
+        - @active_filters.each do |k, v|
+          %strong= "#{k.titleize}:"
+          - if v.is_a?(String)
+            = v
+          - elsif v.is_a?(Array)
+            = v.join(', ')
+= form_tag(new_admin_email_log_path, method: :get) do
+  = submit_tag 'CONTACT', class: 'btn btn-primary pull-right btn--ui', id: 'contact-button'
+  %div
+    %table.table.table-bordered.table-hover.users-table
+      %thead
+        %th
+        %th Name
+        %th E-mail
+        %th Experience
+        %th Schedule
+        %th Size Preferences
+        %th Activity Preferences
+        %th Most Recent Contacts
+      - @users.each do |user|
+        %tr
+          %td= check_box_tag 'user_ids[]', user.id
+          %td= link_to user.name, admin_user_path(user)
+          %td= mail_to user.email
+          %td= list_to_link(:experience, user.experience_list)
+          %td= list_to_link(:schedule, user.schedule_list)
+          %td= list_to_link(:size_preferences, user.size_preference_list)
+          %td= list_to_link(:activity_preferences, user.activity_preference_list)
+          %td
+            - user.email_logs.order("created_at DESC").last(5).each do |log|
+              %div
+                %strong= log.subject
+                = "on behalf of #{ log.organization } on #{ log.created_at.stamp("May 20, 1989") }"
 = paginate @users

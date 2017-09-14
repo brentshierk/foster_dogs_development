@@ -1,0 +1,12 @@
+= form_tag(admin_users_path, method: :get, class: 'filter-form') do
+  .row
+    .col-md-12
+      %h1.pull-left Fosters
+      = submit_tag 'Filter', class: 'pull-right btn btn-primary'
+  .row
+    - @categories.keys.each do |key|
+      .col-md-3= label_tag key
+  .row
+    = form_tag do
+      - @categories.each do |k, v|
+        .col-md-3= select_tag k, options_for_select(v), multiple: true, include_blank: true, class: "form-control filter-select"

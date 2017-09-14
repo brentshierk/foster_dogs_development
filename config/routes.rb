@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   resources :dogs
   namespace :admin do
     resources :users do
+      collection do
+        get 'show_filters'
+        post 'filter'
+      end
       resources :notes, only: [:create]
     end
     resources :email_logs, only: [:new, :create]

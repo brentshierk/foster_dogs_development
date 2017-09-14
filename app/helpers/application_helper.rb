@@ -1,4 +1,15 @@
 module ApplicationHelper
+  def users_to_printed_list(users)
+    if users.count == 1
+      users.first.name
+    elsif users.count == 2
+      users.map(&:name).join(' and ')
+    else
+      last = users.pop
+      users.map(&:name).joins(', ') + last.name
+    end
+  end
+
   def print_status(dog, status)
     return '' unless status.present?
 

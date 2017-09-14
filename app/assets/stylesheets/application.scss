@@ -1,6 +1,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.users-table {
+  margin-top: 20px;
+}
+
+.btn--ui {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
 .dog-header__short-code {
   color: #777777;
   text-transform: uppercase;

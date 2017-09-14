@@ -1,6 +1,6 @@
 module Admin
   class UsersController < AdminController
-    before_action :load_filter_categories, only: :index
+    before_action :load_filter_categories, only: :show_filters
 
     def index
       query = User.all
@@ -13,6 +13,12 @@ module Admin
         end
       end
       @users = query.page(params[:page])
+    end
+
+    def show_filters
+    end
+
+    def filter
     end
 
     def show
