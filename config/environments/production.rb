@@ -76,4 +76,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  Tire.configure do
+    url ENV["BONSAI_URL"]
+  end
 end
