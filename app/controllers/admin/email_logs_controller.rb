@@ -9,6 +9,7 @@ module Admin
     end
 
     def create
+      debugger
       User.where(id: params[:user_ids]).find_each { |user| user.email_logs.create!(email_logs_params) }
 
       flash[:notice] = "Logs updated for email with subject line - #{email_logs_params[:subject]}"
