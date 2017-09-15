@@ -1,12 +1,13 @@
 module ApplicationHelper
   def users_to_printed_list(users)
+    users = users.to_a
     if users.count == 1
       users.first.name
     elsif users.count == 2
       users.map(&:name).join(' and ')
     else
       last = users.pop
-      users.map(&:name).joins(', ') + last.name
+      users.map(&:name).join(', ') + " and #{last.name}"
     end
   end
 
