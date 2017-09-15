@@ -24,6 +24,8 @@ gem 'kaminari'
 gem 'stamp'
 gem 'geocoder'
 
+gem 'tire'
+
 group :production, :staging do
   gem 'rails_12factor'
 end

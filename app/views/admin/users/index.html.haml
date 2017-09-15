@@ -1,14 +1,17 @@
-- if @active_filters.present?
+- if @active_filters.present? || @search_term.present?
   .row
     .col-md-12
       .active-filters
-        %h5 Active Filters
-        - @active_filters.each do |k, v|
-          %strong= "#{k.titleize}:"
-          - if v.is_a?(String)
-            = v
-          - elsif v.is_a?(Array)
-            = v.join(', ')
+        - if @active_filters.present?
+          %h5 Active Filters
+          - @active_filters.each do |k, v|
+            %strong= "#{k.titleize}:"
+            - if v.is_a?(String)
+              = v
+            - elsif v.is_a?(Array)
+              = v.join(', ')
+        - elsif @search_term.present?
+          %h5= "Searching for #{@search_term}"
 = form_tag(new_admin_email_log_path, method: :get) do
   = submit_tag 'CONTACT', class: 'btn btn-primary pull-right btn--ui', id: 'contact-button'
   %div

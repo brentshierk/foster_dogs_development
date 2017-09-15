@@ -23,7 +23,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><%= link_to 'Filtered Search', show_filters_admin_users_path %></li>
+            <li><%= link_to 'Apply  Filters', show_filters_admin_users_path %></li>
             <!-- <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -37,6 +37,12 @@
               </ul>
             </li> -->
           </ul>
+          <%= form_tag search_admin_users_path, method: :get, class: 'navbar-form navbar-left' do %>
+            <div class="form-group">
+              <%= text_field_tag 'user_search', nil, class: 'form-control', placeholder: 'Search' %>
+            </div>
+            <%= submit_tag 'Submit', class: 'btn btn-default' %>
+          <% end %>
           <!-- <form class="navbar-form navbar-left">
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Search">

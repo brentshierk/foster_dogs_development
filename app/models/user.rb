@@ -19,6 +19,9 @@
 #
 
 class User < ActiveRecord::Base
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+
   paginates_per 40
 
   validates_uniqueness_of :uuid, :email
@@ -34,6 +37,19 @@ class User < ActiveRecord::Base
 
   geocoded_by :address
   after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
+
+  def to_indexed_json
+    {
+      uuid: uuid,
+      name: name,
+      email: email,
+      fostered_before: fostered_before,
+      fospice: fospice,
+      other_pets: other_pets,
+      kids: kids,
+      address: address
+    }.to_json
+  end
 
   private
 

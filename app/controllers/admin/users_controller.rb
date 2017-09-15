@@ -12,13 +12,21 @@ module Admin
           query = query.tagged_with(values, in: key)
         end
       end
+
       @users = query.page(params[:page])
     end
 
-    def show_filters
+    def search
+      # TODO: clean this up
+      # this is hacky, but we reload out of the elasticsearch results to hit activerecord and allow pagination
+      search = User.search(params[:user_search]) if params[:user_search]
+      search_uuids = search.results.map(&:uuid)
+      @search_term = params[:user_search]
+      @users = User.where(uuid: search_uuids).page(params[:page])
+      render 'index'
     end
 
-    def filter
+    def show_filters
     end
 
     def show

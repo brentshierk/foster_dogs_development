@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users do
       collection do
+        get 'search'
         get 'show_filters'
-        post 'filter'
       end
       resources :notes, only: [:create]
     end

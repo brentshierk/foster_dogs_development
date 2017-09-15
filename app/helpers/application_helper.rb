@@ -25,6 +25,8 @@ module ApplicationHelper
   end
 
   def list_to_link(tag_type, tag_list)
+    return "" unless tag_list.present?
+
     html = ""
 
     tag_list.each_with_index do |l, i|
