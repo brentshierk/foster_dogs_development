@@ -19,9 +19,9 @@
 #
 
 class User < ActiveRecord::Base
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
-
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+  
   paginates_per 40
 
   validates_uniqueness_of :uuid, :email
