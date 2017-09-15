@@ -25,6 +25,7 @@ gem 'stamp'
 gem 'geocoder'
 
 gem 'tire'
+gem 'bonsai-elasticsearch-rails'
 
 group :production, :staging do
   gem 'rails_12factor'
