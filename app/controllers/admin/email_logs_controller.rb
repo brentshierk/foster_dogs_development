@@ -9,15 +9,14 @@ module Admin
     end
 
     def create
-      debugger
       User.where(id: params[:user_ids]).find_each { |user| user.email_logs.create!(email_logs_params) }
 
       flash[:notice] = "Logs updated for email with subject line - #{email_logs_params[:subject]}"
       redirect_to admin_users_path
-    # rescue => e
-    #   flash[:alert] = e.message
-    #   redirect_back(fallback_location: root_path)
-    #   # TODO: honeybadger
+    rescue => e
+      flash[:alert] = e.message
+      redirect_back(fallback_location: root_path)
+      # TODO: honeybadger
     end
 
     private
