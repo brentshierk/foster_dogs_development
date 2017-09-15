@@ -255,6 +255,10 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    searchkick (2.3.2)
+      activemodel (>= 4.1)
+      elasticsearch (>= 1)
+      hashie
     sexp_processor (4.9.0)
     shellany (0.0.1)
     slop (3.6.0)
@@ -319,6 +323,7 @@ DEPENDENCIES
   rails_12factor
   rspec-rails
   sass-rails (~> 5.0)
+  searchkick
   spring
   spring-watcher-listen (~> 2.0.0)
   stamp

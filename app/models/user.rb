@@ -19,8 +19,7 @@
 #
 
 class User < ActiveRecord::Base
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
+  searchkick
   
   paginates_per 40
 

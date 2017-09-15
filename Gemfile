@@ -24,6 +24,7 @@ gem 'kaminari'
 gem 'stamp'
 gem 'geocoder'
 
+gem 'searchkick'
 gem 'bonsai-elasticsearch-rails'
 
 group :production, :staging do
