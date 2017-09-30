@@ -5,7 +5,7 @@
 = form_tag(admin_email_logs_path, method: :post) do
   .row
     .col-md-6
-      .form_group
+      .form-group
         %h4= "Marking #{ users_to_printed_list(@users) } as contacted."
         - @users.each do |user|
           = hidden_field_tag 'user_ids[]', user.id

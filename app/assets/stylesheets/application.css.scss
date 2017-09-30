@@ -1,6 +1,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.fr-logo {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.fr-form {
+  margin: 20px 10px;
+}
+
 .users-table {
   margin-top: 20px;
 }

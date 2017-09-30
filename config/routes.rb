@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
-  root 'admin/users#index'
+  root 'users#new'
 
   resources :dogs
+  resources :users, only: [:new, :create] do
+    collection do
+      get 'thanks'
+    end
+  end
   namespace :admin do
     resources :users do
       collection do
@@ -11,8 +16,8 @@ Rails.application.routes.draw do
       resources :notes, only: [:create]
     end
     resources :email_logs, only: [:new, :create]
-
   end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

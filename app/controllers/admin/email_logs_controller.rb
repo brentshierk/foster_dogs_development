@@ -5,7 +5,7 @@ module Admin
       @email_log = EmailLog.new
     rescue => e
       flash[:alert] = e.message
-      redirect_back(fallback_location: root_path)
+      redirect_back(fallback_location: admin_users_path)
     end
 
     def create
@@ -15,7 +15,7 @@ module Admin
       redirect_to admin_users_path
     rescue => e
       flash[:alert] = e.message
-      redirect_back(fallback_location: root_path)
+      redirect_back(fallback_location: admin_users_path)
       # TODO: honeybadger
     end
 

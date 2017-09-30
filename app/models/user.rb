@@ -20,7 +20,7 @@
 
 class User < ActiveRecord::Base
   searchkick
-  
+
   paginates_per 40
 
   validates_uniqueness_of :uuid, :email
@@ -37,6 +37,11 @@ class User < ActiveRecord::Base
   geocoded_by :address
   after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
 
+  SIZE_PREFERENCES = ["SMALL", "MEDIUM", "LARGE"]
+  EXPERIENCE = ["Dogsat", "Fostered", "Own / Owned a dog", "Volunteered", "OTHER"]
+  SCHEDULE = ["Almost never (0-3 hrs/day)", "4-7 hours per day", "8+ hours per day"]
+  ACTIVITY_PREFERENCES = ["Low activity", "Moderately active", "Active", "Young puppy"]
+
   def to_indexed_json
     {
       uuid: uuid,
@@ -48,6 +53,10 @@ class User < ActiveRecord::Base
       kids: kids,
       address: address
     }.to_json
+  end
+
+  def self.size_preferences
+    tag_counts_on("size_preferences").map(&:name).uniq.sort
   end
 
   private

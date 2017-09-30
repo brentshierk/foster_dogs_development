@@ -1,0 +1,105 @@
+.row
+  .col-md-12
+    = image_tag("fr-logo.jpg", class: "fr-logo")
+.fr-form
+  .row
+    .col-md-12
+      %h2
+        FOSTER ROSTER
+      %p Hello! Please sign up to add yourself to our "Foster Roster" through FosterDogsNYC.com. We will contact you if a great potential foster dog for you becomes available.
+      %p Foster Dogs Inc. is comprised of a group of volunteers (who happen to be dog lovers), who help create the bridge between people who want to help dogs with dogs who need a home! This Foster Roster helps us connect willing foster homes with rescue groups in need.
+      %p
+        Read
+        %span= link_to 'more', 'http://fosterdogsnyc.com/join-our-foster-roster/', target: :_blank
+        about our Foster Roster. Read our FOSTER MANUAL and supplemental materials
+        %span= link_to 'here', 'http://fosterdogsnyc.com/manual/', target: :_blank
+  = form_for @user do |f|
+    .row
+      .col-md-12
+        %h3 Basic Information
+    .row
+      .col-md-6
+        .form-group
+          = f.label "Name"
+          = f.text_field :name, class: 'form-control', required: true
+    .row
+      .col-md-6
+        .form-group
+          = f.label "Email"
+          = f.text_field :email, class: 'form-control', required: true
+    .row
+      .col-md-6
+        .form-group
+          = f.label "Address"
+          = f.text_field :address, class: 'form-control', required: true
+    .row
+      .col-md-12
+        %h3 Foster Preferences
+    .row
+      .col-md-6
+        .form-group
+          = f.label "Have you fostered before?"
+          = f.select :fostered_before, options_for_select([['yes', true], ['no', false]]), { include_blank: true }, { class: 'form-control', required: true }
+    .row
+      .col-md-6
+        .form-group
+          = f.label "Are you interested in participating in our fospice program?"
+          %p
+            If you are interested in being a "Forever Foster" caretaker for our "Fospice" program for dogs in their end-of-life months, check the box below. Learn more about the program
+            %span= link_to 'here', 'http://fosterdogsnyc.com/fospice/', target: :_blank
+          = f.select :fospice, options_for_select([['yes', true], ['no', false]]), { include_blank: true }, { class: 'form-control', required: true }
+    .row
+      .col-md-6
+        .form-group
+          = f.label "Do you own any other pets?"
+          = f.select :other_pets, options_for_select([['yes', true], ['no', false]]), { include_blank: true }, { class: 'form-control', required: true }
+    .row
+      .col-md-6
+        .form-group
+          = f.label "Are you in a household with children?"
+          %p Some dogs should not live with young children due to size/training/personality
+          = f.select :kids, options_for_select([['yes', true], ['no', false]]), { include_blank: true }, { class: 'form-control', required: true }
+    .row
+      .col-md-6
+        .form-group
+          = f.label "What size dog are you open to fostering?"
+          = f.select :size_preferences, User::SIZE_PREFERENCES, { include_blank: true }, { multiple: true, class: 'form-control', required: true }
+    .row
+      .col-md-6
+        .form-group
+          = f.label "What experience do you have with dogs?"
+          = f.select :experience, User::EXPERIENCE, { include_blank: true }, { multiple: true, class: 'form-control', required: true }
+    .row
+      .col-md-6
+        .form-group
+          = f.label "How often are you home?"
+          %p On average, how long would the dog be alone during the workweek? NOTE: If you are away for more than 8 hours a day you should consider hiring a dog walker or have someone check in on the dog. Some rescue organizations offer discounted dog walks.
+          = f.select :schedule, User::SCHEDULE, { include_blank: true }, { multiple: true, class: 'form-control', required: true }
+    .row
+      .col-md-6
+        .form-group
+          = f.label "How active do you prefer your foster to be?"
+          = f.select :activity_preferences, User::ACTIVITY_PREFERENCES, { include_blank: true }, { multiple: true, class: 'form-control', required: true }
+    .row
+      .col-md-12
+        .terms-and-conditions
+          %h3 TERMS & CONDITIONS:
+          %h5 PRIVACY:
+          %p By applying to Foster Dogs Inc's "Foster Roster," your information will remain private. Foster Dogs will only share your information with the particular rescue affiliate upon your offer to foster. We will not otherwise share your application with third parties. All Foster Roster applications are property of Foster Dogs Inc and function as an internal resource.
+          %h5 PARTICIPATION & REMOVAL:
+          %p
+            You will typically not receive more than one Foster Roster outreach weekly. Foster Dogs will remove you from the list after 5 unanswered attempts, in order to keep our list targeted towards motivated applicants. You may ask to be removed at any time from this list by emailing us with your request at
+            %span= mail_to("info@fosterdogsnyc.com")
+          %h5 APPLICATION PROCESS & RESCUE LIABILITY:
+          %p
+            While we will keep track of the progress of any dog on our site, we do not handle the foster (or adoption) approval process, as that is the duty of the rescue group or shelter. Information is provided to us by the participating rescue organization. Once you begin communication with the rescuer responsible for a specific dog (a third party), we are here for questions/comments/suggestions, but it becomes the responsibility of the rescue organization to continue the conversation and to review your application. Read more about Foster Roster
+            = link_to "here", "http://fosterdogsnyc.com/join-our-foster-roster/", target: :_blank
+    .row
+      .col-md-12
+        .form-group
+          = f.check_box :accepted_terms_at, { required: true }, 'true', 'false'
+          I accept the terms and conditions above
+    .row
+      .col-md-12
+        .form-group
+          = f.submit 'SUBMIT', class: 'btn btn-primary'
