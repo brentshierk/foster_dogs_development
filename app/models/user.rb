@@ -35,10 +35,15 @@ class User < ActiveRecord::Base
   acts_as_taggable_on :experience, :schedule, :size_preferences, :activity_preferences
 
   geocoded_by :address
-  after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
+  after_validation :geocode, if: ->(obj){ obj.address.present? && obj.address_changed? }
 
-  SIZE_PREFERENCES = ["SMALL", "MEDIUM", "LARGE"]
-  EXPERIENCE = ["Dogsat", "Fostered", "Own / Owned a dog", "Volunteered", "OTHER"]
+  # TODO: maybe refactor this
+  SIZE_PREFERENCES = {
+    "Small" => "Up to 25 lbs.",
+    "Medium" => "25-50 lbs.",
+    "Large" => "50 lbs and up"
+  }
+  EXPERIENCE = ["Dogsat", "Fostered", "Own / Owned a dog", "Volunteered", "Other"]
   SCHEDULE = ["Almost never (0-3 hrs/day)", "4-7 hours per day", "8+ hours per day"]
   ACTIVITY_PREFERENCES = ["Low activity", "Moderately active", "Active", "Young puppy"]
 

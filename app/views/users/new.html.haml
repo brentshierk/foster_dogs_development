@@ -63,23 +63,35 @@
       .col-md-6
         .form-group
           = f.label "What size dog are you open to fostering?"
-          = f.select :size_preferences, User::SIZE_PREFERENCES, { include_blank: true }, { multiple: true, class: 'form-control', required: true }
+          - User::SIZE_PREFERENCES.each do |preference, description|
+            .form-check-label
+              = f.check_box :size_preferences, { multiple: true, class: 'form-check-input' }, preference, nil
+              = "#{preference} (#{description})"
     .row
       .col-md-6
         .form-group
           = f.label "What experience do you have with dogs?"
-          = f.select :experience, User::EXPERIENCE, { include_blank: true }, { multiple: true, class: 'form-control', required: true }
+          - User::EXPERIENCE.each do |experience|
+            .form-check-label
+              = f.check_box :experience, { multiple: true, class: 'form-check-input' }, experience, nil
+              = experience
     .row
       .col-md-6
         .form-group
           = f.label "How often are you home?"
-          %p On average, how long would the dog be alone during the workweek? NOTE: If you are away for more than 8 hours a day you should consider hiring a dog walker or have someone check in on the dog. Some rescue organizations offer discounted dog walks.
-          = f.select :schedule, User::SCHEDULE, { include_blank: true }, { multiple: true, class: 'form-control', required: true }
+          %p On average, how long would the dog be alone during the workweek? Note: If you are away for more than 8 hours a day you should consider hiring a dog walker or have someone check in on the dog. Some rescue organizations offer discounted dog walks.
+          - User::SCHEDULE.each do |schedule|
+            .form-check-label
+              = f.check_box :schedule, { multiple: true, class: 'form-check-input' }, schedule, nil
+              = schedule
     .row
       .col-md-6
         .form-group
           = f.label "How active do you prefer your foster to be?"
-          = f.select :activity_preferences, User::ACTIVITY_PREFERENCES, { include_blank: true }, { multiple: true, class: 'form-control', required: true }
+          - User::ACTIVITY_PREFERENCES.each do |activity|
+            .form-check-label
+              = f.check_box :activity_preferences, { multiple: true, class: 'form-check-input' }, activity, nil
+              = activity
     .row
       .col-md-12
         .terms-and-conditions
