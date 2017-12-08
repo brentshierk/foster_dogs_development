@@ -14,7 +14,7 @@ namespace :one_time do
             address = row[7] #address model
             size_preferences = row[8] #array to tags
             activity_preferences = row[9] #array to tags
-            experience = row[10].map(&:capitalize) #array to tags
+            experience = row[10].split(", ").map(&:capitalize).join(',') #array to tags
             fostered_before = row[11].present? ? true : false #bool
             other_pets = (row[13] == "No other pets") ? false : true #bool
             kids = (row[14] == "No") ? false : true #bool
@@ -36,7 +36,7 @@ namespace :one_time do
               timestamp = Date.new(year, 10, 1)
             end
 
-            size_preferences = size_preferences.gsub(/ \(([^\)]+)\)/, "").map(&:capitalize)
+            size_preferences = size_preferences.gsub(/ \(([^\)]+)\)/, "").split(", ").map(&:capitalize).join(',')
 
             sanitized_activity_preferences = ""
 
@@ -70,7 +70,7 @@ namespace :one_time do
           Rails.logger.info("Error: #{e.message}")
         end
 
-        sleep 2
+        sleep 10
       end
     end
   end
