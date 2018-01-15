@@ -27,6 +27,8 @@ gem 'geocoder'
 gem 'searchkick'
 gem 'bonsai-elasticsearch-rails'
 
+gem 'rollbar'
+
 group :production, :staging do
   gem 'rails_12factor'
 end
