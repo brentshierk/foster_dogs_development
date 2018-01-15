@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
     redirect_to thanks_users_path
   rescue => e
-    # TODO: honeybadger
+    Rollbar.error(e)
     flash[:alert] = "We're sorry! Something went wrong while submitting. Please try again."
     redirect_back(fallback_location: root_path)
   end

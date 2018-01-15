@@ -4,6 +4,7 @@ module Admin
       @users = User.where(id: params.require(:user_ids))
       @email_log = EmailLog.new
     rescue => e
+      Rollbar.error(e)
       flash[:alert] = e.message
       redirect_back(fallback_location: admin_users_path)
     end
@@ -14,9 +15,9 @@ module Admin
       flash[:notice] = "Logs updated for email with subject line - #{email_logs_params[:subject]}"
       redirect_to admin_users_path
     rescue => e
+      Rollbar.error(e)
       flash[:alert] = e.message
       redirect_back(fallback_location: admin_users_path)
-      # TODO: honeybadger
     end
 
     private

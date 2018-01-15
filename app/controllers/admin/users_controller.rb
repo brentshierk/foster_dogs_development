@@ -24,6 +24,10 @@ module Admin
       @search_term = params[:user_search]
       @users = User.where(uuid: search_uuids).page(params[:page])
       render 'index'
+    rescue => e
+      Rollbar.error(e)
+      flash[:alert] = e.message
+      redirect_back(fallback_location: admin_users_path)
     end
 
     def show_filters

@@ -7,9 +7,9 @@ module Admin
       flash[:notice] = "Noted!"
       redirect_back(fallback_location: admin_user_path(@user))
     rescue => e
+      Rollbar.error(e)
       flash[:alert] = e.message
       redirect_back(fallback_location: admin_user_path(@user))
-      # TODO: rollbar
     end
 
     private
