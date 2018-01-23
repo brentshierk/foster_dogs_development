@@ -17,7 +17,10 @@ class Organization
       'Social Tees',
       'Sochi Dogs',
       'Sugar Mutts',
-      'Twenty Paws'
+      'Twenty Paws',
+      'Korean K9 Rescue',
+      'True North Rescue Mission',
+      'Mr. Bones & Co'
     ]
   end
 end

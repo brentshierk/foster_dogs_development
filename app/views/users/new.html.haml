@@ -12,8 +12,10 @@
         %span= link_to 'more', 'http://fosterdogsnyc.com/join-our-foster-roster/', target: :_blank
         about our Foster Roster.
       %p
-        Fostering a dog is not always easy. There may be challenging moments when caring for a new dog, but remember that it should get easier in time, and that your foster dog needs you. When you commit to fostering for a certain duration of time, please keep your word (barring true emergencies). There may be chewed shoes, there may be accidents, and you might be woken up at odd hours sometimes. It's normal! When you receive our Foster Roster plea to foster a dog, we ask that you have an open mind and open heart! Fostering is not always easy, but it's pretty amazing. Questions? Visit
-        = link_to 'FosterDogsNYC', 'www.fosterdogsnyc.com', target: :_blank
+        Fostering a dog is not always easy. There may be challenging moments when caring for a new dog, but remember that it should get easier in time, and that your foster dog needs you. When you commit to fostering for a certain duration of time, please keep your word (barring true emergencies). There may be chewed shoes, there may be accidents, and you might be woken up at odd hours sometimes. It's normal! When you receive our Foster Roster plea to foster a dog, we ask that you have an open mind and open heart! Fostering is not always easy, but it's pretty amazing.
+      %p
+        Questions? Visit
+        = link_to 'our website', 'www.fosterdogsnyc.com', target: :_blank
         or email
         = mail_to 'roster@fosterdogsnyc.com', 'us'
       %p
@@ -38,7 +40,12 @@
     .row
       .col-md-6
         .form-group
-          = f.label "Address"
+          = f.label "Date of Birth"
+          = f.text_field :date_of_birth, class: 'form-control', required: true, data: { provide: 'datepicker' }
+    .row
+      .col-md-6
+        .form-group
+          = f.label "Home Address"
           = f.text_field :address, class: 'form-control', required: true
     %br
 
@@ -53,7 +60,7 @@
     .row
       .col-md-6
         .form-group
-          = f.label "Are you interested in participating in our fospice program?"
+          = f.label "Are you interested in participating in our Fospice program?"
           %p
             If you are interested in being a "Forever Foster" caretaker for our "Fospice" program for dogs in their end-of-life months, check the box below. Learn more about the program
             %span= link_to 'here', 'http://fosterdogsnyc.com/fospice/', target: :_blank
@@ -66,7 +73,7 @@
     .row
       .col-md-6
         .form-group
-          = f.label "Are you in a household with children?"
+          = f.label "Are you in a household with young children?"
           %p Some dogs should not live with young children due to size/training/personality
           = f.select :kids, options_for_select([['yes', true], ['no', false]]), { include_blank: true }, { class: 'form-control', required: true }
     .row
@@ -88,7 +95,7 @@
     .row
       .col-md-6
         .form-group
-          = f.label "How often are you home?"
+          = f.label "How often are you out of the house?"
           %p On average, how long would the dog be alone during the workweek? Note: If you are away for more than 8 hours a day you should consider hiring a dog walker or have someone check in on the dog. Some rescue organizations offer discounted dog walks.
           - User::SCHEDULE.each do |schedule|
             .form-check-label
