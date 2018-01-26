@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   paginates_per 40
 
   validates_uniqueness_of :uuid, :email
-  validates_presence_of :name, :email, :uuid, :date_of_birth, :accepted_terms_at
+  validates_presence_of :name, :email, :uuid
 
   before_validation :ensure_uuid
 
