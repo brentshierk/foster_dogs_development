@@ -5,12 +5,20 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+
+    # parse date, because i'm lazy
+    month = params[:user]["date_of_birth(2i)"].to_i
+    day = params[:user]["date_of_birth(3i)"].to_i
+    year = params[:user]["date_of_birth(1i)"].to_i
+    @user.date_of_birth = Date.new(year, month, day)
+
     # set tags on preferences
     @user.size_preference_list = user_preference_params[:size_preferences]
     @user.activity_preference_list = user_preference_params[:activity_preferences]
     @user.schedule_list = user_preference_params[:schedule]
     @user.experience_list = user_preference_params[:experience]
     @user.accepted_terms_at = DateTime.current if user_params[:accepted_terms_at]
+
     @user.save!
 
     redirect_to thanks_users_path
@@ -36,7 +44,8 @@ class UsersController < ApplicationController
         :fospice,
         :other_pets,
         :kids,
-        :accepted_terms_at
+        :accepted_terms_at,
+        fostered_for: []
       )
   end
 

@@ -9,6 +9,9 @@
         %span.info__label Email:
         %span.info__text= mail_to @user.email
       %div
+        %span.info__label Birthday:
+        %span.info__text= @user.date_of_birth.stamp("May 2, 1989") if @user.date_of_birth
+      %div
         %span.info__label Experience:
         %span.info__text= @user.experience_list
       %div
@@ -18,7 +21,7 @@
         %span.info__label Submitted Application At:
         %span.info__text= @user.created_at.stamp("May 20, 1989")
       %div
-        %span.info__label Address:
+        %span.info__label Home Address:
         %span.info__text= @user.address
       %div
         %span.info__label Lat/Long:
@@ -35,8 +38,11 @@
         %span.info__label Activity Preferences:
         %span.info__text= @user.activity_preference_list
       %div
-        %span.info__label Fostered Before?:
+        %span.info__label Fostered Before:
         %span.info__text= @user.fostered_before?
+      %div
+        %span.info__label Previous Fosters:
+        %span.info__text= @user.fostered_for.present? ? @user.fostered_for.join(", ") : 'N/A'
       %div
         %span.info__label Fospice?:
         %span.info__text= @user.fospice?

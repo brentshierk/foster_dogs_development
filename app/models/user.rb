@@ -16,6 +16,8 @@
 #  address           :string
 #  latitude          :float
 #  longitude         :float
+#  date_of_birth     :datetime
+#  fostered_for      :text             default([]), is an Array
 #
 
 class User < ActiveRecord::Base
@@ -24,7 +26,7 @@ class User < ActiveRecord::Base
   paginates_per 40
 
   validates_uniqueness_of :uuid, :email
-  validates_presence_of :name, :email, :uuid
+  validates_presence_of :name, :email, :uuid, :date_of_birth, :accepted_terms_at
 
   before_validation :ensure_uuid
 

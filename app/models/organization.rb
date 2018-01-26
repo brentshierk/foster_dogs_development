@@ -6,7 +6,7 @@ class Organization
       'Animal Lighthouse Rescue',
       'Badass Brooklyn',
       'BARRK',
-      'Friend with Four Paws',
+      'Friends with Four Paws',
       'Heavenly Angels',
       'In Our Hands',
       'Long Road Home',
@@ -20,7 +20,8 @@ class Organization
       'Twenty Paws',
       'Korean K9 Rescue',
       'True North Rescue Mission',
-      'Mr. Bones & Co'
+      'Mr. Bones & Co',
+      'Other'
     ]
   end
 end

@@ -30,22 +30,23 @@
     .row
       .col-md-6
         .form-group
-          = f.label "Name"
+          = f.label :name, "Name"
           = f.text_field :name, class: 'form-control', required: true
     .row
       .col-md-6
         .form-group
-          = f.label "Email"
+          = f.label :email, "Email"
           = f.text_field :email, class: 'form-control', required: true
     .row
       .col-md-6
         .form-group
-          = f.label "Date of Birth"
-          = f.text_field :date_of_birth, class: 'form-control', required: true, data: { provide: 'datepicker' }
+          = f.label :date_of_birth, "Date of Birth"
+          %br
+          = f.date_select :date_of_birth, { order: [:month, :day, :year], start_year: Date.current.year - 80, end_year: Date.current.year }, class: 'form-control date-select', required: true
     .row
       .col-md-6
         .form-group
-          = f.label "Home Address"
+          = f.label :address, "Home Address"
           = f.text_field :address, class: 'form-control', required: true
     %br
 
@@ -55,12 +56,20 @@
     .row
       .col-md-6
         .form-group
-          = f.label "Have you fostered before?"
+          = f.label :fostered_before, "Have you fostered before?"
           = f.select :fostered_before, options_for_select([['yes', true], ['no', false]]), { include_blank: true }, { class: 'form-control', required: true }
     .row
       .col-md-6
         .form-group
-          = f.label "Are you interested in participating in our Fospice program?"
+          = f.label :fostered_for, "If so, which organizations have you previously fostered with?"
+          - Organization.all.each do |organization|
+            .form-check-label
+              = f.check_box :fostered_for, { multiple: true, class: 'form-check-input' }, organization, nil
+              = organization
+    .row
+      .col-md-6
+        .form-group
+          = f.label :fospice, "Are you interested in participating in our Fospice program?"
           %p
             If you are interested in being a "Forever Foster" caretaker for our "Fospice" program for dogs in their end-of-life months, check the box below. Learn more about the program
             %span= link_to 'here', 'http://fosterdogsnyc.com/fospice/', target: :_blank
@@ -68,18 +77,18 @@
     .row
       .col-md-6
         .form-group
-          = f.label "Do you own any other pets?"
+          = f.label :other_pets, "Do you own any other pets?"
           = f.select :other_pets, options_for_select([['yes', true], ['no', false]]), { include_blank: true }, { class: 'form-control', required: true }
     .row
       .col-md-6
         .form-group
-          = f.label "Are you in a household with young children?"
+          = f.label :kids, "Are you in a household with young children?"
           %p Some dogs should not live with young children due to size/training/personality
           = f.select :kids, options_for_select([['yes', true], ['no', false]]), { include_blank: true }, { class: 'form-control', required: true }
     .row
       .col-md-6
         .form-group
-          = f.label "What size dog are you open to fostering?"
+          = f.label :size_preferences, "What size dog are you open to fostering?"
           - User::SIZE_PREFERENCES.each do |preference, description|
             .form-check-label
               = f.check_box :size_preferences, { multiple: true, class: 'form-check-input' }, preference, nil
@@ -95,7 +104,7 @@
     .row
       .col-md-6
         .form-group
-          = f.label "How often are you out of the house?"
+          = f.label :schedule, "How often are you out of the house?"
           %p On average, how long would the dog be alone during the workweek? Note: If you are away for more than 8 hours a day you should consider hiring a dog walker or have someone check in on the dog. Some rescue organizations offer discounted dog walks.
           - User::SCHEDULE.each do |schedule|
             .form-check-label
@@ -104,7 +113,7 @@
     .row
       .col-md-6
         .form-group
-          = f.label "How active do you prefer your foster to be?"
+          = f.label :activity_preferences, "How active do you prefer your foster to be?"
           - User::ACTIVITY_PREFERENCES.each do |activity|
             .form-check-label
               = f.check_box :activity_preferences, { multiple: true, class: 'form-check-input' }, activity, nil
