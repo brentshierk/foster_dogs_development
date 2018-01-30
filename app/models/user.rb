@@ -36,8 +36,8 @@ class User < ActiveRecord::Base
   acts_as_taggable
   acts_as_taggable_on :experience, :schedule, :size_preferences, :activity_preferences
 
-  geocoded_by :address
-  after_validation :geocode, if: ->(obj){ obj.address.present? && obj.address_changed? }
+  # geocoded_by :address
+  # after_validation :geocode, if: ->(obj){ obj.address.present? && obj.address_changed? }
 
   # TODO: maybe refactor this
   SIZE_PREFERENCES = {
