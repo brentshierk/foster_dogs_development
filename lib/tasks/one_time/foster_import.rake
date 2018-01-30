@@ -57,6 +57,12 @@ namespace :one_time do
               u.address = address
             end
 
+            if user.persisted?
+              Rails.logger.info("Skipping #{user.name} because already persisted")
+              next
+            end
+
+
             user.size_preference_list = size_preferences
             user.activity_preference_list = sanitized_activity_preferences
             user.schedule_list = schedule
@@ -64,13 +70,13 @@ namespace :one_time do
 
             user.save!
             Rails.logger.info("Successfully imported #{user.name}")
+
+            sleep 10
           end
         rescue => e
           Rails.logger.info("Failed to import: #{row}")
           Rails.logger.info("Error: #{e.message}")
         end
-
-        sleep 10
       end
     end
   end
