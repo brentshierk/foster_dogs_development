@@ -1,5 +1,7 @@
 module Admin
   class EmailLogsController < AdminController
+    before_action :require_users
+
     def new
       @users = User.where(id: params.require(:user_ids))
       @email_log = EmailLog.new
@@ -21,6 +23,11 @@ module Admin
     end
 
     private
+
+    def require_users
+      flash[:alert] = "Please pick users you would like to contact first!"
+      redirect_back(fallback_location: admin_users_path)
+    end
 
     def email_logs_params
       params.require(:subject)
