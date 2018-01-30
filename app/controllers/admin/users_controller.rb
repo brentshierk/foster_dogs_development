@@ -3,7 +3,7 @@ module Admin
     before_action :load_filter_categories, only: :show_filters
 
     def index
-      query = User.all
+      query = User.all.order('created_at DESC')
 
       if taggable_filter_params.present?
         @active_filters = taggable_filter_params

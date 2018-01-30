@@ -66,6 +66,14 @@ class User < ActiveRecord::Base
     tag_counts_on("size_preferences").map(&:name).uniq.sort
   end
 
+  def first_name
+    name.split(' ', 2).first
+  end
+
+  def last_name
+    name.split(' ', 2).last
+  end
+
   private
 
   def ensure_uuid

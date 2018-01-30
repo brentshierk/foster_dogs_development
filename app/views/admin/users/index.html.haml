@@ -18,6 +18,7 @@
     %table.table.table-bordered.table-hover.users-table
       %thead
         %th
+        %th Applied On
         %th Name
         %th E-mail
         %th Experience
@@ -28,6 +29,7 @@
       - @users.each do |user|
         %tr
           %td= check_box_tag 'user_ids[]', user.id
+          %td= user.created_at.stamp("5/89")
           %td= link_to user.name, admin_user_path(user)
           %td= mail_to user.email
           %td= list_to_link(:experience, user.experience_list)
