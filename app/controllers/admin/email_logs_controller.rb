@@ -25,8 +25,10 @@ module Admin
     private
 
     def require_users
-      flash[:alert] = "Please pick users you would like to contact first!"
-      redirect_back(fallback_location: admin_users_path)
+      unless params[:user_ids].present?
+        flash[:alert] = "Please pick users you would like to contact first!"
+        redirect_back(fallback_location: admin_users_path)
+      end
     end
 
     def email_logs_params
