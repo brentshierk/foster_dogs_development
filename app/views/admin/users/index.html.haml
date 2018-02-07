@@ -1,11 +1,14 @@
 .row
-  .col-md-4
+  .col-md-3
+    %h5 Signups Today
+    %p= User.where("created_at >= ? AND created_at <= ?", DateTime.current - 1.day, DateTime.current).count
+  .col-md-3
     %h5 Signups This Week
     %p= User.where("created_at >= ? AND created_at <= ?", DateTime.current - 7.days, DateTime.current).count
-  .col-md-4
+  .col-md-3
     %h5 Outreaches This Week
     %p= EmailLog.where("created_at >= ? AND created_at <= ?", DateTime.current - 7.days, DateTime.current).count
-  .col-md-4
+  .col-md-3
     %h5 Total Signups
     %p= User.count
 - if @active_filters.present? || @search_term.present?
