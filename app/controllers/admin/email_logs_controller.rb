@@ -1,3 +1,5 @@
+require 'csv'
+
 module Admin
   class EmailLogsController < AdminController
     before_action :require_users
@@ -16,6 +18,23 @@ module Admin
 
       flash[:notice] = "Logs updated for email with subject line - #{email_logs_params[:subject]}"
       redirect_to admin_users_path
+    rescue => e
+      Rollbar.error(e)
+      flash[:alert] = e.message
+      redirect_back(fallback_location: admin_users_path)
+    end
+
+    def csv
+      users = User.where(id: params[:user_ids])
+
+      csv = CSV.generate(headers: true) do |csv|
+        csv << ['Email Address', 'First Name', 'Last Name']
+        users.each do |user|
+          csv << [user.email, user.first_name, user.last_name]
+        end
+      end
+
+      send_data csv, filename: "foster-roster-#{Date.current}.csv"
     rescue => e
       Rollbar.error(e)
       flash[:alert] = e.message

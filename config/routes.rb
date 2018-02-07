@@ -15,7 +15,11 @@ Rails.application.routes.draw do
       end
       resources :notes, only: [:create]
     end
-    resources :email_logs, only: [:new, :create]
+    resources :email_logs, only: [:new, :create] do
+      collection do
+        get 'csv'
+      end
+    end
   end
 
   get 'admin' => 'admin/users#index'
