@@ -1,10 +1,10 @@
 .row
   .col-md-4
     %h5 Signups This Week
-    %p= User.where("created_at > ? AND created_at < ?", Date.current - 7.days, Date.current).count
+    %p= User.where("created_at >= ? AND created_at <= ?", DateTime.current - 7.days, DateTime.current).count
   .col-md-4
     %h5 Outreaches This Week
-    %p= EmailLog.where("created_at > ? AND created_at < ?", Date.current - 7.days, Date.current).count
+    %p= EmailLog.where("created_at >= ? AND created_at <= ?", DateTime.current - 7.days, DateTime.current).count
   .col-md-4
     %h5 Total Signups
     %p= User.count
