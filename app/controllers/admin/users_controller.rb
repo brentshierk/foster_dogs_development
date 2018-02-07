@@ -13,6 +13,7 @@ module Admin
         end
       end
 
+      @all_users = query
       @users = query.page(params[:page])
     end
 
