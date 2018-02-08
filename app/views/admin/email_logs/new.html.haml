@@ -2,19 +2,19 @@
   .col-md-12
     %h2
       Log an Email Outreach
-= form_tag(admin_email_logs_path, method: :post) do
-  .row
-    .col-md-6
-      .form-group
-        %h5= "Marking #{ @users.count } fosters as contacted."
-        %p= users_to_printed_list(@users)
-        %br
-        %h5
-          Click
-          = link_to "here", csv_admin_email_logs_path(user_ids: @users.pluck(:id), format: "csv")
-          to download a csv
-        - @users.each do |user|
-          = hidden_field_tag 'user_ids[]', user.id
+.row
+  .col-md-6
+    %h5= "Marking #{ @users.count } fosters as contacted."
+    %p= users_to_printed_list(@users)
+    = form_tag(fosters_admin_email_logs_path, format: 'csv') do
+      - @users.each do |user|
+        = hidden_field_tag 'user_ids[]', user.id
+      = submit_tag "Download CSV for Mailchimp import", class: 'btn btn-success'
+    %br
+
+    = form_tag(admin_email_logs_path, method: :post) do
+      - @users.each do |user|
+        = hidden_field_tag 'user_ids[]', user.id
       .form-group
         = label_tag 'Subject Line'
         = text_field_tag 'subject', nil, placeholder: 'Enter your subject here...', class: 'form-control', required: true

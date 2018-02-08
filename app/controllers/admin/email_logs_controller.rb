@@ -35,7 +35,7 @@ module Admin
       redirect_back(fallback_location: admin_users_path)
     end
 
-    def csv
+    def fosters
       users = User.where(id: params[:user_ids])
 
       csv = CSV.generate(headers: true) do |csv|

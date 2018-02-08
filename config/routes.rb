@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     end
     resources :email_logs, only: [:new, :create] do
       collection do
-        get 'csv'
+        post 'fosters'
         post 'contact'
       end
     end
