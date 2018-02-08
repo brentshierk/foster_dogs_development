@@ -7,6 +7,7 @@ class Organization
       'Badass Brooklyn',
       'BARRK',
       'Friends with Four Paws',
+      'Hearts and Bones',
       'Heavenly Angels',
       'In Our Hands',
       'Long Road Home',
