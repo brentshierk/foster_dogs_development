@@ -24,6 +24,7 @@ module Admin
       search_uuids = search.results.map(&:uuid)
       @search_term = params[:user_search]
       @users = User.where(uuid: search_uuids).page(params[:page])
+      @all_users = @users
       render 'index'
     rescue => e
       Rollbar.error(e)
