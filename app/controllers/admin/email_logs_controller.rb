@@ -13,6 +13,17 @@ module Admin
       redirect_back(fallback_location: admin_users_path)
     end
 
+    # TODO: find a way to dry this up. used to fix 414 html error
+    def contact
+      @users = User.where(id: params.require(:user_ids))
+      @email_log = EmailLog.new
+      render :new
+    rescue => e
+      Rollbar.error(e)
+      flash[:alert] = e.message
+      redirect_back(fallback_location: admin_users_path)
+    end
+
     def create
       User.where(id: params[:user_ids]).find_each { |user| user.email_logs.create!(email_logs_params) }
 
