@@ -2,6 +2,15 @@ require 'csv'
 
 namespace :one_time do
   namespace :fosters do
+    desc "geocodes fosters"
+    task geocode: :environment do
+      User.where(latitude: nil, longitude: nil).where.not(address: nil).find_each do |u|
+        Rails.logger.info "Geocoding #{user.name}"
+        user.geocode
+        sleep 10
+      end
+    end
+
     desc "imports fosters into database"
     task import: :environment do
       CSV.foreach("data/roster.csv") do |row|
