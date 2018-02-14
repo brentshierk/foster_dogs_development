@@ -7,7 +7,7 @@ namespace :one_time do
       User.where(latitude: nil, longitude: nil).where.not(address: nil).find_each do |user|
         Rails.logger.info "Geocoding #{user.name}"
         user.geocode
-        sleep 10
+        user.save!
       end
     end
 
