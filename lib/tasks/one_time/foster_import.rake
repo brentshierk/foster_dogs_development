@@ -4,7 +4,7 @@ namespace :one_time do
   namespace :fosters do
     desc "geocodes fosters"
     task geocode: :environment do
-      User.where(latitude: nil, longitude: nil).where.not(address: nil).find_each do |u|
+      User.where(latitude: nil, longitude: nil).where.not(address: nil).find_each do |user|
         Rails.logger.info "Geocoding #{user.name}"
         user.geocode
         sleep 10
