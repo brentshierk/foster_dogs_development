@@ -43,6 +43,7 @@
         %th Schedule
         %th Size Preferences
         %th Activity Preferences
+        %th Has Other Pets
         %th Most Recent Contacts
       - @users.each do |user|
         %tr
@@ -54,6 +55,7 @@
           %td= list_to_link(:schedule, user.schedule_list)
           %td= list_to_link(:size_preferences, user.size_preference_list)
           %td= list_to_link(:activity_preferences, user.activity_preference_list)
+          %td= user.other_pets
           %td
             - user.email_logs.order("created_at DESC").last(5).each do |log|
               %div

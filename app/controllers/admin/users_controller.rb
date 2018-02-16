@@ -3,14 +3,21 @@ module Admin
     before_action :load_filter_categories, only: :show_filters
 
     def index
+      @active_filters = Hash.new
+
       query = User.all.order('created_at DESC')
 
       if taggable_filter_params.present?
-        @active_filters = taggable_filter_params
+        @active_filters.merge!(taggable_filter_params)
 
         taggable_filter_params.each_pair do |key, values|
           query = query.tagged_with(values, in: key)
         end
+      end
+
+      if queryable_filter_params.present?
+        @active_filters.merge!(queryable_filter_params)
+        query = query.where(queryable_filter_params)
       end
 
       @all_users = query
@@ -42,6 +49,10 @@ module Admin
 
     private
 
+    def queryable_filter_params
+      params.permit(other_pets: [])
+    end
+
     def taggable_filter_params
       params.permit(
         :experience, :size_preferences, :activity_preferences, :schedule, # used if clicking through a url
@@ -50,14 +61,19 @@ module Admin
     end
 
     def load_filter_categories
-      @categories = Hash.new
+      @tagged_categories = Hash.new
 
+      # allow users to choose tags as filters
       ActsAsTaggableOn::Tagging
         .includes(:tag)
         .where(taggable_type: "User")
         .group_by(&:context).each do |k, v|
-          @categories[k] = v.map { |r| r.tag.name }.compact.uniq
+          @tagged_categories[k] = v.map { |r| r.tag.name }.compact.uniq
         end
+
+      # other stuff
+      @queryable_categories = Hash.new
+      @queryable_categories[:other_pets] = ['true', 'false']
     end
   end
 end
