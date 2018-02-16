@@ -1,16 +1,22 @@
 .row
-  .col-md-3
-    %h5 Signups Today
+  .col-md-2
+    %h5 Signups Past 24 Hours
     %p= User.where("created_at >= ? AND created_at <= ?", DateTime.current - 1.day, DateTime.current).count
-  .col-md-3
-    %h5 Signups This Week
+  .col-md-2
+    %h5 Signups Past 7 Days
     %p= User.where("created_at >= ? AND created_at <= ?", DateTime.current - 7.days, DateTime.current).count
-  .col-md-3
-    %h5 Outreaches This Week
+  .col-md-2
+    %h5 Outreaches Past 24 Hours
+    %p= EmailLog.where("created_at >= ? AND created_at <= ?", DateTime.current - 1.days, DateTime.current).count
+  .col-md-2
+    %h5 Outreaches Past 7 days
     %p= EmailLog.where("created_at >= ? AND created_at <= ?", DateTime.current - 7.days, DateTime.current).count
-  .col-md-3
+  .col-md-2
     %h5 Total Signups
     %p= User.count
+  .col-md-2
+    %h5 Total Outreaches
+    %p= EmailLog.count
 - if @active_filters.present? || @search_term.present?
   .row
     .col-md-12
