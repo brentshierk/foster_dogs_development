@@ -13,6 +13,10 @@ namespace :one_time do
 
     desc "imports fosters into database"
     task import: :environment do
+      ActiveRecord::Base.logger.level = 1
+
+      failed = []
+
       CSV.foreach("data/roster.csv") do |row|
         begin
           ActiveRecord::Base.transaction do
@@ -77,7 +81,12 @@ namespace :one_time do
         rescue => e
           Rails.logger.info("Failed to import: #{row}")
           Rails.logger.info("Error: #{e.message}")
+          failed << row
         end
+      end
+
+      failed.each do |r|
+        Rails.logger.info(r)
       end
     end
   end
