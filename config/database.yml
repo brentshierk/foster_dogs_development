@@ -21,6 +21,12 @@ default: &default
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
 
+<% if ENV['DOCKER_LOCAL'] %>
+  host: db
+  username: foster
+  password: roster
+<% end %>
+
 development:
   <<: *default
   database: foster-roster_development
