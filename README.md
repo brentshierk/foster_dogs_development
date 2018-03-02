@@ -20,3 +20,13 @@ Ruby on Rails 5 app
 9. fill in `ADMIN_USERNAME` and `ADMIN_PASSWORD` (for GOOGLE_MAPS_KEY and ROLLBAR_ACCESS_TOKEN check with Kevin or check Heroku)
 10. `rails s` should boot your server
 11. navigate to `localhost:3000` and enter your username and password and you should be g2g
+
+
+### Docker
+1. Make sure you have [docker](https://docs.docker.com/install/#supported-platforms) installed
+2. From the project root:
+3. `make install`
+4. `make setup-db`
+5. fill in any required env vars in `.env` (same as above)
+6. app will be up at `localhost:3000`
+7. For additional commands: `make help`
