@@ -22,6 +22,10 @@ class UsersController < ApplicationController
     @user.save!
 
     redirect_to thanks_users_path
+  rescue ActiveRecord::RecordInvalid => e
+    # this is a catchall since we're only validating on e-mail
+    flash[:alert] = "Email has already been taken. If you have any questions, please shoot us an email at roster@fosterdogsnyc.com"
+    redirect_back(fallback_location: root_path)
   rescue => e
     Rollbar.error(e)
     flash[:alert] = "We're sorry! Something went wrong while submitting. Please try again."
