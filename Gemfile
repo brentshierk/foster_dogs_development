@@ -27,6 +27,8 @@ gem 'geocoder'
 gem 'searchkick'
 gem 'bonsai-elasticsearch-rails'
 
+gem 'mailchimp-api', require: 'mailchimp'
+
 gem 'rollbar'
 
 group :production, :staging do
