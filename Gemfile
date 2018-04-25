@@ -16,8 +16,6 @@ gem 'turbolinks', '~> 5'
 gem 'awesome_print'
 gem 'acts-as-taggable-on'
 
-# TODO: move this after we actually start populating live data
-gem 'factory_girl_rails'
 gem 'faker'
 
 gem 'kaminari'
@@ -43,6 +41,7 @@ group :development, :test do
   gem 'guard-bundler'
   gem 'binding_of_caller'
   gem 'dotenv-rails'
+  gem 'factory_bot_rails'
 end
 
 group :development do

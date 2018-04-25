@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe User, type: :model do
-  subject { FactoryGirl.build(:user) }
+  subject { FactoryBot.build(:user) }
 
   context 'callbacks' do
     it 'calls subscribe_to_mailchimp' do
