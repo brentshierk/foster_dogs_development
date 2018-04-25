@@ -37,7 +37,8 @@ class User < ActiveRecord::Base
   acts_as_taggable_on :experience, :schedule, :size_preferences, :activity_preferences
 
   geocoded_by :address
-  # after_validation :geocode, if: ->(obj){ obj.address.present? && obj.address_changed? }
+  after_validation :geocode, if: ->(obj){ obj.address.present? && obj.address_changed? }
+  after_commit :subscribe_to_mailchimp, if: ->(obj) { obj.email.present? && obj.email_changed? }
 
   # TODO: maybe refactor this
   SIZE_PREFERENCES = {
@@ -78,5 +79,9 @@ class User < ActiveRecord::Base
 
   def ensure_uuid
     self.uuid ||= SecureRandom.uuid
+  end
+
+  def subscribe_to_mailchimp
+    MailchimpService.new.subscribe_user(self)
   end
 end
