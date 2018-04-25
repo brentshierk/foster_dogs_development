@@ -50,6 +50,8 @@ class User < ActiveRecord::Base
   SCHEDULE = ["Almost never (0-3 hrs/day)", "4-7 hours per day", "8+ hours per day"]
   ACTIVITY_PREFERENCES = ["Low activity", "Moderately active", "Active", "Young puppy"]
 
+  scope :subscribed, -> { where.not(subscribed_at: nil).where(unsubscribed_at: nil) }
+
   def to_indexed_json
     {
       uuid: uuid,
@@ -73,6 +75,10 @@ class User < ActiveRecord::Base
 
   def last_name
     name.split(' ', 2).last
+  end
+
+  def active?
+    !subscribed_at.nil? && unsubscribed_at.nil?
   end
 
   private
