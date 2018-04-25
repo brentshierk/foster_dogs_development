@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
 
   geocoded_by :address
   after_validation :geocode, if: ->(obj){ obj.address.present? && obj.address_changed? }
-  after_commit :subscribe_to_mailchimp, if: ->(obj) { obj.email.present? && obj.email_changed? }
+  before_create :subscribe_to_mailchimp # TODO: this should be backgrounded
 
   # TODO: maybe refactor this
   SIZE_PREFERENCES = {
