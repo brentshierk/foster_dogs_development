@@ -16,10 +16,11 @@ namespace :one_time do
       User.where(subscribed_at: nil).find_each do |user|
         begin
           user.send(:subscribe_to_mailchimp)
-        rescue Mailchimp::ListAlreadySubscribedError => e
+        rescue Mailchimp::ListAlreadySubscribedError, Mailchimp::ListInvalidUnsubMemberError => e
           next
         rescue => e
-          Rollbar.notify(e)
+          Rollbar.error(e)
+          next
         end
       end
     end
