@@ -17,8 +17,11 @@ namespace :one_time do
         begin
           user.send(:subscribe_to_mailchimp)
           user.save!
-        rescue Mailchimp::ListAlreadySubscribedError, Mailchimp::ListInvalidUnsubMemberError => e
-          next
+        rescue Mailchimp::ListAlreadySubscribedError => e
+          user.update_attributes(subscribed_at: DateTime.current)
+        rescue Mailchimp::ListInvalidUnsubMemberError => e
+          user.update_attributes(subscribed_at: DateTime.current)
+          user.update_attributes(unsubscribed_at: DateTime.current)
         rescue => e
           Rollbar.error(e)
           next
