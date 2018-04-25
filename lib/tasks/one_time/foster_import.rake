@@ -11,6 +11,19 @@ namespace :one_time do
       end
     end
 
+    desc "marks subscribed_at"
+    task subscribe: :environment do
+      User.where(subscribed_at: nil).find_each do |user|
+        begin
+          user.send(:subscribe_to_mailchimp)
+        rescue Mailchimp::ListAlreadySubscribedError => e
+          next
+        rescue => e
+          Rollbar.notify(e)
+        end
+      end
+    end
+
     desc "imports fosters into database"
     task import: :environment do
       ActiveRecord::Base.logger.level = 1

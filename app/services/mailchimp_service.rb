@@ -14,7 +14,11 @@ class MailchimpService
   def subscribe_user(user)
     api.lists.subscribe(
       MASTER_LIST_ID,
-      { email: user.email }
+      { email: user.email },
+      {
+        "FIRSTNAME" => user.first_name,
+        "LASTNAME"  => user.last_name
+      }
     )
   end
 end
