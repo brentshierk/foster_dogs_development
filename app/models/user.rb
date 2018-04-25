@@ -83,5 +83,6 @@ class User < ActiveRecord::Base
 
   def subscribe_to_mailchimp
     MailchimpService.new.subscribe_user(self)
+    self.subscribed_at = DateTime.current
   end
 end
