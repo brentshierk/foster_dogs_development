@@ -16,6 +16,7 @@ namespace :one_time do
       User.where(subscribed_at: nil).find_each do |user|
         begin
           user.send(:subscribe_to_mailchimp)
+          user.save!
         rescue Mailchimp::ListAlreadySubscribedError, Mailchimp::ListInvalidUnsubMemberError => e
           next
         rescue => e
