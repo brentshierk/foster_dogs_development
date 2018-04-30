@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
   end
 
   def subscribe_to_mailchimp
-    MailchimpService.new.subscribe_user(self)
+    MailchimpService.new.subscribe_user(self) if Rails.env.production?
     self.subscribed_at = DateTime.current
   end
 end

@@ -49,6 +49,7 @@ class UsersController < ApplicationController
         :other_pets,
         :kids,
         :accepted_terms_at,
+        :fosters_cats,
         fostered_for: []
       )
   end

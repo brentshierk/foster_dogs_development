@@ -118,6 +118,11 @@
             .form-check-label
               = f.check_box :activity_preferences, { multiple: true, class: 'form-check-input' }, activity, nil
               = activity
+    .row
+      .col-md-6
+        .form-group
+          = f.label :fosters_cats, "Are you also interested in fostering cats?"
+          = f.select :fosters_cats, options_for_select([['yes', true], ['no', false]]), { include_blank: true }, { class: 'form-control', required: true }
     %br
 
     .row
