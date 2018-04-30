@@ -18,6 +18,9 @@
 #  longitude         :float
 #  date_of_birth     :datetime
 #  fostered_for      :text             default([]), is an Array
+#  subscribed_at     :datetime
+#  unsubscribed_at   :datetime
+#  fosters_cats      :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base
