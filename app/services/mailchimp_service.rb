@@ -12,7 +12,6 @@ class MailchimpService
   end
 
   def subscribe_user(user)
-    logger.debug "subscribing! #{@user.attributes.inspect}"
     api.lists.subscribe(
       MASTER_LIST_ID,
       { email: user.email },
