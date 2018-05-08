@@ -16,8 +16,8 @@ class MailchimpService
       MASTER_LIST_ID,
       { email: user.email },
       {
-        "FIRSTNAME" => user.first_name,
-        "LASTNAME"  => user.last_name
+        "FNAME" => user.first_name,
+        "LNAME"  => user.last_name
       }
     )
   end
