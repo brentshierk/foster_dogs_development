@@ -13,8 +13,10 @@ services:
       - db
     links:
       - db
+      - elasticsearch
     environment:
       - DOCKER_LOCAL=true
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
   db:
     restart: 'always'
     image: postgres:10.2-alpine
@@ -31,3 +33,22 @@ services:
       - 6381:6379
     volumes:
       - ./docker/containers/cache/.data:/data
+  elasticsearch:
+    image: elasticsearch
+    ports:
+      - "9200:9200"
+    environment:
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "http.host=0.0.0.0"
+      - "transport.host=127.0.0.1"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - ./docker/elasticsearch/data:/usr/share/elasticsearch/data
