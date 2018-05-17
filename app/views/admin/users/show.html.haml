@@ -29,7 +29,7 @@
         %span.info__text= "#{@user.latitude}/#{@user.longitude}"
       %div
         %span.info__label Accepted Terms and Conditions:
-        %span.info__text= @user.accepted_terms_at.present?
+        %span.info__text= bool_to_affirmative(@user.accepted_terms_at.present?)
     %div
       %h3 Preferences
       %div
@@ -40,22 +40,22 @@
         %span.info__text= @user.activity_preference_list
       %div
         %span.info__label Fostered Before:
-        %span.info__text= @user.fostered_before?
+        %span.info__text= bool_to_affirmative(@user.fostered_before?)
       %div
         %span.info__label Previous Fosters:
         %span.info__text= @user.fostered_for.present? ? @user.fostered_for.join(", ") : 'N/A'
       %div
         %span.info__label Fospice?:
-        %span.info__text= @user.fospice?
+        %span.info__text= bool_to_affirmative(@user.fospice?)
       %div
         %span.info__label Has other pets?:
-        %span.info__text= @user.other_pets?
+        %span.info__text= bool_to_affirmative(@user.other_pets?)
       %div
         %span.info__label Willing to foster cats?:
-        %span.info__text= @user.fosters_cats?
+        %span.info__text= bool_to_affirmative(@user.fosters_cats?)
       %div
         %span.info__label Has children?
-        %span.info__text= @user.kids?
+        %span.info__text= bool_to_affirmative(@user.kids?)
   .col-md-6
     %div
       %h3 Email Communications

@@ -25,6 +25,17 @@ module ApplicationHelper
     years > half ? "#{years.floor} and a half years old" : "#{years.floor} years old"
   end
 
+  def bool_to_affirmative(string)
+    case string.to_s
+    when 'true', 'True'
+      'yes'
+    when 'false', 'False'
+      'no'
+    else
+      raise ArgumentError
+    end
+  end
+
   def list_to_link(tag_type, tag_list)
     return "" unless tag_list.present?
 

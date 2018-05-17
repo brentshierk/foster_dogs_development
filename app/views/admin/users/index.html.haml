@@ -44,11 +44,9 @@
         %th
         %th Applied On
         %th Name
-        %th E-mail
         %th Experience
         %th Schedule
         %th Size Preferences
-        %th Activity Preferences
         %th Has Other Pets
         %th Most Recent Contacts
       - @users.each do |user|
@@ -56,12 +54,10 @@
           %td= check_box_tag 'user_ids[]', user.id
           %td= user.created_at.stamp("5/89")
           %td= link_to user.name, admin_user_path(user)
-          %td= mail_to user.email
           %td= list_to_link(:experience, user.experience_list)
           %td= list_to_link(:schedule, user.schedule_list)
           %td= list_to_link(:size_preferences, user.size_preference_list)
-          %td= list_to_link(:activity_preferences, user.activity_preference_list)
-          %td= user.other_pets
+          %td= bool_to_affirmative(user.other_pets)
           %td
             - user.email_logs.order("created_at DESC").last(5).each do |log|
               %div
