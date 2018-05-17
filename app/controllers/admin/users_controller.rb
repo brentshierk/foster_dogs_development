@@ -49,7 +49,7 @@ module Admin
     end
 
     def download_csv
-      csv = CsvService.users(users: User.all)
+      csv = CsvService.users(users: User.all.order('created_at ASC'))
       send_data csv, filename: "foster-roster-#{Date.current}.csv"
     rescue => e
       Rollbar.error(e)
