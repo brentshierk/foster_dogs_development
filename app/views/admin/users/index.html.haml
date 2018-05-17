@@ -31,10 +31,10 @@
               = v.join(', ')
         - elsif @search_term.present?
           %h5= "Searching for #{@search_term}"
-  = form_tag(contact_admin_email_logs_path, method: :post) do
-    - @all_users.each do |user|
-      = hidden_field_tag 'user_ids[]', user.id
-    = submit_tag 'CONTACT ALL', class: 'btn btn-danger pull-right btn--ui', id: 'contact-button'
+= form_tag(contact_admin_email_logs_path, method: :post) do
+  - @all_users.each do |user|
+    = hidden_field_tag 'user_ids[]', user.id
+  = submit_tag 'CONTACT ALL', class: 'btn btn-danger pull-right btn--ui', id: 'contact-button'
 
 = form_tag(new_admin_email_log_path, method: :get) do
   = submit_tag 'CONTACT', class: 'btn btn-primary pull-right btn--ui', id: 'contact-button'
@@ -67,4 +67,4 @@
               %div
                 %strong= log.subject
                 = "on behalf of #{ log.organization } on #{ log.created_at.stamp("May 20, 1989") }"
-= paginate @users
+= paginate @users if @paginate

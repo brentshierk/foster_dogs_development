@@ -26,7 +26,7 @@
 class User < ActiveRecord::Base
   searchkick
 
-  paginates_per 40
+  paginates_per 50
 
   validates_uniqueness_of :uuid, :email
   validates_presence_of :name, :email, :uuid

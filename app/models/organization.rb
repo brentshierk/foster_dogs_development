@@ -11,6 +11,7 @@ class Organization
       'Heavenly Angels',
       'In Our Hands',
       'Long Road Home',
+      'Louie\'s Legacy',
       'Muddy Paws',
       'PupStarz',
       'Sean Casey',

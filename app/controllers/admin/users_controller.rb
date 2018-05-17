@@ -21,6 +21,7 @@ module Admin
       end
 
       @all_users = query
+      @paginate = @active_filters.empty? # paginate if filters aren't selected
       @users = query.page(params[:page])
     end
 
