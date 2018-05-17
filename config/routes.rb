@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       collection do
         get 'search'
         get 'show_filters'
+        post 'download_csv'
       end
       resources :notes, only: [:create]
     end
