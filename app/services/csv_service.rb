@@ -31,6 +31,7 @@ class CsvService
       user.send(method)
     end
 
+    # TODO: there is definitely a better way to cast values to human readable but i'm lazy
     if value.is_a?(TrueClass)
       'yes'
     elsif value.is_a?(FalseClass)
