@@ -48,6 +48,15 @@ module Admin
       @note = Note.new
     end
 
+    def download_csv
+      csv = CsvService.users(users: User.all)
+      send_data csv, filename: "foster-roster-#{Date.current}.csv"
+    rescue => e
+      Rollbar.error(e)
+      flash[:alert] = e.message
+      redirect_back(fallback_location: admin_users_path)
+    end
+
     private
 
     def queryable_filter_params
