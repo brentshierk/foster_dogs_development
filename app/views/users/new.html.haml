@@ -119,6 +119,11 @@
     .row
       .col-md-6
         .form-group
+          = f.label :activity_preferences, "Are you interested in fostering big dogs?"
+          = f.select :big_dogs, options_for_select([['yes', true], ['no', false]]), { include_blank: true }, { class: 'form-control', required: true }
+    .row
+      .col-md-6
+        .form-group
           = f.label :fosters_cats, "Are you also interested in fostering cats?"
           = f.select :fosters_cats, options_for_select([['yes', true], ['no', false]]), { include_blank: true }, { class: 'form-control', required: true }
     %br
