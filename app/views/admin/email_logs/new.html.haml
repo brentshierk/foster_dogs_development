@@ -6,14 +6,12 @@
   .col-md-6
     %h5= "Marking #{ @users.count } fosters as contacted."
     %p= users_to_printed_list(@users)
+    %br
+  	%br
     %h4 Copy and Paste these emails into the Segment Creator
     %p= @users.map(&:email).join(', ')
-    = form_tag(fosters_admin_email_logs_path, format: 'csv') do
-      - @users.each do |user|
-        = hidden_field_tag 'user_ids[]', user.id
-      = submit_tag "Download CSV for Mailchimp import", class: 'btn btn-success'
     %br
-
+    %br	
     = form_tag(admin_email_logs_path, method: :post) do
       - @users.each do |user|
         = hidden_field_tag 'user_ids[]', user.id
