@@ -50,6 +50,7 @@ class UsersController < ApplicationController
         :kids,
         :accepted_terms_at,
         :fosters_cats,
+        :big_dogs,
         fostered_for: []
       )
   end

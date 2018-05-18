@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180430180022) do
+ActiveRecord::Schema.define(version: 20180517221531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 20180430180022) do
     t.datetime "subscribed_at"
     t.datetime "unsubscribed_at"
     t.boolean  "fosters_cats",      default: false
+    t.boolean  "big_dogs"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
   end

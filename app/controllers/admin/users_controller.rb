@@ -60,7 +60,7 @@ module Admin
     private
 
     def queryable_filter_params
-      params.permit(other_pets: [], fospice: [], fosters_cats: [])
+      params.permit(other_pets: [], fospice: [], fosters_cats: [], big_dogs: [])
     end
 
     def taggable_filter_params
@@ -86,6 +86,7 @@ module Admin
       @queryable_categories[:other_pets] = ['true', 'false']
       @queryable_categories[:fospice] = ['true', 'false']
       @queryable_categories[:fosters_cats] = ['true', 'false']
+      @queryable_categories[:big_dogs] = ['true', 'false']
     end
   end
 end

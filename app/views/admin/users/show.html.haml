@@ -54,6 +54,9 @@
         %span.info__label Willing to foster cats?:
         %span.info__text= bool_to_affirmative(@user.fosters_cats?)
       %div
+        %span.info__label Willing to foster big dogs?:
+        %span.info__text= @user.big_dogs.nil? ? 'N/A' : bool_to_affirmative(@user.big_dogs?)
+      %div
         %span.info__label Has children?
         %span.info__text= bool_to_affirmative(@user.kids?)
   .col-md-6
