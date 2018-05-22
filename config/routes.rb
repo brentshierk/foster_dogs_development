@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       end
       resources :notes, only: [:create]
     end
-    resources :email_logs, only: [:new, :create] do
+    resources :email_logs, only: [:new, :create, :destroy] do
       collection do
         post 'fosters'
         post 'contact'
