@@ -31,7 +31,7 @@
   .col-md-6
     .form-group
       = f.label :fostered_before, "Have you fostered before?"
-      = f.select :fostered_before, options_for_select([['yes', true], ['no', false]], @user.fostered_before.present? ? @user.fostered_before? : nil), { include_blank: true }, { class: 'form-control', required: true }
+      = f.select :fostered_before, options_for_select([['yes', true], ['no', false]], @user.fostered_before.nil? ? nil : @user.fostered_before?), { include_blank: true }, { class: 'form-control', required: true }
 .row
   .col-md-6
     .form-group
@@ -47,18 +47,18 @@
       %p
         If you are interested in being a "Forever Foster" caretaker for our "Fospice" program for dogs in their end-of-life months, check the box below. Learn more about the program
         %span= link_to 'here', 'http://fosterdogsnyc.com/fospice/', target: :_blank
-      = f.select :fospice, options_for_select([['yes', true], ['no', false]], @user.fospice.present? ? @user.fospice? : nil), { include_blank: true }, { class: 'form-control', required: true }
+      = f.select :fospice, options_for_select([['yes', true], ['no', false]], @user.fospice.nil? ? nil : @user.fospice?), { include_blank: true }, { class: 'form-control', required: true }
 .row
   .col-md-6
     .form-group
       = f.label :other_pets, "Do you own any other pets?"
-      = f.select :other_pets, options_for_select([['yes', true], ['no', false]], @user.other_pets? ? @user.other_pets?: nil), { include_blank: true }, { class: 'form-control', required: true }
+      = f.select :other_pets, options_for_select([['yes', true], ['no', false]], @user.other_pets.nil? ? nil : @user.other_pets?), { include_blank: true }, { class: 'form-control', required: true }
 .row
   .col-md-6
     .form-group
       = f.label :kids, "Are you in a household with young children?"
       %p Some dogs should not live with young children due to size/training/personality
-      = f.select :kids, options_for_select([['yes', true], ['no', false]], @user.kids ? @user.kids? : nil), { include_blank: true }, { class: 'form-control', required: true }
+      = f.select :kids, options_for_select([['yes', true], ['no', false]], @user.kids.nil? ? nil : @user.kids?), { include_blank: true }, { class: 'form-control', required: true }
 .row
   .col-md-6
     .form-group
@@ -96,9 +96,9 @@
   .col-md-6
     .form-group
       = f.label :activity_preferences, "Are you interested in fostering big dogs?"
-      = f.select :big_dogs, options_for_select([['yes', true], ['no', false]], @user.big_dogs ? @user.big_dogs? : nil), { include_blank: true }, { class: 'form-control', required: true }
+      = f.select :big_dogs, options_for_select([['yes', true], ['no', false]], @user.big_dogs.nil? ? nil : @user.big_dogs?), { include_blank: true }, { class: 'form-control', required: true }
 .row
   .col-md-6
     .form-group
       = f.label :fosters_cats, "Are you also interested in fostering cats?"
-      = f.select :fosters_cats, options_for_select([['yes', true], ['no', false]], @user.fosters_cats ? @user.fosters_cats? : nil), { include_blank: true }, { class: 'form-control', required: true }
+      = f.select :fosters_cats, options_for_select([['yes', true], ['no', false]], @user.fosters_cats.nil? ? nil : @user.fosters_cats?), { include_blank: true }, { class: 'form-control', required: true }
