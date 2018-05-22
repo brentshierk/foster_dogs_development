@@ -1,6 +1,7 @@
 module Admin
   class UsersController < AdminController
     before_action :load_filter_categories, only: :show_filters
+    before_action :find_user, only: [:show, :edit, :update]
 
     def index
       @active_filters = Hash.new
@@ -24,7 +25,6 @@ module Admin
       @paginate = @active_filters.empty? # paginate if filters aren't selected
       query = query.page(params[:page]) if @paginate
       @users = query
-
     end
 
     def search
@@ -46,8 +46,32 @@ module Admin
     end
 
     def show
-      @user = User.find(params[:id])
       @note = Note.new
+    end
+
+    def edit
+    end
+
+    def update
+      @user.attributes = user_params
+
+      # parse date, because i'm lazy
+      month = params[:user]["date_of_birth(2i)"].to_i
+      day = params[:user]["date_of_birth(3i)"].to_i
+      year = params[:user]["date_of_birth(1i)"].to_i
+      @user.date_of_birth = Date.new(year, month, day)
+
+      # set tags on preferences
+      @user.size_preference_list = user_preference_params[:size_preferences]
+      @user.activity_preference_list = user_preference_params[:activity_preferences]
+      @user.schedule_list = user_preference_params[:schedule]
+      @user.experience_list = user_preference_params[:experience]
+      @user.accepted_terms_at = DateTime.current if user_params[:accepted_terms_at]
+
+      @user.save!
+
+      flash[:notice] = 'User successfully updated'
+      redirect_to edit_admin_user_path(@user.id)
     end
 
     def download_csv
@@ -60,6 +84,39 @@ module Admin
     end
 
     private
+
+    def user_params
+      params.
+        require(:user).
+        permit(
+          :name,
+          :email,
+          :address,
+          :fostered_before,
+          :fospice,
+          :other_pets,
+          :kids,
+          :accepted_terms_at,
+          :fosters_cats,
+          :big_dogs,
+          fostered_for: []
+        )
+    end
+
+    def user_preference_params
+      params.
+        require(:user).
+        permit(
+          size_preferences: [],
+          experience: [],
+          activity_preferences: [],
+          schedule: []
+        )
+    end
+
+    def find_user
+      @user = User.find(params[:id])
+    end
 
     def queryable_filter_params
       params.permit(other_pets: [], fospice: [], fosters_cats: [], big_dogs: [])

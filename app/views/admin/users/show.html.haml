@@ -1,3 +1,4 @@
+= link_to 'Edit User', edit_admin_user_path(@user.id), class: 'btn btn-primary pull-right btn--ui'
 .row
   .col-md-6
     %h1= @user.name
@@ -67,11 +68,13 @@
           %th Subject
           %th Date Contacted
           %th On Behalf Of
+          %th Actions
         - @user.email_logs.order("created_at DESC").each do |email_log|
           %tr
             %td= email_log.subject
             %td= email_log.created_at.stamp('May 20, 1989')
             %td= email_log.organization
+            %td= link_to "remove", admin_email_log_path(email_log.id), method: :delete, class: 'btn btn-danger btn-sm btn--ui', data: { confirm: 'Are you absolutely sure?' }
     %div
       %h3 Admin Notes
       %table.table.table-bordered.table-hover

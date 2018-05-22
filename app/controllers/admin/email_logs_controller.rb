@@ -1,6 +1,6 @@
 module Admin
   class EmailLogsController < AdminController
-    before_action :require_users
+    before_action :require_users, except: :destroy
 
     def new
       @users = User.where(id: params.require(:user_ids))
@@ -27,6 +27,17 @@ module Admin
 
       flash[:notice] = "Logs updated for email with subject line - #{email_logs_params[:subject]}"
       redirect_to admin_users_path
+    rescue => e
+      Rollbar.error(e)
+      flash[:alert] = e.message
+      redirect_back(fallback_location: admin_users_path)
+    end
+
+    def destroy
+      @email_log = EmailLog.find(params[:id])
+      @email_log.destroy
+      flash[:notice] = "Log deleted!"
+      redirect_back(fallback_location: admin_users_path)
     rescue => e
       Rollbar.error(e)
       flash[:alert] = e.message

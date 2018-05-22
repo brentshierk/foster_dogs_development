@@ -85,6 +85,13 @@ class User < ActiveRecord::Base
     !subscribed_at.nil? && unsubscribed_at.nil?
   end
 
+  def has_preference?(preference_category, preference)
+    # acts_as_taggable has a weird thing with the tag name where only the first letter can be capitalized
+    # Own / Owned a dog is turned to Own / owned a dog which results in a mismatch
+    # downcase on both sides to sanitize before comparison
+    send("#{preference_category}_list").map(&:downcase).include?(preference.downcase)
+  end
+
   private
 
   def ensure_uuid
@@ -92,7 +99,7 @@ class User < ActiveRecord::Base
   end
 
   def subscribe_to_mailchimp
-    MailchimpService.new.subscribe_user(self) if Rails.env.production?
+    MailchimpService.new.subscribe_user(self)
     self.subscribed_at = DateTime.current
   end
 end
