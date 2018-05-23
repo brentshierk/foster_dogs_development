@@ -15,8 +15,10 @@ class Organization < ApplicationRecord
 
   before_validation :ensure_uuid
 
+  # used to list out names for the organization checkboxes on onboarding
+  # could be moved to application helper
   def self.all_names
-    pluck(&:name).append('Other')
+    pluck(:name).append('Other')
   end
 
   private
