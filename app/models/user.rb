@@ -37,6 +37,9 @@ class User < ApplicationRecord
   has_many :email_logs
   has_many :notes
 
+  has_many :outreaches_users
+  has_many :outreaches, through: :outreaches_users
+
   acts_as_taggable
   acts_as_taggable_on :experience, :schedule, :size_preferences, :activity_preferences
 

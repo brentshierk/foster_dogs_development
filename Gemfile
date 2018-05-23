@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.5'
 
-gem 'rails'
+gem 'rails', '~> 5.0.1' # there's an issue with Rails 5.2 and acts_as_taggable compatibility
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
