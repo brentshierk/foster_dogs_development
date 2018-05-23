@@ -52,7 +52,7 @@
       - @users.each do |user|
         %tr
           %td= check_box_tag 'user_ids[]', user.id
-          %td= user.created_at.stamp("5/89")
+          %td= user.created_at.stamp("May 20, 1989")
           %td= link_to user.name, admin_user_path(user)
           %td= list_to_link(:experience, user.experience_list)
           %td= list_to_link(:schedule, user.schedule_list)
