@@ -31,13 +31,13 @@ namespace :one_time do
 
     desc "imports fosters into database"
     task import: :environment do
-      ActiveRecord::Base.logger.level = 1
+      ApplicationRecord.logger.level = 1
 
       failed = []
 
       CSV.foreach("data/roster.csv") do |row|
         begin
-          ActiveRecord::Base.transaction do
+          ApplicationRecord.transaction do
             timestamp = row[0] #datetime
             first_name = row[1].capitalize #string
             last_name = row[2].capitalize #string

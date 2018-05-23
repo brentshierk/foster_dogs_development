@@ -10,7 +10,7 @@
 #  organization :string
 #
 
-class EmailLog < ActiveRecord::Base
+class EmailLog < ApplicationRecord
   belongs_to :user
   
   validates_presence_of :subject, :user_id

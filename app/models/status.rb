@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 
-class Status < ActiveRecord::Base
+class Status < ApplicationRecord
   NEEDS_FOSTER = 'Needs Foster'
   FOSTER_PENDING = 'Foster Pending'
   IN_FOSTER = 'In Foster'

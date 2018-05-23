@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 
-class Note < ActiveRecord::Base
+class Note < ApplicationRecord
   belongs_to :user
   # belongs_to :author, class_name: 'User' # TODO: do to this later when we have "admin users"
 end

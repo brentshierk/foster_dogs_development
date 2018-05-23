@@ -24,7 +24,7 @@
 #  big_dogs          :boolean          default(FALSE)
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   searchkick
 
   paginates_per 50

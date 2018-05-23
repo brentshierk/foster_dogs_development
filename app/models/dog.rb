@@ -15,7 +15,7 @@
 #  weight      :integer
 #
 
-class Dog < ActiveRecord::Base
+class Dog < ApplicationRecord
   paginates_per 40
   
   before_validation :ensure_short_code, :initialize_status
