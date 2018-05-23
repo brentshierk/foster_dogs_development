@@ -16,30 +16,7 @@ class Organization < ApplicationRecord
   before_validation :ensure_uuid
 
   def self.all_names
-    [
-      'ACC',
-      'Animal Lighthouse Rescue',
-      'Badass Brooklyn',
-      'BARRK',
-      'Friends with Four Paws',
-      'Hearts and Bones',
-      'Heavenly Angels',
-      'In Our Hands',
-      'Long Road Home',
-      'Louie\'s Legacy',
-      'Muddy Paws',
-      'PupStarz',
-      'Sean Casey',
-      'Shelter Chic',
-      'Social Tees',
-      'Sochi Dogs',
-      'Sugar Mutts',
-      'Twenty Paws',
-      'Korean K9 Rescue',
-      'True North Rescue Mission',
-      'Mr. Bones & Co',
-      'Other'
-    ]
+    pluck(&:name).append('Other')
   end
 
   private
