@@ -1,6 +1,21 @@
-# TODO: turn this into an actual ActiveRecord model
-class Organization
-  def self.all
+# == Schema Information
+#
+# Table name: organizations
+#
+#  id         :integer          not null, primary key
+#  uuid       :uuid
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+class Organization < ApplicationRecord
+  validates_presence_of :name
+  validates_uniqueness_of :name
+
+  before_validation :ensure_uuid
+
+  def self.all_names
     [
       'ACC',
       'Animal Lighthouse Rescue',
@@ -25,5 +40,11 @@ class Organization
       'Mr. Bones & Co',
       'Other'
     ]
+  end
+
+  private
+
+  def ensure_uuid
+    self.uuid ||= SecureRandom.uuid
   end
 end

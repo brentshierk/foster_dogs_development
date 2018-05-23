@@ -21,7 +21,7 @@
 #  subscribed_at     :datetime
 #  unsubscribed_at   :datetime
 #  fosters_cats      :boolean          default(FALSE)
-#  big_dogs          :boolean          default(FALSE)
+#  big_dogs          :boolean
 #
 
 require 'rails_helper'
