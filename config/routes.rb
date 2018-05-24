@@ -15,12 +15,14 @@ Rails.application.routes.draw do
         post 'download_csv'
       end
       member do
-        resources :outreaches, only: [:index]
+        resources :outreaches, only: [:index, :destroy]
       end
       resources :notes, only: [:create]
     end
-    resources :outreaches do
+    resources :organizations do
+      resources :outreaches, only: [:index]
     end
+    resources :outreaches, only: [:index, :new, :create]
     resources :email_logs, only: [:new, :create, :destroy] do
       collection do
         post 'fosters'
