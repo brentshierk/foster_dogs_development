@@ -6,7 +6,7 @@ module Admin
     def index
       @active_filters = Hash.new
 
-      query = User.subscribed.order('created_at DESC')
+      query = User.subscribed.order('created_at DESC').includes(:outreaches)
 
       if taggable_filter_params.present?
         @active_filters.merge!(taggable_filter_params)

@@ -59,8 +59,8 @@
           %td= list_to_link(:size_preferences, user.size_preference_list)
           %td= bool_to_affirmative(user.other_pets)
           %td
-            - user.email_logs.order("created_at DESC").last(5).each do |log|
+            - user.outreaches.order("created_at DESC").last(5).each do |outreach|
               %div
-                %strong= log.subject
-                = "on behalf of #{ log.organization } on #{ log.created_at.stamp("May 20, 1989") }"
+                %strong= outreach.subject
+                = "on behalf of #{ outreach.organization.name } on #{ outreach.created_at.stamp("May 20, 1989") }"
 = paginate @users if @paginate
