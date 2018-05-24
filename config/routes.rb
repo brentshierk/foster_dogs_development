@@ -14,7 +14,12 @@ Rails.application.routes.draw do
         get 'show_filters'
         post 'download_csv'
       end
+      member do
+        resources :outreaches, only: [:index]
+      end
       resources :notes, only: [:create]
+    end
+    resources :outreaches do
     end
     resources :email_logs, only: [:new, :create, :destroy] do
       collection do

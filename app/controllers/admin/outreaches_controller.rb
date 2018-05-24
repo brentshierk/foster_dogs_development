@@ -1,0 +1,3 @@
+class OutreachesController < AdminController
+  
+end
