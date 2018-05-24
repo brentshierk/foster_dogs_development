@@ -115,7 +115,7 @@ module Admin
     end
 
     def find_user
-      @user = User.find(params[:id])
+      @user = User.includes(:outreaches).find(params[:id])
     end
 
     def queryable_filter_params

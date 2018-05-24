@@ -7,10 +7,10 @@
     %p= User.where("created_at >= ? AND created_at <= ?", DateTime.current - 7.days, DateTime.current).count
   .col-md-2
     %h5 Outreaches Past 24 Hours
-    %p= EmailLog.where("created_at >= ? AND created_at <= ?", DateTime.current - 1.days, DateTime.current).count
+    %p= OutreachesUser.joins(:outreach).where("outreaches.created_at >= ? AND outreaches.created_at <= ?", DateTime.current - 1.days, DateTime.current).count
   .col-md-2
     %h5 Outreaches Past 7 days
-    %p= EmailLog.where("created_at >= ? AND created_at <= ?", DateTime.current - 7.days, DateTime.current).count
+    %p= OutreachesUser.joins(:outreach).where("outreaches.created_at >= ? AND outreaches.created_at <= ?", DateTime.current - 7.days, DateTime.current).count
   .col-md-2
     %h5 Total Signups
     %p= User.count
