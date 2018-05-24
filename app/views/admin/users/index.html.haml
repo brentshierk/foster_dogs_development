@@ -61,6 +61,9 @@
           %td
             - user.outreaches.order("created_at DESC").last(5).each do |outreach|
               %div
-                %strong= outreach.subject
-                = "on behalf of #{ outreach.organization.name } on #{ outreach.created_at.stamp("May 20, 1989") }"
+                %strong
+                  = link_to outreach.subject, admin_outreach_path(outreach.id) 
+                = "on behalf of"
+                = link_to outreach.organization.name, admin_outreach_path(outreach.id)
+                = "on #{ outreach.created_at.stamp("May 20, 1989") }"
 = paginate @users if @paginate

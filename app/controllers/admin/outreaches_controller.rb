@@ -1,4 +1,6 @@
-class OutreachesController < AdminController
+class Admin::OutreachesController < AdminController
+  before_action :find_outreach
+
   def index
   end
 
@@ -11,9 +13,19 @@ class OutreachesController < AdminController
   def create
   end
 
-  def edit
+  def destroy
   end
 
-  def update
+  private
+
+  def find_outreach
+    @outreach = Outreach.includes(:users).find(params[:id])
+  end
+
+  def outreach_index_params
+    params.permit(:subject, :user_id, :organization_id)
+  end
+
+  def outreach_params
   end
 end
