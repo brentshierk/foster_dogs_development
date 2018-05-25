@@ -76,7 +76,6 @@ class Admin::OutreachesController < AdminController
   def outreach_params
     params.require(:subject)
     params.require(:user_ids)
-    params.require(:organization_id)
     params.permit(:subject, :organization_id)
   end
 end
