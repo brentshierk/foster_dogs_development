@@ -1,0 +1,19 @@
+%h3= @organization.name
+%h5
+  Part of Foster Roster since
+  = @organization.created_at.stamp("May 20, 1989")
+%h4 Outreaches
+%div
+%table.table.table-bordered.table-hover
+  %thead
+    %th Date
+    %th Subject
+    %th Recipients
+  - @organization.outreaches.each do |outreach|
+    %tr
+      %td= outreach.created_at.stamp('May 20, 1989')
+      %td= link_to outreach.subject, admin_outreach_path(outreach)
+      %td
+        - outreach.users.each do |u|
+          = link_to u.name, admin_user_path(u)
+          ,
