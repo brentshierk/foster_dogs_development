@@ -62,7 +62,7 @@
         %span.info__text= bool_to_affirmative(@user.kids?)
   .col-md-6
     %div
-      %h3 Email Communications
+      %h3 Outreaches
       %table.table.table-bordered.table-hover
         %thead
           %th Subject
@@ -71,9 +71,9 @@
           %th Actions
         - @user.outreaches.order("created_at DESC").each do |outreach|
           %tr
-            %td= outreach.subject
+            %td= link_to outreach.subject, admin_outreach_path(outreach)
             %td= outreach.created_at.stamp('May 20, 1989')
-            %td= outreach.organization.name
+            %td= link_to outreach.organization.name, admin_organization_path(outreach.organization)
             %td= link_to "remove", admin_user_outreach_path(user_id: @user.id, id: outreach.id), method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you absolutely sure?' }
     %div
       %h3 Admin Notes
