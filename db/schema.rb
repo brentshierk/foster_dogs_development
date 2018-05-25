@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180523152430) do
+ActiveRecord::Schema.define(version: 20180525002707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,8 +110,8 @@ ActiveRecord::Schema.define(version: 20180523152430) do
     t.string   "name"
     t.string   "email"
     t.uuid     "uuid"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.boolean  "fostered_before"
     t.boolean  "fospice"
     t.datetime "accepted_terms_at"
@@ -121,10 +121,10 @@ ActiveRecord::Schema.define(version: 20180523152430) do
     t.float    "latitude"
     t.float    "longitude"
     t.datetime "date_of_birth"
-    t.text     "fostered_for",      default: [],                 array: true
+    t.text     "fostered_for",      default: [],              array: true
     t.datetime "subscribed_at"
     t.datetime "unsubscribed_at"
-    t.boolean  "fosters_cats",      default: false
+    t.boolean  "fosters_cats"
     t.boolean  "big_dogs"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
