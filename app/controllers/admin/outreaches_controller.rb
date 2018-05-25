@@ -1,5 +1,9 @@
 class Admin::OutreachesController < AdminController
-  before_action :find_outreach
+  before_action :find_outreach, only: [:show, :destroy]
+
+  def index
+    @outreaches = Outreach.order('created_at DESC').includes(:users)
+  end
 
   def show
   end

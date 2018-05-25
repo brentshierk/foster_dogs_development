@@ -15,5 +15,5 @@
       %td= link_to outreach.subject, admin_outreach_path(outreach)
       %td
         - outreach.users.each do |u|
-          = link_to u.name, admin_user_path(u)
-          ,
+          = succeed ',' do
+            = link_to u.name, admin_user_path(u)
