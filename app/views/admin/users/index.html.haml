@@ -16,7 +16,7 @@
     %p= User.count
   .col-md-2
     %h5 Total Outreaches
-    %p= EmailLog.count
+    %p= OutreachesUser.count
 - if @active_filters.present? || @search_term.present?
   .row
     .col-md-12
@@ -31,12 +31,12 @@
               = v.join(', ')
         - elsif @search_term.present?
           %h5= "Searching for #{@search_term}"
-= form_tag(contact_admin_email_logs_path, method: :post) do
+= form_tag(build_admin_outreaches_path, method: :post) do
   - @all_users.each do |user|
     = hidden_field_tag 'user_ids[]', user.id
   = submit_tag 'CONTACT ALL', class: 'btn btn-danger pull-right btn--ui', id: 'contact-button'
 
-= form_tag(new_admin_email_log_path, method: :get) do
+= form_tag(build_admin_outreaches_path, method: :post) do
   = submit_tag 'CONTACT', class: 'btn btn-primary pull-right btn--ui', id: 'contact-button'
   %div
     %table.table.table-bordered.table-hover.users-table

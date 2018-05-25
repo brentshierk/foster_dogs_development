@@ -5,6 +5,8 @@
 %h4
   ="Organization:"
   = link_to @outreach.organization.name, admin_organization_path(@outreach.organization)
-%h4 Recipients:
-- @outreach.users.each do |u|
-  = link_to u.name, admin_user_path(u)
+%h4
+  Recipients:
+  - @outreach.users.each do |u|
+    = succeed ',' do
+      = link_to u.name, admin_user_path(u)
