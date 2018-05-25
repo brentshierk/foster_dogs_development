@@ -6,7 +6,7 @@ module Admin
     def index
       @active_filters = Hash.new
 
-      query = User.subscribed.order('created_at DESC')
+      query = User.subscribed.order('created_at DESC').includes(:outreaches)
 
       if taggable_filter_params.present?
         @active_filters.merge!(taggable_filter_params)
@@ -115,7 +115,7 @@ module Admin
     end
 
     def find_user
-      @user = User.find(params[:id])
+      @user = User.includes(:outreaches).find(params[:id])
     end
 
     def queryable_filter_params

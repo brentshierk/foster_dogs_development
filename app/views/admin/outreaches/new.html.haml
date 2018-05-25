@@ -1,7 +1,6 @@
 .row
   .col-md-12
-    %h2
-      Log an Email Outreach
+    %h2 Create an Outreach
 .row
   .col-md-6
     %h4= "Marking #{ @users.count } fosters as contacted."
@@ -12,7 +11,7 @@
     %p= @users.map(&:email).join(', ')
     %br
 
-    = form_tag(admin_email_logs_path, method: :post) do
+    = form_tag(admin_outreaches_path, method: :post) do
       - @users.each do |user|
         = hidden_field_tag 'user_ids[]', user.id
       .form-group
@@ -20,5 +19,5 @@
         = text_field_tag 'subject', nil, placeholder: 'Enter your subject here...', class: 'form-control', required: true
       .form-group
         = label_tag 'Rescue'
-        = select_tag 'organization', options_for_select(Organization.all_names), class: 'form-control', required: true
+        = select_tag 'organization_id', options_for_select(Organization.pluck(:name, :id)), class: 'form-control', required: true
       = submit_tag 'Log It!', class: 'btn btn-primary'

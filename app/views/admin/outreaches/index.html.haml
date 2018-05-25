@@ -1,0 +1,16 @@
+%h3 Outreaches
+%table.table.table-bordered.table-hover.users-table
+  %thead
+    %th Date
+    %th Subject
+    %th Organization
+    %th To
+  - @outreaches.each do |outreach|
+    %tr
+      %td= outreach.created_at.stamp('May 20, 1989')
+      %td= link_to outreach.subject, admin_outreach_path(outreach)
+      %td= link_to outreach.organization.name, admin_organization_path(outreach)
+      %td
+        - outreach.users.each do |u|
+          = succeed ',' do
+            = link_to u.name, admin_user_path(u)

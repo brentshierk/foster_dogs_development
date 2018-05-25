@@ -7,16 +7,16 @@
     %p= User.where("created_at >= ? AND created_at <= ?", DateTime.current - 7.days, DateTime.current).count
   .col-md-2
     %h5 Outreaches Past 24 Hours
-    %p= EmailLog.where("created_at >= ? AND created_at <= ?", DateTime.current - 1.days, DateTime.current).count
+    %p= OutreachesUser.joins(:outreach).where("outreaches.created_at >= ? AND outreaches.created_at <= ?", DateTime.current - 1.days, DateTime.current).count
   .col-md-2
     %h5 Outreaches Past 7 days
-    %p= EmailLog.where("created_at >= ? AND created_at <= ?", DateTime.current - 7.days, DateTime.current).count
+    %p= OutreachesUser.joins(:outreach).where("outreaches.created_at >= ? AND outreaches.created_at <= ?", DateTime.current - 7.days, DateTime.current).count
   .col-md-2
     %h5 Total Signups
     %p= User.count
   .col-md-2
     %h5 Total Outreaches
-    %p= EmailLog.count
+    %p= OutreachesUser.count
 - if @active_filters.present? || @search_term.present?
   .row
     .col-md-12
@@ -31,12 +31,12 @@
               = v.join(', ')
         - elsif @search_term.present?
           %h5= "Searching for #{@search_term}"
-= form_tag(contact_admin_email_logs_path, method: :post) do
+= form_tag(build_admin_outreaches_path, method: :post) do
   - @all_users.each do |user|
     = hidden_field_tag 'user_ids[]', user.id
   = submit_tag 'CONTACT ALL', class: 'btn btn-danger pull-right btn--ui', id: 'contact-button'
 
-= form_tag(new_admin_email_log_path, method: :get) do
+= form_tag(build_admin_outreaches_path, method: :post) do
   = submit_tag 'CONTACT', class: 'btn btn-primary pull-right btn--ui', id: 'contact-button'
   %div
     %table.table.table-bordered.table-hover.users-table
@@ -59,8 +59,11 @@
           %td= list_to_link(:size_preferences, user.size_preference_list)
           %td= bool_to_affirmative(user.other_pets)
           %td
-            - user.email_logs.order("created_at DESC").last(5).each do |log|
+            - user.outreaches.order("created_at DESC").last(5).each do |outreach|
               %div
-                %strong= log.subject
-                = "on behalf of #{ log.organization } on #{ log.created_at.stamp("May 20, 1989") }"
+                %strong
+                  = link_to outreach.subject, admin_outreach_path(outreach.id)
+                = "on behalf of"
+                = link_to outreach.organization.name, admin_organization_path(outreach.organization)
+                = "on #{ outreach.created_at.stamp("May 20, 1989") }"
 = paginate @users if @paginate

@@ -13,6 +13,8 @@ class Organization < ApplicationRecord
   validates_presence_of :name
   validates_uniqueness_of :name
 
+  has_many :outreaches
+
   before_validation :ensure_uuid
 
   # used to list out names for the organization checkboxes on onboarding

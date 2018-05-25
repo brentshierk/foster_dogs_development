@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root 'users#new'
 
-  resources :dogs
   resources :users, only: [:new, :create] do
     collection do
       get 'thanks'
@@ -14,14 +13,15 @@ Rails.application.routes.draw do
         get 'show_filters'
         post 'download_csv'
       end
+      resources :outreaches, only: :destroy
       resources :notes, only: [:create]
     end
-    resources :email_logs, only: [:new, :create, :destroy] do
+    resources :outreaches do
       collection do
-        post 'fosters'
-        post 'contact'
+        post 'build'
       end
     end
+    resources :organizations, only: [:show]
   end
 
   get 'admin' => 'admin/users#index'
