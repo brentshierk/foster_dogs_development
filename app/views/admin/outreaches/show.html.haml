@@ -4,7 +4,7 @@
 %h4="Subject: #{@outreach.subject}"
 %h4
   ="Organization:"
-  = link_to @outreach.organization.name, admin_organization_path(@outreach.organization)
+  = @outreach.organization ? link_to(@outreach.organization.name, admin_organization_path(@outreach.organization)) : 'Other'
 %h4
   Recipients:
   - @outreach.users.each do |u|

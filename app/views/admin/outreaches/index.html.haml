@@ -9,7 +9,7 @@
     %tr
       %td= outreach.created_at.stamp('May 20, 1989')
       %td= link_to outreach.subject, admin_outreach_path(outreach)
-      %td= link_to outreach.organization.name, admin_organization_path(outreach)
+      %td= outreach.organization.present? ? link_to(outreach.organization.name, admin_organization_path(outreach)) : ''
       %td
         - outreach.users.each do |u|
           = succeed ',' do

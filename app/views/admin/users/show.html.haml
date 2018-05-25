@@ -73,7 +73,7 @@
           %tr
             %td= link_to outreach.subject, admin_outreach_path(outreach)
             %td= outreach.created_at.stamp('May 20, 1989')
-            %td= link_to outreach.organization.name, admin_organization_path(outreach.organization)
+            %td= outreach.organization.present? ? link_to(outreach.organization.name, admin_organization_path(outreach.organization)) : ''
             %td= link_to "remove", admin_user_outreach_path(user_id: @user.id, id: outreach.id), method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you absolutely sure?' }
     %div
       %h3 Admin Notes
