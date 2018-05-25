@@ -34,7 +34,6 @@ class User < ApplicationRecord
 
   before_validation :ensure_uuid
 
-  has_many :email_logs
   has_many :notes
 
   has_many :outreaches_users
