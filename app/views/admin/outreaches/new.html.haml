@@ -19,5 +19,5 @@
         = text_field_tag 'subject', nil, placeholder: 'Enter your subject here...', class: 'form-control', required: true
       .form-group
         = label_tag 'Rescue'
-        = select_tag 'organization_id', options_for_select(Organization.pluck(:name, :id)), class: 'form-control'
+        = select_tag 'organization_id', options_for_select(Organization.pluck(:name, :id)), include_blank: true, class: 'form-control'
       = submit_tag 'Log It!', class: 'btn btn-primary'
