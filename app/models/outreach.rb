@@ -14,7 +14,7 @@ class Outreach < ApplicationRecord
   before_create :ensure_uuid
 
   belongs_to :organization
-  has_many :outreaches_users, dependent: :destroy
+  has_many :outreaches_users
   has_many :users, through: :outreaches_users
 
   private
