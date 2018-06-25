@@ -29,6 +29,8 @@ gem 'mailchimp-api', require: 'mailchimp'
 
 gem 'rollbar'
 
+gem 'paranoia'
+
 group :production, :staging do
   gem 'rails_12factor'
 end

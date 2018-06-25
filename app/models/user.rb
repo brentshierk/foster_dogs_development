@@ -20,7 +20,7 @@
 #  fostered_for      :text             default([]), is an Array
 #  subscribed_at     :datetime
 #  unsubscribed_at   :datetime
-#  fosters_cats      :boolean          default(FALSE)
+#  fosters_cats      :boolean
 #  big_dogs          :boolean
 #
 
