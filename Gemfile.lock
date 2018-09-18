@@ -323,6 +323,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
+  faraday
   geocoder
   guard
   guard-bundler

@@ -31,6 +31,8 @@ gem 'rollbar'
 
 gem 'paranoia'
 
+gem 'faraday'
+
 group :production, :staging do
   gem 'rails_12factor'
 end
