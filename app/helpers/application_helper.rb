@@ -32,7 +32,7 @@ module ApplicationHelper
     when 'false', 'False'
       'no'
     else
-      raise ArgumentError
+      'n/a'
     end
   end
 
