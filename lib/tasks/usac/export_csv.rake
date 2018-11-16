@@ -23,7 +23,6 @@ namespace :usac do
         puts "No results found with for race with id #{race_id}" and return unless json.present?
         puts "Results found for race with id #{race_id}"
 
-
         sample = json.first
         category = sample["category"]
         gender = case sample["gender"]
