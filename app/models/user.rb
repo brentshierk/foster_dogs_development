@@ -102,6 +102,9 @@ class User < ApplicationRecord
 
   def subscribe_to_mailchimp
     MailchimpService.new.subscribe_user(self)
+  rescue Mailchimp::ListAlreadySubscribedError => e
+    Rails.logger.info("User already subscribed to Mailchimp!")
+  ensure
     self.subscribed_at = DateTime.current
   end
 end
