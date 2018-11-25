@@ -31,7 +31,7 @@ class User < ApplicationRecord
 
   validates_uniqueness_of :uuid, :email
   validates_presence_of :name, :email, :uuid
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP } 
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   before_validation :ensure_uuid
 
@@ -45,7 +45,7 @@ class User < ApplicationRecord
 
   geocoded_by :address
   after_validation :geocode, if: ->(obj){ obj.address.present? && obj.address_changed? }
-  before_create :subscribe_to_mailchimp # TODO: this should be backgrounded
+  after_create :subscribe_to_mailchimp
 
   default_scope { includes(:outreaches, :notes, :tags) }
 
@@ -104,10 +104,6 @@ class User < ApplicationRecord
   end
 
   def subscribe_to_mailchimp
-    MailchimpService.new.subscribe_user(self)
-  rescue Mailchimp::ListAlreadySubscribedError => e
-    Rails.logger.info("User already subscribed to Mailchimp!")
-  ensure
-    self.subscribed_at = DateTime.current
+    MailchimpWorker.perform_async(id)
   end
 end

@@ -55,6 +55,7 @@ module Admin
     def update
       @user.attributes = user_params
 
+      # TODO: refactor this into a service since it looks awfully familiar to the code in UsersController#new
       # parse date, because i'm lazy
       month = params[:user]["date_of_birth(2i)"].to_i
       day = params[:user]["date_of_birth(3i)"].to_i
