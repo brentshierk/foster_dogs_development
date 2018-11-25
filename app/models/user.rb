@@ -31,6 +31,7 @@ class User < ApplicationRecord
 
   validates_uniqueness_of :uuid, :email
   validates_presence_of :name, :email, :uuid
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP } 
 
   before_validation :ensure_uuid
 
