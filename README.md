@@ -30,3 +30,8 @@ Ruby on Rails 5 app
 5. fill in any required env vars in `.env` (same as above)
 6. app will be up at `localhost:3000`
 7. For additional commands: `make help`
+
+### Dumping from Production to local
+```
+heroku pg:backups:capture && heroku pg:backups:download && pg_restore --verbose --clean --no-acl --no-owner -h localhost -d foster-roster_development latest.dump && rake db:environment:set RAILS_ENV=development
+```
