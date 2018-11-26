@@ -36,6 +36,8 @@ gem 'faraday'
 gem 'redis-rails'
 gem 'sidekiq'
 
+gem 'dalli'
+
 group :production, :staging do
   gem 'rails_12factor'
 end
