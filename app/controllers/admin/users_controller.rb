@@ -76,7 +76,10 @@ module Admin
     end
 
     def download_csv
-      csv = CsvService.users(users: User.all.order('created_at ASC'))
+      csv = Rails.cache.fetch('all-users-csv', expires_in: 48.hours) do
+        CsvService.users(users: User.all.order('created_at ASC'))
+      end
+
       send_data csv, filename: "foster-roster-#{Date.current}.csv"
     rescue => e
       Rollbar.error(e)
