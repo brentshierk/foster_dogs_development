@@ -33,7 +33,7 @@ gem 'paranoia'
 
 gem 'faraday'
 
-gem 'redis'
+gem 'redis-rails'
 gem 'sidekiq'
 
 group :production, :staging do
