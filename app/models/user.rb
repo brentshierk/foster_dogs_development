@@ -45,7 +45,7 @@ class User < ApplicationRecord
 
   geocoded_by :address
   after_validation :geocode, if: ->(obj){ obj.address.present? && obj.address_changed? }
-  after_create :subscribe_to_mailchimp
+  after_commit :subscribe_to_mailchimp, on: :create
 
   default_scope { includes(:outreaches, :notes, :tags) }
 
@@ -104,6 +104,6 @@ class User < ApplicationRecord
   end
 
   def subscribe_to_mailchimp
-    MailchimpWorker.perform_async(id)
+    MailchimpWorker.perform_async(id) unless subscribed_at?
   end
 end
