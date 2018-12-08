@@ -191,6 +191,7 @@ GEM
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    oj (3.7.4)
     paranoia (2.4.1)
       activerecord (>= 4.0, < 5.3)
     pg (0.21.0)
@@ -360,6 +361,7 @@ DEPENDENCIES
   kaminari
   listen (~> 3.0.5)
   mailchimp-api
+  oj
   paranoia
   pg (~> 0.18)
   pry-byebug

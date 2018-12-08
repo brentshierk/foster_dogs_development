@@ -25,7 +25,7 @@
 #
 
 class User < ApplicationRecord
-  searchkick
+  searchkick callbacks: :async
 
   paginates_per 50
 
