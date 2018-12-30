@@ -13,6 +13,7 @@ class CreateSurveyResponse < ActiveRecord::Migration[5.0]
     add_index :survey_responses, [:user_id, :survey_id, :organization_id], name: 'sr_index', unique: true
 
     create_table :surveys do |t|
+      t.uuid :uuid
       t.integer :organization_id
       t.timestamps
     end
@@ -25,6 +26,7 @@ class CreateSurveyResponse < ActiveRecord::Migration[5.0]
       t.string :description
       t.text :question_text, null: false
       t.string :question_type, null: false
+      t.text :question_subtext
       t.text :question_choices, array: true, default: []
       t.boolean :queryable, default: false
       t.integer :survey_id, null: false

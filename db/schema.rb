@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20181228175408) do
     t.string   "description"
     t.text     "question_text",                    null: false
     t.string   "question_type",                    null: false
+    t.text     "question_subtext"
     t.text     "question_choices", default: [],                 array: true
     t.boolean  "queryable",        default: false
     t.integer  "survey_id",                        null: false
@@ -100,6 +101,7 @@ ActiveRecord::Schema.define(version: 20181228175408) do
   end
 
   create_table "surveys", force: :cascade do |t|
+    t.uuid     "uuid"
     t.integer  "organization_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
