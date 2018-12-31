@@ -13,6 +13,7 @@
 /tmp
 .env
 .byebug_history
+latest.dump
 
 # Ignore container data
 /docker

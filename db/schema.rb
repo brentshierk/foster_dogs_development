@@ -41,9 +41,10 @@ ActiveRecord::Schema.define(version: 20181228175408) do
   create_table "organizations", id: :integer, force: :cascade do |t|
     t.uuid     "uuid"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.datetime "deleted_at"
+    t.datetime "published_at"
     t.index ["deleted_at"], name: "index_organizations_on_deleted_at", using: :btree
     t.index ["uuid"], name: "index_organizations_on_uuid", unique: true, using: :btree
   end
@@ -73,8 +74,10 @@ ActiveRecord::Schema.define(version: 20181228175408) do
     t.text     "question_choices", default: [],                 array: true
     t.boolean  "queryable",        default: false
     t.integer  "survey_id",                        null: false
+    t.integer  "index"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.index ["index"], name: "index_questions_on_index", unique: true, using: :btree
     t.index ["survey_id"], name: "index_questions_on_survey_id", unique: true, using: :btree
   end
 
@@ -137,8 +140,8 @@ ActiveRecord::Schema.define(version: 20181228175408) do
     t.string   "name"
     t.string   "email"
     t.uuid     "uuid"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.boolean  "fostered_before"
     t.boolean  "fospice"
     t.datetime "accepted_terms_at"
@@ -148,14 +151,12 @@ ActiveRecord::Schema.define(version: 20181228175408) do
     t.float    "latitude"
     t.float    "longitude"
     t.datetime "date_of_birth"
-    t.text     "fostered_for",      default: [],                array: true
+    t.text     "fostered_for",      default: [],              array: true
     t.datetime "subscribed_at"
     t.datetime "unsubscribed_at"
     t.boolean  "fosters_cats"
     t.boolean  "big_dogs"
-    t.jsonb    "preferences",       default: "{}", null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["preferences"], name: "index_users_on_preferences", using: :gin
     t.index ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
   end
 

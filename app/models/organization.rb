@@ -2,12 +2,13 @@
 #
 # Table name: organizations
 #
-#  id         :integer          not null, primary key
-#  uuid       :uuid
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  deleted_at :datetime
+#  id           :integer          not null, primary key
+#  uuid         :uuid
+#  name         :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  deleted_at   :datetime
+#  published_at :datetime
 #
 
 class Organization < ApplicationRecord
