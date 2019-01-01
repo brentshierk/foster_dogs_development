@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20181228175408) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.index ["index"], name: "index_questions_on_index", unique: true, using: :btree
-    t.index ["survey_id"], name: "index_questions_on_survey_id", unique: true, using: :btree
+    t.index ["slug", "survey_id"], name: "index_questions_on_slug_and_survey_id", unique: true, using: :btree
   end
 
   create_table "statuses", force: :cascade do |t|

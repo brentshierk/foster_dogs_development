@@ -18,7 +18,26 @@
 #
 
 class Question < ApplicationRecord
+  MULTI_SELECT = 'multiselect'
+  MULTIPLE_CHOICE = 'multiple_choice'
+  SHORT_TEXT = 'short_text'
+  LONG_TEXT = 'long_text'
+  COUNT = 'count'
+  BOOLEAN = 'boolean'
+
+  FORMATS = [MULTI_SELECT, MULTIPLE_CHOICE, SHORT_TEXT, LONG_TEXT, COUNT, BOOLEAN]
+
+  validates :question_type, inclusion: { in: FORMATS }
+  validates_presence_of :question_choices, if: Proc.new { |q| q.multiple_answer? }
+  validates_presence_of :uuid, :slug, :question_text, :question_type, :survey
+  validates_uniqueness_of :slug, scope: :survey_id
   before_validation :ensure_uuid
+
+  belongs_to :survey
+
+  def multiple_answer?
+    [MULTI_SELECT, MULTIPLE_CHOICE].include?(question_type)
+  end
 
   private
 

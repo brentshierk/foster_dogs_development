@@ -35,7 +35,7 @@ class CreateSurveyResponse < ActiveRecord::Migration[5.0]
     end
 
     add_index :questions, :index, unique: true
-    add_index :questions, :survey_id, unique: true
+    add_index :questions, [:slug, :survey_id], unique: true
 
     add_column :organizations, :published_at, :datetime
   end
