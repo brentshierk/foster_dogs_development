@@ -9,6 +9,11 @@ Rails.application.routes.draw do
       get 'thanks'
     end
   end
+
+  resources :organization do
+    resource :survey, only: [:show]
+  end
+
   namespace :admin do
     resources :users do
       collection do

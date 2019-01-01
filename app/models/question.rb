@@ -28,7 +28,7 @@ class Question < ApplicationRecord
   FORMATS = [MULTI_SELECT, MULTIPLE_CHOICE, SHORT_TEXT, LONG_TEXT, COUNT, BOOLEAN]
 
   validates :question_type, inclusion: { in: FORMATS }
-  validates_presence_of :question_choices, if: Proc.new { |q| q.multiple_answer? }
+  validates_presence_of :question_choices, if: :multiple_answer?
   validates_presence_of :uuid, :slug, :question_text, :question_type, :survey
   validates_uniqueness_of :slug, scope: :survey_id
 
