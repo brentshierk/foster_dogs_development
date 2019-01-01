@@ -14,6 +14,8 @@ class Survey < ApplicationRecord
 
   before_validation :ensure_uuid
 
+  validates :organization, presence: true, uniqueness: true
+
   private
 
   def ensure_uuid
