@@ -9,6 +9,7 @@
 #  updated_at   :datetime         not null
 #  deleted_at   :datetime
 #  published_at :datetime
+#  slug         :string           not null
 #
 
 class Organization < ApplicationRecord
@@ -20,7 +21,7 @@ class Organization < ApplicationRecord
   has_many :outreaches
   has_one :survey
 
-  before_validation :ensure_uuid
+  before_validation :ensure_uuid, :ensure_slug
 
   # used to list out names for the organization checkboxes on onboarding
   # could be moved to application helper
@@ -32,5 +33,9 @@ class Organization < ApplicationRecord
 
   def ensure_uuid
     self.uuid ||= SecureRandom.uuid
+  end
+
+  def ensure_slug
+    self.slug ||= name.parameterize.underscore
   end
 end
