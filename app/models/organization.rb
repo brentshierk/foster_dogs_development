@@ -13,11 +13,12 @@
 
 class Organization < ApplicationRecord
   acts_as_paranoid
-  
+
   validates_presence_of :name
   validates_uniqueness_of :name
 
   has_many :outreaches
+  has_one :survey
 
   before_validation :ensure_uuid
 

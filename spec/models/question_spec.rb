@@ -33,6 +33,15 @@ describe Question, type: :model do
     expect(subject.valid?).to be_truthy
   end
 
+  context 'boolean' do
+    it 'sets the question_choices' do
+      expect(subject.question_choices.present?).to be_falsey
+      subject.question_type = Question::BOOLEAN
+      subject.save!
+      expect(subject.question_choices).to eq(['true', 'false'])
+    end
+  end
+
   context 'multiselect' do
     before do
       subject.question_type = Question::MULTI_SELECT

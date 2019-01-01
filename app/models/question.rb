@@ -31,9 +31,15 @@ class Question < ApplicationRecord
   validates_presence_of :question_choices, if: Proc.new { |q| q.multiple_answer? }
   validates_presence_of :uuid, :slug, :question_text, :question_type, :survey
   validates_uniqueness_of :slug, scope: :survey_id
+
   before_validation :ensure_uuid
+  before_save :set_question_choices, if: :boolean?
 
   belongs_to :survey
+
+  def boolean?
+    question_type == BOOLEAN
+  end
 
   def multiple_answer?
     [MULTI_SELECT, MULTIPLE_CHOICE].include?(question_type)
@@ -43,5 +49,9 @@ class Question < ApplicationRecord
 
   def ensure_uuid
     self.uuid ||= SecureRandom.uuid
+  end
+
+  def set_question_choices
+    self.question_choices = ['true', 'false']
   end
 end

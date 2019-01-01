@@ -13,8 +13,6 @@ FactoryBot.define do
   end
 
   factory :survey_with_questions do
-    organization
-
     after :create do |svy|
       rand(10).times { create(:question, survey: svy) }
     end
