@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20190101210844) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "organizations", id: :integer, force: :cascade do |t|
+  create_table "organizations", force: :cascade do |t|
     t.uuid     "uuid"
     t.string   "name"
     t.datetime "created_at",   null: false
