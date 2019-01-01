@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :organization do
+  resources :organization, param: :slug do
     resource :survey, only: [:show]
   end
 

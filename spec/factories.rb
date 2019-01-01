@@ -10,11 +10,12 @@ FactoryBot.define do
   end
 
   factory :survey do
-  end
+    organization
 
-  factory :survey_with_questions do
-    after :create do |svy|
-      rand(10).times { create(:question, survey: svy) }
+    trait :with_questions do
+      after :create do |svy|
+        rand(10).times { create(:question, survey: svy) }
+      end
     end
   end
 
@@ -26,7 +27,7 @@ FactoryBot.define do
     question_subtext { Faker::Lorem.paragraph }
     survey
 
-    before :save do |q|
+    after :build do |q|
       q.question_choices = ['foo', 'bar'] if q.multiple_answer?
     end
   end

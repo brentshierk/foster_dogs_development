@@ -7,7 +7,7 @@ class SurveysController < ApplicationController
   private
 
   def load_organization_and_survey
-    @organization = Organization.find(params[:organization_id])
+    @organization = Organization.find_by(slug: params[:organization_slug])
     @survey = @organization.survey
   end
 end
