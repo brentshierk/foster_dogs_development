@@ -9,7 +9,7 @@ module ApplicationHelper
     basic_params = { class: 'form-control', required: question.required }
     case question.question_type
     when Question::BOOLEAN
-      select_tag field_name, options_for_select([['yes', true], ['no', false]]), basic.params.merge({ include_blank: true })
+      select_tag field_name, options_for_select([['yes', true], ['no', false]]), basic_params.merge({ include_blank: true })
     when Question::MULTI_SELECT
       choices = ""
 
