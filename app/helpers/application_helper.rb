@@ -5,15 +5,17 @@ module ApplicationHelper
   end
 
   def display_question_choices(question:)
+    field_name = question.slug.to_sym
+    basic_params = { class: 'form-control', required: question.required }
     case question.question_type
     when Question::BOOLEAN
-      select_tag question.slug.to_sym, options_for_select([['yes', true], ['no', false]]), { include_blank: true, class: 'form-control', required: question.required }
+      select_tag field_name, options_for_select([['yes', true], ['no', false]]), basic.params.merge({ include_blank: true })
     when Question::MULTI_SELECT
       choices = ""
 
       question.question_choices.each do |qc|
         choices += "<div class='form-check-lable'>"
-        choices += check_box_tag question.slug.to_sym, qc, false, { multiple: true, class: 'form-check-input' }
+        choices += check_box_tag field_name, qc, false, { multiple: true, class: 'form-check-input' }
         choices += " #{qc}"
         choices += "</div>"
       end
@@ -21,7 +23,11 @@ module ApplicationHelper
       html = "<div class='form-check-label'>#{choices}</div>"
       html.html_safe
     when Question::COUNT
-      text_field_tag question.slug.to_sym, nil, { class: 'form-control', required: question.required }
+      number_field_tag field_name, nil, basic_params
+    when Question::LONG_TEXT
+      text_area_tag field_name, nil, basic_params
+    when Question::SHORT_TEXT
+      text_field_tag field_name, nil, basic_params
     end
   end
 

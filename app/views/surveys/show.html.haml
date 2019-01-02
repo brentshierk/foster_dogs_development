@@ -7,8 +7,8 @@
         %h3 Foster Preferences
     - @survey.questions.ordered_for_survey.each do |q|
       = render partial: "shared/question", locals: { question: q }
-  = organization_template(slug: @organization.slug, type: 'terms')
-  .row
-    .col-md-12
-      .form-group
-        = submit_tag 'SUBMIT', { class: 'btn btn-primary' }
+    = organization_template(slug: @organization.slug, type: 'terms')
+    .row
+      .col-md-12
+        .form-group
+          = submit_tag 'SUBMIT', { class: 'btn btn-primary' }

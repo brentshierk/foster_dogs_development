@@ -1,0 +1,12 @@
+.row
+  .col-md-12
+    .terms-and-conditions
+      %h3 TERMS & CONDITIONS:
+      %p I will bring my ID/Driver’s License with me when I pick up the animal.
+      %p I am willing and able to provide basic care, safe housing, and necessary care materials for my foster pet.
+%br
+.row
+  .col-md-12
+    .form-group
+      = check_box_tag :accepted_terms_at, 'true', false, { required: true }
+      I accept the terms and conditions above
