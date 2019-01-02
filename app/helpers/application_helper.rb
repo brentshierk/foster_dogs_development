@@ -1,7 +1,7 @@
 module ApplicationHelper
-  def organization_header(slug:)
-    return unless File.exists?("app/views/shared/headers/_#{slug}.html.haml")
-    render(partial: "shared/headers/#{slug}")
+  def organization_template(slug:, type:)
+    return unless File.exists?("app/views/organizations/partials/#{type}/_#{slug}.html.haml")
+    render(partial: "organizations/partials/#{type}/#{slug}")
   end
 
   def display_question_choices(question:)

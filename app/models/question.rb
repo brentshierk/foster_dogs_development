@@ -31,7 +31,7 @@ class Question < ApplicationRecord
   validates :question_type, inclusion: { in: FORMATS }
   validates_presence_of :question_choices, if: :multiple_answer?
   validates_presence_of :uuid, :slug, :question_text, :question_type, :survey
-  validates_uniqueness_of :slug, :index, scope: :survey_id
+  validates_uniqueness_of :slug, :index, scope: :survey_id, allow_blank: true
 
   before_validation :ensure_uuid, :ensure_slug_format
   before_save :set_question_choices, if: :boolean?

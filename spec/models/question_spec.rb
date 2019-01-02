@@ -39,7 +39,7 @@ describe Question, type: :model do
       expect(subject.question_choices.present?).to be_falsey
       subject.question_type = Question::BOOLEAN
       subject.save!
-      expect(subject.question_choices).to eq(['true', 'false'])
+      expect(subject.reload.question_choices).to eq(['true', 'false'])
     end
   end
 

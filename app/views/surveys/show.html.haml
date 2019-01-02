@@ -1,9 +1,10 @@
-= organization_header(slug: @organization.slug)
-= render partial: 'shared/basic_user_info'
-.row
-  .col-md-12
-    %h3 Foster Preferences
+= organization_template(slug: @organization.slug, type: 'headers')
 .fr-form
+  = render partial: 'shared/basic_user_info'
+  .row
+    .col-md-12
+      %h3 Foster Preferences
   = form_tag do
     - @survey.questions.each do |q|
       = render partial: "shared/question", locals: { question: q }
+= organization_template(slug: @organization.slug, type: 'terms')

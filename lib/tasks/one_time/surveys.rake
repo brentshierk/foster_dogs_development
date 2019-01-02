@@ -26,7 +26,7 @@ namespace :one_time do
         survey.questions.find_or_create_by!(slug: 'fospice') do |q|
           q.question_text = 'Are you interested in participating in our Fospice program?'
           q.question_type = Question::BOOLEAN
-          q.question_subtext = 'If you are interested in being a "Forever Foster" caretaker for our "Fospice" program for dogs in their end-of-life months, check the box below. <span><a target="_blank" href="http://fosterdogsnyc.com/fospice/">here</a></span>'
+          q.question_subtext = 'If you are interested in being a "Forever Foster" caretaker for our "Fospice" program for dogs in their end-of-life months, check the box below. Learn more about the program <span><a target="_blank" href="http://fosterdogsnyc.com/fospice/">here</a></span>'
           q.queryable = true
           q.required = true
           q.index = 2
