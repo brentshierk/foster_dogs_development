@@ -38,6 +38,10 @@ class Question < ApplicationRecord
 
   belongs_to :survey
 
+  def self.ordered_for_survey
+    order("index ASC")
+  end
+
   def boolean?
     question_type == BOOLEAN
   end
