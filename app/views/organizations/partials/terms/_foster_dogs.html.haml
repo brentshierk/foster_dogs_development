@@ -14,3 +14,8 @@
         While we will keep track of the progress of any dog on our site, we do not handle the foster (or adoption) approval process, as that is the duty of the participating rescue organization. Information is provided to us by said organization. Once you begin communication with the third party (rescue group), Foster Dogs Inc is here for questions/comments/suggestions, but it becomes the responsibility of the rescue organization to continue the conversation and to review your application. Read more about our Foster Roster
         = link_to "here", "http://fosterdogsnyc.com/join-our-foster-roster/", target: :_blank
 %br
+.row
+  .col-md-12
+    .form-group
+      = check_box_tag :accepted_terms_at, 'true', false, { required: true }
+      I accept the terms and conditions above
