@@ -15,6 +15,7 @@
 #  index            :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  required         :boolean          default(FALSE)
 #
 
 require 'rails_helper'
@@ -77,6 +78,20 @@ describe Question, type: :model do
       it 'returns true' do
         expect(subject.multiple_answer?).to be_truthy
       end
+    end
+  end
+
+  describe '#ensure_slug_format' do
+    it 'sanitizes the slug' do
+      subject.slug = "Foo Bar"
+      subject.save!
+      expect(subject.slug).to eq('foo_bar')
+    end
+
+    it 'keeps the slug if it is in correct format' do
+      subject.slug = "foo_bar"
+      subject.save!
+      expect(subject.slug).to eq('foo_bar')
     end
   end
 end

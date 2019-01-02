@@ -12,7 +12,11 @@
 require 'rails_helper'
 
 describe Survey, type: :model do
-  it 'has an organization' do
+  it 'belogns to an organization' do
     expect(subject).to respond_to :organization
+  end
+
+  it 'has many questions' do
+    expect(subject).to respond_to :questions
   end
 end

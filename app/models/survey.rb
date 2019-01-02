@@ -11,6 +11,7 @@
 
 class Survey < ApplicationRecord
   belongs_to :organization
+  has_many :questions
 
   before_validation :ensure_uuid
 

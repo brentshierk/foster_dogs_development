@@ -1,4 +1,30 @@
 module ApplicationHelper
+  def organization_header(slug:)
+    return unless File.exists?("app/views/shared/headers/_#{slug}.html.haml")
+    render(partial: "shared/headers/#{slug}")
+  end
+
+  def display_question_choices(question:)
+    case question.question_type
+    when Question::BOOLEAN
+      select_tag question.slug.to_sym, options_for_select([['yes', true], ['no', false]]), { include_blank: true, class: 'form-control', required: question.required }
+    when Question::MULTI_SELECT
+      choices = ""
+
+      question.question_choices.each do |qc|
+        choices += "<div class='form-check-lable'>"
+        choices += check_box_tag question.slug.to_sym, qc, false, { multiple: true, class: 'form-check-input' }
+        choices += " #{qc}"
+        choices += "</div>"
+      end
+
+      html = "<div class='form-check-label'>#{choices}</div>"
+      html.html_safe
+    when Question::COUNT
+      text_field_tag question.slug.to_sym, nil, { class: 'form-control', required: question.required }
+    end
+  end
+
   def users_to_printed_list(users)
     users = users.to_a
     if users.count == 1

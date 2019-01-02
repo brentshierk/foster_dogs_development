@@ -15,6 +15,7 @@
 #  index            :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  required         :boolean          default(FALSE)
 #
 
 class Question < ApplicationRecord
@@ -30,9 +31,9 @@ class Question < ApplicationRecord
   validates :question_type, inclusion: { in: FORMATS }
   validates_presence_of :question_choices, if: :multiple_answer?
   validates_presence_of :uuid, :slug, :question_text, :question_type, :survey
-  validates_uniqueness_of :slug, scope: :survey_id
+  validates_uniqueness_of :slug, :index, scope: :survey_id
 
-  before_validation :ensure_uuid
+  before_validation :ensure_uuid, :ensure_slug_format
   before_save :set_question_choices, if: :boolean?
 
   belongs_to :survey
@@ -46,6 +47,10 @@ class Question < ApplicationRecord
   end
 
   private
+
+  def ensure_slug_format
+    self.slug = slug.parameterize.underscore
+  end
 
   def ensure_uuid
     self.uuid ||= SecureRandom.uuid
