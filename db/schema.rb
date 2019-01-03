@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190103001142) do
+ActiveRecord::Schema.define(version: 20190103164506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20190103001142) do
     t.index ["uuid"], name: "index_outreaches_on_uuid", unique: true, using: :btree
   end
 
-  create_table "outreaches_users", id: false, force: :cascade do |t|
+  create_table "outreaches_users", force: :cascade do |t|
     t.bigint "outreach_id", null: false
     t.bigint "user_id",     null: false
   end

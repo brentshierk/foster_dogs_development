@@ -4,6 +4,7 @@
 #
 #  outreach_id :bigint(8)        not null
 #  user_id     :bigint(8)        not null
+#  id          :integer          not null, primary key
 #
 
 class OutreachesUser < ApplicationRecord
