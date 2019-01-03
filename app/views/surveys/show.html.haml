@@ -1,5 +1,5 @@
 = organization_template(slug: @organization.slug, type: 'headers')
-= form_tag do
+= form_tag users_path do
   .fr-form
     = render partial: 'shared/basic_user_info'
     .row

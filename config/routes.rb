@@ -6,6 +6,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create] do
     collection do
+      post 'create_old'
+    end
+    collection do
       get 'thanks'
     end
   end

@@ -21,7 +21,7 @@
         %span= link_to 'Foster Roster Manual', 'http://fosterdogsnyc.com/manual/', target: :_blank
   %br
 
-  = form_for @user do |f|
+  = form_for @user, url: create_old_users_path do |f|
     = render partial: 'shared/user_form', locals: { f: f }
     %br
 

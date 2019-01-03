@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def create
+  def create_old
     @user = User.new(user_params)
 
     # parse date, because i'm lazy
@@ -30,6 +30,9 @@ class UsersController < ApplicationController
     Rollbar.error(e)
     flash[:alert] = "We're sorry! Something went wrong while submitting. Please try again."
     redirect_back(fallback_location: root_path)
+  end
+
+  def create
   end
 
   def thanks

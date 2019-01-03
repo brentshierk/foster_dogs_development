@@ -5,7 +5,7 @@ module ApplicationHelper
   end
 
   def display_question_choices(question:)
-    field_name = question.slug.to_sym
+    field_name = "survey[#{question.slug}]"
     basic_params = { class: 'form-control', required: question.required }
     case question.question_type
     when Question::BOOLEAN
@@ -15,7 +15,7 @@ module ApplicationHelper
 
       question.question_choices.each do |qc|
         choices += "<div class='form-check-lable'>"
-        choices += check_box_tag field_name, qc, false, { multiple: true, class: 'form-check-input' }
+        choices += check_box_tag "#{field_name}[]", qc, false, { multiple: true, class: 'form-check-input' }
         choices += " #{qc}"
         choices += "</div>"
       end
