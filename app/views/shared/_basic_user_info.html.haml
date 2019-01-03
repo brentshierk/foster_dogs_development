@@ -14,6 +14,11 @@
 .row
   .col-md-6
     .form-group
+      = label_tag :phone_number, "Phone Number"
+      = text_field_tag :phone_number, nil, { class: 'form-control', required: true }
+.row
+  .col-md-6
+    .form-group
       = label_tag :date_of_birth, "Date of Birth"
       %br
       = date_field_tag :date_of_birth, nil, { class: 'form-control date-select', required: true }

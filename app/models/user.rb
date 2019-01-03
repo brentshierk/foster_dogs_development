@@ -22,6 +22,7 @@
 #  unsubscribed_at   :datetime
 #  fosters_cats      :boolean
 #  big_dogs          :boolean
+#  phone_number      :string
 #
 
 class User < ApplicationRecord
