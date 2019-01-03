@@ -4,10 +4,9 @@ Rails.application.routes.draw do
 
   root 'users#new'
 
+  resources :survey_responses, only: [:create]
+
   resources :users, only: [:new, :create] do
-    collection do
-      post 'create_old'
-    end
     collection do
       get 'thanks'
     end
