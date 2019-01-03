@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
 
   def create_old
-    @user = User.new(user_params)
+    @user = User.new(old_user_params)
 
     # parse date, because i'm lazy
     month = params[:user]["date_of_birth(2i)"].to_i
@@ -17,14 +17,14 @@ class UsersController < ApplicationController
     @user.activity_preference_list = user_preference_params[:activity_preferences]
     @user.schedule_list = user_preference_params[:schedule]
     @user.experience_list = user_preference_params[:experience]
-    @user.accepted_terms_at = DateTime.current if user_params[:accepted_terms_at]
+    @user.accepted_terms_at = DateTime.current if old_user_params[:accepted_terms_at]
 
     @user.save!
 
     redirect_to thanks_users_path
   rescue ActiveRecord::RecordInvalid => e
     # this is a catchall since we're only validating on e-mail
-    flash[:alert] = "Email has already been taken. If you have any questions, please shoot us an email at roster@fosterdogsnyc.com"
+    flash[:alert] = "#{e.message}. If you have any questions, please shoot us an email at roster@fosterdogsnyc.com"
     redirect_back(fallback_location: root_path)
   rescue => e
     Rollbar.error(e)
@@ -33,6 +33,23 @@ class UsersController < ApplicationController
   end
 
   def create
+    ActiveRecord::Base.transaction do
+      @user = User.new(user_params)
+      @user.accepted_terms_at = Date.current
+      @user.save!
+      survey = Survey.find_by(uuid: survey_params[:uuid])
+      response_hash = survey_params.tap { |p| p.delete(:uuid) }
+      @user.survey_responses.find_or_create_by!(survey: survey) { |response| response.response = response_hash }
+      redirect_to thanks_users_path
+    end
+  rescue ActiveRecord::RecordInvalid => e
+    # this is a catchall since we're only validating on e-mail
+    flash[:alert] = "#{e.message}. If you have any questions, please shoot us an email at roster@fosterdogsnyc.com"
+    redirect_back(fallback_location: root_path)
+  rescue => e
+    Rollbar.error(e)
+    flash[:alert] = "We're sorry! Something went wrong while submitting. Please try again."
+    redirect_back(fallback_location: root_path)
   end
 
   def thanks
@@ -41,6 +58,21 @@ class UsersController < ApplicationController
   private
 
   def user_params
+    params.permit(
+      :name,
+      :email,
+      :phone_number,
+      :address,
+      :date_of_birth,
+      :accepted_terms_at
+    )
+  end
+
+  def survey_params
+    params.require(:survey)
+  end
+
+  def old_user_params
     params.
       require(:user).
       permit(

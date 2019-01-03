@@ -37,7 +37,7 @@ class User < ApplicationRecord
   before_validation :ensure_uuid
 
   has_many :notes
-
+  has_many :survey_responses
   has_many :outreaches_users
   has_many :outreaches, through: :outreaches_users
 

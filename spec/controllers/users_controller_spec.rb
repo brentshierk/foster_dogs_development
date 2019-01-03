@@ -3,6 +3,7 @@ require 'rails_helper'
 describe UsersController, type: :controller do
   describe '#create' do
     let(:email) { Faker::Internet.email }
+    let(:survey) { FactoryBot.create(:survey) }
     let(:params) do
       {
         "name"=>Faker::Name.name,
@@ -11,20 +12,8 @@ describe UsersController, type: :controller do
         "date_of_birth"=>(Date.current - 20.years).stamp("1989-05-20"),
         "address"=>Faker::Address.full_address,
         "survey"=>{
-          "fostered_before"=>"true",
-          "fostered_for"=>["BARRK LI", "Friends with Four Paws", "Hearts and Bones"],
-          "fospice"=>"false",
-          "owns_cats"=>"2",
-          "owns_dogs"=>"2",
-          "other_pets"=>"false",
-          "kids"=>"false",
-          "size"=>["Up to 25 lbs.", "25-50 lbs."],
-          "experience"=>["Fostered"],
-          "schedule"=>["4-7 hours per day",
-          "8+ hours per day"],
-          "activity"=>["Moderately active"],
-          "fosters_big_dogs"=>"true",
-          "fosters_cats"=>"true"
+          "uuid"=>survey.uuid,
+          "foo"=>"bar"
         },
         "accepted_terms_at"=>"true"
       }
@@ -36,6 +25,25 @@ describe UsersController, type: :controller do
 
     it 'creates survey response' do
       expect { post :create, params: params }.to change(SurveyResponse, :count).by(1)
+    end
+
+    it 'sets all the correct user attributes' do
+      post :create, params: params
+      user = User.find_by(email: email)
+      expect(user.name).to eq(params["name"])
+      expect(user.email).to eq(params["email"])
+      expect(user.phone_number).to eq(params["phone_number"])
+      expect(user.date_of_birth).to eq(Date.parse(params["date_of_birth"]))
+      expect(user.address).to eq(params["address"])
+      expect(user.accepted_terms_at).to_not be_nil
+    end
+
+    it 'creates the survey response with correct info' do
+      post :create, params: params
+      user = User.find_by(email: email)
+      response = user.survey_responses.first
+      expect(response.survey).to eq(survey)
+      expect(response.response).to eq({"foo"=>"bar"})
     end
 
     it 'redirects_to thank_you' do
