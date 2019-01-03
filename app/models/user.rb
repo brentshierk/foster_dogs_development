@@ -22,10 +22,11 @@
 #  unsubscribed_at   :datetime
 #  fosters_cats      :boolean
 #  big_dogs          :boolean
+#  phone_number      :string
 #
 
 class User < ApplicationRecord
-  searchkick
+  searchkick callbacks: :async
 
   paginates_per 50
 
@@ -36,7 +37,7 @@ class User < ApplicationRecord
   before_validation :ensure_uuid
 
   has_many :notes
-
+  has_many :survey_responses
   has_many :outreaches_users
   has_many :outreaches, through: :outreaches_users
 

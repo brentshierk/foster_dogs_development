@@ -1,0 +1,7 @@
+.row
+  .col-md-6
+    .form-group
+      = label_tag question.slug.to_sym, question.question_text
+      - if question.question_subtext.present?
+        %p=question.question_subtext.html_safe # allows us to link
+      = display_question_choices(question: question)

@@ -4,11 +4,18 @@ Rails.application.routes.draw do
 
   root 'users#new'
 
+  resources :survey_responses, only: [:create]
+
   resources :users, only: [:new, :create] do
     collection do
       get 'thanks'
     end
   end
+
+  resources :organization, param: :slug do
+    resource :survey, only: [:show]
+  end
+
   namespace :admin do
     resources :users do
       collection do

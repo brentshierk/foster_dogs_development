@@ -1,4 +1,36 @@
 module ApplicationHelper
+  def organization_template(slug:, type:)
+    return unless File.exists?("app/views/organizations/partials/#{type}/_#{slug}.html.haml")
+    render(partial: "organizations/partials/#{type}/#{slug}")
+  end
+
+  def display_question_choices(question:)
+    field_name = "survey[#{question.slug}]"
+    basic_params = { class: 'form-control', required: question.required }
+    case question.question_type
+    when Question::BOOLEAN
+      select_tag field_name, options_for_select([['yes', true], ['no', false]]), basic_params.merge({ include_blank: true })
+    when Question::MULTI_SELECT
+      choices = ""
+
+      question.question_choices.each do |qc|
+        choices += "<div class='form-check-lable'>"
+        choices += check_box_tag "#{field_name}[]", qc, false, { multiple: true, class: 'form-check-input' }
+        choices += " #{qc}"
+        choices += "</div>"
+      end
+
+      html = "<div class='form-check-label'>#{choices}</div>"
+      html.html_safe
+    when Question::COUNT
+      number_field_tag field_name, nil, basic_params
+    when Question::LONG_TEXT
+      text_area_tag field_name, nil, basic_params
+    when Question::SHORT_TEXT
+      text_field_tag field_name, nil, basic_params
+    end
+  end
+
   def users_to_printed_list(users)
     users = users.to_a
     if users.count == 1

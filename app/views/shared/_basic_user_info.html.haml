@@ -1,0 +1,29 @@
+.row
+  .col-md-12
+    %h3 Basic Information
+.row
+  .col-md-6
+    .form-group
+      = label_tag :name, "Name"
+      = text_field_tag :name, nil, { class: 'form-control', required: true }
+.row
+  .col-md-6
+    .form-group
+      = label_tag :email, "Email"
+      = text_field_tag :email, nil, { class: 'form-control', required: true }
+.row
+  .col-md-6
+    .form-group
+      = label_tag :phone_number, "Phone Number"
+      = text_field_tag :phone_number, nil, { class: 'form-control', required: true }
+.row
+  .col-md-6
+    .form-group
+      = label_tag :date_of_birth, "Date of Birth"
+      %br
+      = date_field_tag :date_of_birth, nil, { class: 'form-control date-select', required: true }
+.row
+  .col-md-6
+    .form-group
+      = label_tag :address, "Home Address"
+      = text_field_tag :address, nil, { class: 'form-control', required: true }

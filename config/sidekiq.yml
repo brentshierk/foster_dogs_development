@@ -1,0 +1,11 @@
+---
+:concurrency: 5
+staging:
+  :concurrency: 10
+production:
+  :concurrency: 20
+:queues:
+  - [critical, 5]
+  - [default, 2]
+  - [low, 1]
+  - [searchkick, 1]

@@ -1,0 +1,15 @@
+= organization_template(slug: @organization.slug, type: 'headers')
+= form_tag survey_responses_path do
+  = hidden_field_tag 'survey[uuid]', @survey.uuid
+  .fr-form
+    = render partial: 'shared/basic_user_info'
+    .row
+      .col-md-12
+        %h3 Foster Preferences
+    - @survey.questions.ordered_for_survey.each do |q|
+      = render partial: "shared/question", locals: { question: q }
+    = organization_template(slug: @organization.slug, type: 'terms')
+    .row
+      .col-md-12
+        .form-group
+          = submit_tag 'SUBMIT', { class: 'btn btn-primary' }

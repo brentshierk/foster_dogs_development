@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180625170620) do
+ActiveRecord::Schema.define(version: 20190103001142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
 
   create_table "dogs", force: :cascade do |t|
     t.string   "name"
@@ -40,10 +41,13 @@ ActiveRecord::Schema.define(version: 20180625170620) do
   create_table "organizations", force: :cascade do |t|
     t.uuid     "uuid"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.datetime "deleted_at"
+    t.datetime "published_at"
+    t.string   "slug",         null: false
     t.index ["deleted_at"], name: "index_organizations_on_deleted_at", using: :btree
+    t.index ["slug"], name: "index_organizations_on_slug", unique: true, using: :btree
     t.index ["uuid"], name: "index_organizations_on_uuid", unique: true, using: :btree
   end
 
@@ -62,6 +66,24 @@ ActiveRecord::Schema.define(version: 20180625170620) do
     t.bigint "user_id",     null: false
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.uuid     "uuid"
+    t.string   "slug",                             null: false
+    t.string   "description"
+    t.text     "question_text",                    null: false
+    t.string   "question_type",                    null: false
+    t.text     "question_subtext"
+    t.text     "question_choices", default: [],                 array: true
+    t.boolean  "queryable",        default: false
+    t.integer  "survey_id",                        null: false
+    t.integer  "index"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "required",         default: false
+    t.index ["index", "survey_id"], name: "index_questions_on_index_and_survey_id", unique: true, using: :btree
+    t.index ["slug", "survey_id"], name: "index_questions_on_slug_and_survey_id", unique: true, using: :btree
+  end
+
   create_table "statuses", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "dog_id"
@@ -70,6 +92,26 @@ ActiveRecord::Schema.define(version: 20180625170620) do
     t.datetime "updated_at", null: false
     t.index ["dog_id"], name: "index_statuses_on_dog_id", using: :btree
     t.index ["user_id"], name: "index_statuses_on_user_id", using: :btree
+  end
+
+  create_table "survey_responses", force: :cascade do |t|
+    t.uuid     "uuid",                           null: false
+    t.integer  "user_id",                        null: false
+    t.integer  "survey_id",                      null: false
+    t.integer  "organization_id",                null: false
+    t.jsonb    "response",        default: "{}", null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["response"], name: "index_survey_responses_on_response", using: :gin
+    t.index ["user_id", "survey_id", "organization_id"], name: "sr_index", unique: true, using: :btree
+  end
+
+  create_table "surveys", force: :cascade do |t|
+    t.uuid     "uuid"
+    t.integer  "organization_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["organization_id"], name: "index_surveys_on_organization_id", using: :btree
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -117,6 +159,7 @@ ActiveRecord::Schema.define(version: 20180625170620) do
     t.datetime "unsubscribed_at"
     t.boolean  "fosters_cats"
     t.boolean  "big_dogs"
+    t.string   "phone_number"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
   end

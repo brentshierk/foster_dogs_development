@@ -38,6 +38,8 @@ gem 'sidekiq'
 
 gem 'dalli'
 
+gem 'oj'
+
 group :production, :staging do
   gem 'rails_12factor'
 end
@@ -52,6 +54,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'better_errors'
+  gem 'rails-controller-testing'
 end
 
 group :development do
