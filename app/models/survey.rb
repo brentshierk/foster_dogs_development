@@ -17,6 +17,14 @@ class Survey < ApplicationRecord
 
   validates :organization, uniqueness: true
 
+  def self.foster_roster
+    joins(:organization).where(organizations: { uuid: Organization::FOSTER_DOGS_UUID })
+  end
+
+  def self.macc
+    joins(:organization).where(organizations: { uuid: Organization::MACC_UUID })
+  end
+
   private
 
   def ensure_uuid

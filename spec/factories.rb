@@ -7,6 +7,16 @@ FactoryBot.define do
 
   factory :organization do
     name { Faker::Company.name }
+
+    trait :foster_roster do
+      name 'Foster Dogs'
+      uuid Organization::FOSTER_DOGS_UUID
+    end
+
+    trait :macc do
+      name 'Metro Animal Care & Control'
+      uuid Organization::MACC_UUID
+    end
   end
 
   factory :survey do

@@ -218,5 +218,32 @@ namespace :one_time do
         end
       end
     end
+
+    desc 'ports foster dogs taggable items over to survey'
+    task cutover: :environment do
+      foster_dogs = Organization.foster_dogs
+      survey = foster_dogs.survey
+
+      User.find_each do |user|
+        next if user.survey_responses.foster_roster.present?
+
+        ActiveRecord::Base.transaction do
+          sr = SurveyResponse.new
+          sr.user = user
+          sr.organization = foster_dogs
+          sr.survey = survey
+
+          response_hash = {}
+
+          survey.questions.each do |question|
+            next if [:owns_cats, :owns_dogs].include?(question.slug.to_sym)
+            response_hash[question.slug] = user.question_to_preferences(question)
+          end
+
+          sr.response = response_hash
+          sr.save!
+        end
+      end
+    end
   end
 end

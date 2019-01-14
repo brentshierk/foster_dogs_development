@@ -98,6 +98,53 @@ class User < ApplicationRecord
     send("#{preference_category}_list").map(&:downcase).include?(preference.downcase)
   end
 
+  # used to translate the question slug data schema and return the taggable schema
+  def question_to_preferences(question)
+    data =  case question.slug.to_sym
+            when :fostered_before, :fospice, :fosters_cats, :other_pets, :kids
+              send(question.slug)
+            when :fostered_for
+              fostered_for.map { |r| ["Heavenly Angels", "Foster Dogs"].include?(r) ? "Other" : r }
+            when :size
+              size_preference_list.map { |r| "#{r} (#{SIZE_PREFERENCES[r]})" }
+            when :experience
+              experience_list.map do |r|
+                if ["Own / owned a dog", "Own / owned"].include?(r)
+                  "Own / Owned a dog"
+                elsif r == "Never cared for an animal before"
+                  "Other"
+                else
+                  r
+                end
+              end
+            when :schedule
+              schedule_list.map { |r| r == "Incomplete" ? "Almost never (0-3 hrs/day)" : r }
+            when :activity
+              activity_preference_list
+            when :fosters_big_dogs
+              big_dogs
+            else
+              raise StandardError, "Slug #{question.slug} not registered!"
+            end
+
+    validate_preferences!(answer: data, choices: question.question_choices)
+
+    data
+  end
+
+  def validate_preferences!(answer:, choices:)
+    return true if answer.nil?
+    return true unless choices.present?
+
+    verdict = if answer.is_a?(Array)
+                answer.all? { |r| choices.include?(r.to_s) }
+              else
+                choices.include?(answer.to_s)
+              end
+    debugger if verdict == false
+    raise 'preference does not match provided list!' unless verdict
+  end
+
   private
 
   def ensure_uuid
