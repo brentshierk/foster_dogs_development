@@ -23,10 +23,21 @@ class Organization < ApplicationRecord
 
   before_validation :ensure_uuid, :ensure_slug
 
+  FOSTER_DOGS_UUID = 'ad9dacb7-f6f5-4874-8051-76f00f65d2ff'
+  MACC_UUID= '2df431c8-f57d-4480-8249-f149fab7be58'
+
   # used to list out names for the organization checkboxes on onboarding
   # could be moved to application helper
   def self.all_names
     pluck(:name).append('Other')
+  end
+
+  def self.foster_dogs
+    find_by(uuid: FOSTER_DOGS_UUID)
+  end
+
+  def self.macc
+    find_by(uuid: MACC_UUID)
   end
 
   private

@@ -26,4 +26,24 @@ describe SurveyResponse, type: :model do
   it 'has an survey' do
     expect(subject).to respond_to(:survey)
   end
+
+  describe '.foster_roster' do
+    let!(:organization) { FactoryBot.create(:organization, :foster_roster) }
+    let!(:survey) { FactoryBot.create(:survey, organization: organization) }
+    let!(:response) { FactoryBot.create(:survey_response, organization: organization, survey: survey) }
+
+    it 'returns the survey responses of those that sent a survey through foster roster' do
+      expect(SurveyResponse.foster_roster).to include(response)
+    end
+  end
+
+  describe '.macc' do
+    let!(:organization) { FactoryBot.create(:organization, :macc) }
+    let!(:survey) { FactoryBot.create(:survey, organization: organization) }
+    let!(:response) { FactoryBot.create(:survey_response, organization: organization, survey: survey) }
+
+    it 'returns the survey responses of those that sent a survey through MACC' do
+      expect(SurveyResponse.macc).to include(response)
+    end
+  end
 end
