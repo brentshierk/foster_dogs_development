@@ -18,7 +18,7 @@ describe Organization, type: :model do
   describe '#ensure_slug' do
     it 'sets the slug based on name' do
       organization = Organization.create!(name: 'foo bar')
-      expect(organization.slug).to eq('foo_bar')
+      expect(organization.slug).to eq('foo-bar')
     end
 
     context 'setting slug seperately' do

@@ -48,8 +48,6 @@ class User < ApplicationRecord
   after_validation :geocode, if: ->(obj){ obj.address.present? && obj.address_changed? }
   after_commit :subscribe_to_mailchimp, on: :create
 
-  default_scope { includes(:outreaches, :notes, :tags) }
-
   # TODO: maybe refactor this
   SIZE_PREFERENCES = {
     "Small" => "Up to 25 lbs.",

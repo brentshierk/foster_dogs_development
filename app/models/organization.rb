@@ -20,6 +20,8 @@ class Organization < ApplicationRecord
 
   has_many :outreaches
   has_one :survey
+  has_many :survey_responses, through: :survey
+  has_many :users, through: :survey_responses
 
   before_validation :ensure_uuid, :ensure_slug
 
@@ -47,6 +49,6 @@ class Organization < ApplicationRecord
   end
 
   def ensure_slug
-    self.slug ||= name.parameterize.underscore
+    self.slug ||= name.parameterize
   end
 end
