@@ -37,6 +37,10 @@ FactoryBot.define do
     question_subtext { Faker::Lorem.paragraph }
     survey
 
+    trait :boolean do
+      question_type Question::BOOLEAN
+    end
+
     after :build do |q|
       q.question_choices = ['foo', 'bar'] if q.multiple_answer?
     end
