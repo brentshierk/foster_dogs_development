@@ -40,6 +40,7 @@ gem 'dalli'
 
 gem 'oj'
 
+
 group :production, :staging do
   gem 'rails_12factor'
 end
@@ -58,6 +59,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'bullet'
   gem 'annotate'
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.0.5'
