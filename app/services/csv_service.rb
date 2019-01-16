@@ -6,7 +6,7 @@ class CsvService
   def initialize(organization:, users:)
     @organization = organization
     @users = users
-    @survey = Survey.includes(:questions))
+    @survey = Survey.includes(:questions)
   end
 
   def generate_users_csv!
