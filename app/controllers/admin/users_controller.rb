@@ -1,7 +1,7 @@
 module Admin
   class UsersController < AdminController
     before_action :find_user, only: [:show, :edit, :update]
-    before_action :load_organization
+    before_action :load_organization, except: [:download_csv]
 
     def index
       @active_filters = Hash.new
@@ -61,19 +61,19 @@ module Admin
     end
 
     def download_csv
+      @organization = Organization.includes(survey: :questions).find_by(slug: params[:organization_slug])
       csv = CsvService.new(organization: @organization, users: @organization.users.includes(survey_responses: :organization)).generate_users_csv!
       send_data csv, filename: "#{@organization.slug}-#{Date.current}.csv"
     rescue => e
       Rollbar.error(e)
       flash[:alert] = e.message
-      redirect_back(fallback_location: admin_users_path)
+      redirect_back(fallback_location: admin_organization_users_path(slug: @organization.slug))
     end
 
     private
 
     def load_organization
-      params[:organization_slug] ||= Organization.foster_dogs.slug
-      @organization = Organization.includes(survey: :questions).find_by(slug: params[:organization_slug])
+      @organization = Organization.find_by(slug: params[:organization_slug])
     end
 
     def find_user

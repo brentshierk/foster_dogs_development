@@ -16,6 +16,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  required         :boolean          default(FALSE)
+#  displayable      :boolean          default(FALSE)
 #
 
 class Question < ApplicationRecord
@@ -40,6 +41,10 @@ class Question < ApplicationRecord
 
   def self.ordered_for_survey
     order("index ASC")
+  end
+
+  def self.displayable
+    where(displayable: true)
   end
 
   def boolean?

@@ -42,17 +42,15 @@
     %table.table.table-bordered.table-hover.users-table
       %thead
         %th
-        %th Applied On
         %th Name
-        - @organization.survey.questions.each do |question|
+        - @organization.survey.questions.displayable.each do |question|
           %th= question.slug.to_s.humanize.capitalize
         %th Outreach History (Most Recent)
       - @users.each do |user|
         %tr
           %td= check_box_tag 'user_ids[]', user.id
-          %td= user.created_at.stamp("May 20, 1989")
           %td= link_to user.name, admin_organization_user_path(organization_slug: @organization.slug, id: user.id)
-          - @organization.survey.questions.each do |question|
+          - @organization.survey.questions.displayable.each do |question|
             %td= value_to_human_readable(user.survey_responses.select {|sr| sr.organization == @organization }.first.response[question.slug.to_s])
           %td
             - user.outreaches.sort { |x, y| x.created_at <=> y.created_at }.last(5).each do |outreach|

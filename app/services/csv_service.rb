@@ -1,12 +1,11 @@
 require 'csv'
 
 class CsvService
-  attr_reader :organization, :users, :survey
+  attr_reader :organization, :users
 
   def initialize(organization:, users:)
     @organization = organization
     @users = users
-    @survey = Survey.includes(:questions)
   end
 
   def generate_users_csv!
@@ -60,7 +59,7 @@ class CsvService
   end
 
   def survey_columns
-    survey.questions.pluck(:slug)
+    organization.survey.questions.pluck(:slug)
   end
 
   def user_columns
