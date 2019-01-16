@@ -44,7 +44,7 @@ class Question < ApplicationRecord
   end
 
   def self.displayable
-    where(displayable: true)
+    select { |r| r.displayable? }
   end
 
   def boolean?
