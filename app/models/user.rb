@@ -41,6 +41,7 @@ class User < ApplicationRecord
   has_many :outreaches_users
   has_many :outreaches, through: :outreaches_users
 
+  # TODO: delete me
   acts_as_taggable
   acts_as_taggable_on :experience, :schedule, :size_preferences, :activity_preferences
 
@@ -48,7 +49,7 @@ class User < ApplicationRecord
   after_validation :geocode, if: ->(obj){ obj.address.present? && obj.address_changed? }
   after_commit :subscribe_to_mailchimp, on: :create
 
-  # TODO: maybe refactor this
+  # TODO: delete me
   SIZE_PREFERENCES = {
     "Small" => "Up to 25 lbs.",
     "Medium" => "25-50 lbs.",
@@ -59,19 +60,6 @@ class User < ApplicationRecord
   ACTIVITY_PREFERENCES = ["Low activity", "Moderately active", "Active", "Young puppy"]
 
   scope :subscribed, -> { where.not(subscribed_at: nil).where(unsubscribed_at: nil) }
-
-  def to_indexed_json
-    {
-      uuid: uuid,
-      name: name,
-      email: email,
-      fostered_before: fostered_before,
-      fospice: fospice,
-      other_pets: other_pets,
-      kids: kids,
-      address: address
-    }.to_json
-  end
 
   def self.size_preferences
     tag_counts_on("size_preferences").map(&:name).uniq.sort
@@ -89,6 +77,7 @@ class User < ApplicationRecord
     !subscribed_at.nil? && unsubscribed_at.nil?
   end
 
+  # TODO: delete me
   def has_preference?(preference_category, preference)
     # acts_as_taggable has a weird thing with the tag name where only the first letter can be capitalized
     # Own / Owned a dog is turned to Own / owned a dog which results in a mismatch
