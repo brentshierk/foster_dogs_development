@@ -1,10 +1,10 @@
 .row
   .col-md-2
     %h5 Signups Past 24 Hours
-    %p= User.where("created_at >= ? AND created_at <= ?", DateTime.current - 1.day, DateTime.current).count
+    %p= SurveyResponse.where("created_at >= ? AND created_at <= ?", DateTime.current - 1.day, DateTime.current).count
   .col-md-2
     %h5 Signups Past 7 Days
-    %p= User.where("created_at >= ? AND created_at <= ?", DateTime.current - 7.days, DateTime.current).count
+    %p= SurveyResponse.where("created_at >= ? AND created_at <= ?", DateTime.current - 7.days, DateTime.current).count
   .col-md-2
     %h5 Outreaches Past 24 Hours
     %p= OutreachesUser.joins(:outreach).where("outreaches.created_at >= ? AND outreaches.created_at <= ?", DateTime.current - 1.days, DateTime.current).count
@@ -44,22 +44,18 @@
         %th
         %th Applied On
         %th Name
-        %th Experience
-        %th Schedule
-        %th Size Preferences
-        %th Has Other Pets
-        %th Most Recent Contacts
+        - @organization.survey.questions.each do |question|
+          %th= question.slug.to_s.humanize.capitalize
+        %th Outreach History (Most Recent)
       - @users.each do |user|
         %tr
           %td= check_box_tag 'user_ids[]', user.id
           %td= user.created_at.stamp("May 20, 1989")
-          %td= link_to user.name, admin_user_path(user)
-          %td= list_to_link(:experience, user.experience_list)
-          %td= list_to_link(:schedule, user.schedule_list)
-          %td= list_to_link(:size_preferences, user.size_preference_list)
-          %td= bool_to_affirmative(user.other_pets)
+          %td= link_to user.name, admin_organization_user_path(organization_slug: @organization.slug, id: user.id)
+          - @organization.survey.questions.each do |question|
+            %td= value_to_human_readable(user.survey_responses.select {|sr| sr.organization == @organization }.first.response[question.slug.to_s])
           %td
-            - user.outreaches.order("created_at DESC").last(5).each do |outreach|
+            - user.outreaches.sort { |x, y| x.created_at <=> y.created_at }.last(5).each do |outreach|
               %div
                 %strong
                   = link_to outreach.subject, admin_outreach_path(outreach.id)
@@ -67,4 +63,5 @@
                   = "on behalf of"
                   = link_to outreach.organization.name, admin_organization_path(outreach.organization)
                 = "on #{ outreach.created_at.stamp("May 20, 1989") }"
+
 = paginate @users if @paginate
