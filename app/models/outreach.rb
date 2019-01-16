@@ -11,6 +11,8 @@
 #
 
 class Outreach < ApplicationRecord
+  paginates_per 50
+
   before_create :ensure_uuid
 
   belongs_to :organization

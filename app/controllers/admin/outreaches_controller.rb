@@ -3,7 +3,7 @@ class Admin::OutreachesController < AdminController
   before_action :require_users, only: [:new, :build, :create]
 
   def index
-    @outreaches = Outreach.order('created_at DESC').includes(:users, :organization)
+    @outreaches = Outreach.order('created_at DESC').includes(:users, :organization).page(params[:page])
   rescue => e
     Rollbar.error(e)
     flash[:alert] = e.message
@@ -14,6 +14,7 @@ class Admin::OutreachesController < AdminController
   end
 
   # hack to fix 414 html error
+  # we POST to build and render the admin/outreaches#new view
   def build
     @users = User.where(id: params[:user_ids])
     @outreach = Outreach.new

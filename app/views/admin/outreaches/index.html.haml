@@ -14,3 +14,4 @@
         - outreach.users.each do |u|
           = succeed ',' do
             = link_to u.name, admin_user_path(u)
+= paginate @outreaches
