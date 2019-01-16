@@ -3,7 +3,7 @@ class Admin::OutreachesController < AdminController
   before_action :require_users, only: [:new, :build, :create]
 
   def index
-    @outreaches = Outreach.order('created_at DESC').includes(:users)
+    @outreaches = Outreach.order('created_at DESC').includes(:users, :organization)
   rescue => e
     Rollbar.error(e)
     flash[:alert] = e.message
