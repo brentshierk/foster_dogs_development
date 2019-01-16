@@ -11,15 +11,15 @@
     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
-          <%= link_to 'Foster Roster', admin_users_path, class: 'navbar-brand' %>
+          <%= link_to 'Foster Roster', admin_organization_users_path(organization_slug: @organization.slug), class: 'navbar-brand' %>
         </div>
         <ul class="nav navbar-nav">
-          <li><%= link_to 'Apply Filters', show_filters_admin_users_path %></li>
-          <li><%= link_to 'Users', admin_users_path %></li>
+          <li><%= link_to 'Apply Filters', show_filters_admin_organization_users_path(organization_slug: @organization.slug) %></li>
+          <li><%= link_to 'Users', admin_organization_users_path(organization_slug: @organization.slug) %></li>
           <li><%= link_to 'Outreaches', admin_outreaches_path %></li>
-          <li><%= link_to 'Download Entire Roster', download_csv_admin_organization_users_path(@organization.slug), method: :post %></li>
+          <li><%= link_to 'Download Entire Roster', download_csv_admin_organization_users_path(organization_slug: @organization.slug), method: :post %></li>
         </ul>
-        <%= form_tag search_admin_users_path, method: :get, class: 'navbar-form navbar-left' do %>
+        <%= form_tag search_admin_organization_users_path(@organization), method: :get, class: 'navbar-form navbar-left' do %>
           <div class="form-group">
             <%= text_field_tag 'user_search', nil, class: 'form-control', placeholder: 'Search' %>
           </div>
