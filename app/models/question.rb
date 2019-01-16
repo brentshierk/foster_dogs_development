@@ -43,10 +43,6 @@ class Question < ApplicationRecord
     order("index ASC")
   end
 
-  def self.displayable
-    select { |r| r.displayable? }
-  end
-
   def boolean?
     question_type == BOOLEAN
   end

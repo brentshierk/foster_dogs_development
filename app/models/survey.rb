@@ -12,6 +12,7 @@
 class Survey < ApplicationRecord
   belongs_to :organization
   has_many :questions
+  has_many :displayable_questions, -> { where(displayable: true) }, class_name: "Question"
   has_many :survey_responses
 
   before_validation :ensure_uuid

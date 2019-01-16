@@ -8,7 +8,7 @@ class AdminController < ApplicationController
   private
 
   def load_organization
-    @organization = Organization.includes(survey: :questions).find_by(uuid: Organization::FOSTER_DOGS_UUID)
+    @organization = Organization.includes(survey: [:questions, :displayable_questions]).find_by(uuid: Organization::FOSTER_DOGS_UUID)
     @survey = @organization.survey
   end
 end
