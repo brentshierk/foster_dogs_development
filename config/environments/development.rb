@@ -40,10 +40,8 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   config.logger = Logger.new(STDOUT)
 
-  # config.after_initialize do
-  #   Bullet.enable = true
-  #   Bullet.alert = true
-  #   Bullet.console = true
-  #   Bullet.add_footer = true
-  # end
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.rails_logger = true
+  end
 end
