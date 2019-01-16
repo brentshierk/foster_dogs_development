@@ -16,6 +16,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  required         :boolean          default(FALSE)
+#  displayable      :boolean          default(FALSE)
 #
 
 require 'rails_helper'
