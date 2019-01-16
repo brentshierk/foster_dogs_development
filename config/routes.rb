@@ -17,24 +17,24 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resources :users, except: [:new, :create] do
+      collection do
+        get 'search'
+        get 'show_filters'
+        post 'download_csv'
+      end
+
+      resources :outreaches, only: :destroy
+      resources :notes, only: :create
+    end
+
     resources :outreaches do
       collection do
         post 'build'
       end
     end
 
-    resources :organizations, only: :show, param: :slug do
-      resources :users, except: [:new, :create] do
-        collection do
-          get 'search'
-          get 'show_filters'
-          post 'download_csv'
-        end
-
-        resources :outreaches, only: :destroy
-        resources :notes, only: :create
-      end
-    end
+    resources :organizations, only: :show
   end
 
   get 'admin' => 'admin/users#index'
