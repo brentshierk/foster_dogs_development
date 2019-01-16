@@ -7,7 +7,6 @@
 #  name         :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  deleted_at   :datetime
 #  published_at :datetime
 #  slug         :string           not null
 #
