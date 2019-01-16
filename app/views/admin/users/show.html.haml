@@ -26,7 +26,7 @@
         %span.info__label Accepted Terms and Conditions:
         %span.info__text= value_to_human_readable(@user.accepted_terms_at.present?)
     %div
-      %h3 Preferences
+      %h3 Survey Response
       - @survey.questions.each do |q|
         %div
           %span.info__label= q.question_text
@@ -59,7 +59,7 @@
             %td= note.author
             %td= note.created_at.stamp('May 20, 1989')
 
-      = form_for [:admin, @organization, @user, @note] do |f|
+      = form_for [:admin, @user, @note] do |f|
         %div.form-group
           = f.label 'Note:'
           = f.text_area :note, class: 'form-control', required: true
