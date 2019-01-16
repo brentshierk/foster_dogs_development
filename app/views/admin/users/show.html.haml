@@ -1,4 +1,4 @@
-= link_to 'Edit User', edit_admin_user_path(@user.id), class: 'btn btn-primary pull-right'
+= link_to 'Edit User', edit_admin_user_path(id: @user.id), class: 'btn btn-primary pull-right'
 .row
   .col-md-6
     %h1= @user.name
@@ -14,12 +14,6 @@
         %span.info__label Birthday:
         %span.info__text= @user.date_of_birth.stamp("May 2, 1989") if @user.date_of_birth
       %div
-        %span.info__label Experience:
-        %span.info__text= @user.experience_list
-      %div
-        %span.info__label Schedule:
-        %span.info__text= @user.schedule_list
-      %div
         %span.info__label Submitted Application At:
         %span.info__text= @user.created_at.stamp("May 20, 1989")
       %div
@@ -30,36 +24,13 @@
         %span.info__text= "#{@user.latitude}/#{@user.longitude}"
       %div
         %span.info__label Accepted Terms and Conditions:
-        %span.info__text= bool_to_affirmative(@user.accepted_terms_at.present?)
+        %span.info__text= value_to_human_readable(@user.accepted_terms_at.present?)
     %div
       %h3 Preferences
-      %div
-        %span.info__label Size Preferences:
-        %span.info__text= @user.size_preference_list
-      %div
-        %span.info__label Activity Preferences:
-        %span.info__text= @user.activity_preference_list
-      %div
-        %span.info__label Fostered Before:
-        %span.info__text= bool_to_affirmative(@user.fostered_before?)
-      %div
-        %span.info__label Previous Fosters:
-        %span.info__text= @user.fostered_for.present? ? @user.fostered_for.join(", ") : 'N/A'
-      %div
-        %span.info__label Fospice?:
-        %span.info__text= bool_to_affirmative(@user.fospice?)
-      %div
-        %span.info__label Has other pets?:
-        %span.info__text= bool_to_affirmative(@user.other_pets?)
-      %div
-        %span.info__label Willing to foster cats?:
-        %span.info__text= bool_to_affirmative(@user.fosters_cats?)
-      %div
-        %span.info__label Willing to foster big dogs?:
-        %span.info__text= @user.big_dogs.nil? ? 'N/A' : bool_to_affirmative(@user.big_dogs?)
-      %div
-        %span.info__label Has children?
-        %span.info__text= bool_to_affirmative(@user.kids?)
+      - @survey.questions.each do |q|
+        %div
+          %span.info__label= q.question_text
+          %span.info__text= value_to_human_readable(@survey_response.response[q.slug.to_s])
   .col-md-6
     %div
       %h3 Outreaches
@@ -73,7 +44,7 @@
           %tr
             %td= link_to outreach.subject, admin_outreach_path(outreach)
             %td= outreach.created_at.stamp('May 20, 1989')
-            %td= outreach.organization.present? ? link_to(outreach.organization.name, admin_organization_path(outreach.organization)) : ''
+            %td= outreach.organization.present? ? link_to(outreach.organization.name, admin_path(outreach.organization)) : ''
             %td= link_to "remove", admin_user_outreach_path(user_id: @user.id, id: outreach.id), method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: 'Are you absolutely sure?' }
     %div
       %h3 Admin Notes
@@ -88,7 +59,7 @@
             %td= note.author
             %td= note.created_at.stamp('May 20, 1989')
 
-      = form_for [:admin, @user, @note] do |f|
+      = form_for [:admin, @organization, @user, @note] do |f|
         %div.form-group
           = f.label 'Note:'
           = f.text_area :note, class: 'form-control', required: true

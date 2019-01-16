@@ -1,5 +1,4 @@
-= form_tag(admin_organization_users_path, method: :get, class: 'filter-form') do
-  - hidden_field_tag :organization_slug, @organization.slug
+= form_tag(admin_users_path, method: :get, class: 'filter-form') do
   .row
     .col-md-12
       %h1.pull-left Filters

@@ -63,7 +63,7 @@ module ApplicationHelper
     html = ""
 
     tag_list.each_with_index do |l, i|
-      html += link_to l, admin_organization_users_path(organization_slug: @organization.slug, tag_type => l)
+      html += link_to l, admin_users_path(tag_type => l)
       html += ", " unless i == tag_list.count - 1
     end
 
