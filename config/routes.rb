@@ -26,12 +26,20 @@ Rails.application.routes.draw do
       resources :outreaches, only: :destroy
       resources :notes, only: [:create]
     end
+
     resources :outreaches do
       collection do
         post 'build'
       end
     end
-    resources :organizations, only: [:show]
+
+    resources :organizations, only: :show, param: :slug do
+      resources :users, except: [:new, :create] do
+        collection do
+          post 'download_csv'
+        end
+      end
+    end
   end
 
   get 'admin' => 'admin/users#index'

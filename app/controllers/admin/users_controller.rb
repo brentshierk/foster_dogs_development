@@ -2,6 +2,7 @@ module Admin
   class UsersController < AdminController
     before_action :load_filter_categories, only: :show_filters
     before_action :find_user, only: [:show, :edit, :update]
+    before_action :load_organization
 
     def index
       @active_filters = Hash.new
@@ -76,11 +77,8 @@ module Admin
     end
 
     def download_csv
-      csv = Rails.cache.fetch('all-users-csv', expires_in: 48.hours) do
-        CsvService.users(users: User.all.order('created_at ASC'))
-      end
-
-      send_data csv, filename: "foster-roster-#{Date.current}.csv"
+      csv = CsvService.new(organization: @organization, users: @organization.users).generate_users_csv!
+      send_data csv, filename: "#{@organization.slug}-#{Date.current}.csv"
     rescue => e
       Rollbar.error(e)
       flash[:alert] = e.message
@@ -88,6 +86,10 @@ module Admin
     end
 
     private
+
+    def load_organization
+      @organization = Organization.includes(survey: [:questions], users: { survey_responses: :organization }).find_by(slug: params[:organization_slug])
+    end
 
     def user_params
       params.

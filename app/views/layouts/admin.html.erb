@@ -17,7 +17,7 @@
           <li><%= link_to 'Apply Filters', show_filters_admin_users_path %></li>
           <li><%= link_to 'Users', admin_users_path %></li>
           <li><%= link_to 'Outreaches', admin_outreaches_path %></li>
-          <li><%= link_to 'Download Entire Roster', download_csv_admin_users_path, method: :post %></li>
+          <li><%= link_to 'Download Entire Roster', download_csv_admin_organization_users_path(@organization.slug), method: :post %></li>
         </ul>
         <%= form_tag search_admin_users_path, method: :get, class: 'navbar-form navbar-left' do %>
           <div class="form-group">
