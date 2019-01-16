@@ -6,7 +6,7 @@ class CsvService
   def initialize(organization:, users:)
     @organization = organization
     @users = users
-    @survey = survey
+    @survey = Survey.includes(:questions))
   end
 
   def generate_users_csv!
@@ -60,7 +60,7 @@ class CsvService
   end
 
   def survey_columns
-    @organization.survey.questions.pluck(:slug)
+    survey.questions.pluck(:slug)
   end
 
   def user_columns
