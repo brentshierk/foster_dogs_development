@@ -61,6 +61,10 @@ class User < ApplicationRecord
 
   scope :subscribed, -> { where.not(subscribed_at: nil).where(unsubscribed_at: nil) }
 
+  def self.for_index_page
+    subscribed.order('created_at DESC')
+  end
+
   def self.size_preferences
     tag_counts_on("size_preferences").map(&:name).uniq.sort
   end

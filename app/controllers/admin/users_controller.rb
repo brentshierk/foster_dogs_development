@@ -5,7 +5,7 @@ module Admin
     def index
       @active_filters = Hash.new
 
-      query = User.subscribed.order('created_at DESC')
+      query = User.for_index_page
 
       # if taggable_filter_params.present?
       #   @active_filters.merge!(taggable_filter_params)
@@ -27,8 +27,9 @@ module Admin
     end
 
     def search
-      @users =  User.subscribed.order('users.created_at DESC').search(params[:user_search], page: params[:page])
+      @users =  User.for_index_page.search(params[:user_search], page: params[:page])
       @search_term = params[:user_search]
+      @paginate = true
       @all_users = @users
       render 'index'
     rescue => e
