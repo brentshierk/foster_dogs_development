@@ -17,16 +17,6 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :users do
-      collection do
-        get 'search'
-        get 'show_filters'
-        post 'download_csv'
-      end
-      resources :outreaches, only: :destroy
-      resources :notes, only: [:create]
-    end
-
     resources :outreaches do
       collection do
         post 'build'
@@ -36,8 +26,13 @@ Rails.application.routes.draw do
     resources :organizations, only: :show, param: :slug do
       resources :users, except: [:new, :create] do
         collection do
+          get 'search'
+          get 'show_filters'
           post 'download_csv'
         end
+
+        resources :outreaches, only: :destroy
+        resources :notes, only: :create
       end
     end
   end
