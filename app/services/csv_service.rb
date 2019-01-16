@@ -59,7 +59,7 @@ class CsvService
   end
 
   def survey_columns
-    organization.survey.questions.pluck(:slug)
+    @survey_columns ||= organization.survey.questions.pluck(:slug)
   end
 
   def user_columns

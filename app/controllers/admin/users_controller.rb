@@ -1,17 +1,12 @@
 module Admin
   class UsersController < AdminController
     before_action :find_user, only: [:show, :edit, :update]
-    before_action :load_organization, except: [:download_csv]
+    before_action :load_organization, except: :download_csv
 
     def index
       @active_filters = Hash.new
 
-      query = User
-                .subscribed
-                .order('users.created_at DESC')
-                .includes(:outreaches, survey_responses: [:organization])
-                .where(survey_responses: { organization: @organization })
-                .references(:survey_responses)
+      query = User.subscribed.order('created_at DESC')
 
       # if taggable_filter_params.present?
       #   @active_filters.merge!(taggable_filter_params)
@@ -33,12 +28,8 @@ module Admin
     end
 
     def search
-      # TODO: clean this up
-      # this is hacky, but we reload out of the elasticsearch results to hit activerecord and allow pagination
-      search = User.search(params[:user_search]) if params[:user_search]
-      search_uuids = search.results.map(&:uuid)
+      @users =  User.subscribed.order('users.created_at DESC').search(params[:user_search], page: params[:page])
       @search_term = params[:user_search]
-      @users = User.where(uuid: search_uuids).page(params[:page])
       @all_users = @users
       render 'index'
     rescue => e
@@ -62,7 +53,10 @@ module Admin
 
     def download_csv
       @organization = Organization.includes(survey: :questions).find_by(slug: params[:organization_slug])
-      csv = CsvService.new(organization: @organization, users: @organization.users.includes(survey_responses: :organization)).generate_users_csv!
+      @users = @organization.users.includes(survey_responses: :organization)
+
+      csv = CsvService.new(organization: @organization, users: @users).generate_users_csv!
+
       send_data csv, filename: "#{@organization.slug}-#{Date.current}.csv"
     rescue => e
       Rollbar.error(e)
