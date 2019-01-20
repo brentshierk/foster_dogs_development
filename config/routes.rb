@@ -2,18 +2,16 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 
-  root 'users#new'
+  root 'surveys#show', organization_slug: 'foster-dogs'
 
   resources :survey_responses, only: [:create]
 
-  resources :users, only: [:new, :create] do
-    collection do
-      get 'thanks'
-    end
-  end
-
   resources :organization, param: :slug do
-    resource :survey, only: [:show]
+    resource :survey, only: [:show] do
+      collection do
+        get 'thanks'
+      end
+    end
   end
 
   namespace :admin do
