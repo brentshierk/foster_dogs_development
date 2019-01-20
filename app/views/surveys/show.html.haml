@@ -1,6 +1,7 @@
 = organization_template(slug: @organization.slug, type: 'headers')
 = form_tag survey_responses_path do
   = hidden_field_tag 'survey[uuid]', @survey.uuid
+  = hidden_field_tag 'organization_slug', @organization.slug
   .fr-form
     = render partial: 'shared/basic_user_info'
     .row

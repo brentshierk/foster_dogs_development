@@ -15,6 +15,7 @@ describe SurveyResponsesController, type: :controller do
           "uuid"=>survey.uuid,
           "foo"=>"bar"
         },
+        "organization_slug" => survey.organization.slug,
         "accepted_terms_at"=>"true"
       }
     end
@@ -47,7 +48,7 @@ describe SurveyResponsesController, type: :controller do
     end
 
     it 'redirects_to thank_you' do
-      expect(post :create, params: params).to redirect_to(thanks_users_path)
+      expect(post :create, params: params).to redirect_to(thanks_organization_survey_path(organization_slug: survey.organization.slug))
     end
   end
 end
