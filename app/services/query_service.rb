@@ -7,8 +7,12 @@ class QueryService
 
   def where(query_params)
     users = User
+              .for_index_page
+              .includes(outreaches: :organization)
               .joins(:survey_responses)
               .where('survey_responses.organization_id = ?', organization.id)
+
+    return users unless query_params.present?
 
     query_params.each do |slug, parameters|
       question = organization.survey.questions.find_by!(slug: slug)

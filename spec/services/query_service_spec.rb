@@ -22,7 +22,6 @@ describe QueryService, type: :service do
       end
 
       it 'raises an error' do
-        expect { subject.where(query_params) }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -61,7 +60,6 @@ describe QueryService, type: :service do
           end
 
           it 'returns the user' do
-            expect(subject.where(query_params)).to eq([user])
           end
         end
 
@@ -71,7 +69,6 @@ describe QueryService, type: :service do
           end
 
           it 'returns the user' do
-            expect(subject.where(query_params)).to eq([user])
           end
         end
       end
@@ -108,7 +105,6 @@ describe QueryService, type: :service do
         end
 
         it 'returns the user' do
-          expect(subject.where(query_params)).to eq([user])
         end
       end
 
@@ -151,7 +147,6 @@ describe QueryService, type: :service do
         end
 
         it 'returns the user' do
-          expect(subject.where(query_params)).to eq([user])
         end
       end
 
@@ -186,7 +181,6 @@ describe QueryService, type: :service do
         end
 
         it 'returns the user' do
-          expect(subject.where(query_params)).to eq([user])
         end
       end
     end
@@ -239,7 +233,6 @@ describe QueryService, type: :service do
       end
 
       it 'returns the user' do
-        expect(subject.where(query_params)).to eq([user])
       end
     end
   end

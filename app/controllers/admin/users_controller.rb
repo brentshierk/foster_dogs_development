@@ -1,29 +1,12 @@
 module Admin
   class UsersController < AdminController
     before_action :find_user, only: [:show, :edit, :update]
+    before_action :sanitize_filter_params, only: :index
 
     def index
-      @active_filters = Hash.new
-
-      query = User.for_index_page
-
-      # if taggable_filter_params.present?
-      #   @active_filters.merge!(taggable_filter_params)
-      #
-      #   taggable_filter_params.each_pair do |key, values|
-      #     query = query.tagged_with(values, in: key)
-      #   end
-      # end
-      #
-      # if queryable_filter_params.present?
-      #   @active_filters.merge!(queryable_filter_params)
-      #   query = query.where(queryable_filter_params)
-      # end
-
+      query = QueryService.new(organization: @organization).where(@active_filters)
       @all_users = query
-      @paginate = @active_filters.empty? # paginate if filters aren't selected
-      query = query.page(params[:page]) if @paginate
-      @users = query
+      @users = (@paginate == true ? query.page(params[:page]) : query)
     end
 
     def search
@@ -66,6 +49,15 @@ module Admin
 
     private
 
+    def sanitize_filter_params
+      if params[:survey].present?
+        @active_filters = params[:survey].reject { |k, v| v.empty? }
+      else
+        @active_filters = {}
+      end
+
+      @paginate = @active_filters.empty? # paginate if filters aren't selected
+    end
 
     def find_user
       @user = User.includes(:outreaches).find(params[:id])
