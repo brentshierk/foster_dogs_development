@@ -43,6 +43,10 @@ class Question < ApplicationRecord
     order("index ASC")
   end
 
+  def self.queryable
+    where(queryable: true)
+  end
+
   def boolean?
     question_type == BOOLEAN
   end

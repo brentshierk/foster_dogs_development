@@ -1,5 +1,11 @@
 = form_tag(admin_users_path, method: :get, class: 'filter-form') do
   .row
     .col-md-12
-      %h1.pull-left Filters
-      = submit_tag 'Filter', class: 'pull-right btn btn-primary'
+      %h1 Filters
+      %h4 Use this tool to find potential fosters that filled out the survey with the answers that you select below!
+  %br
+  - @organization.survey.questions.queryable.each do |q|
+    = render partial: 'shared/question', locals: { question: q, admin: true }
+  .row
+    .col-md-12
+      = submit_tag 'Filter', class: 'btn btn-primary'
