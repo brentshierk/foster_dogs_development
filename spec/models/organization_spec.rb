@@ -7,7 +7,6 @@
 #  name         :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  deleted_at   :datetime
 #  published_at :datetime
 #  slug         :string           not null
 #
@@ -18,7 +17,7 @@ describe Organization, type: :model do
   describe '#ensure_slug' do
     it 'sets the slug based on name' do
       organization = Organization.create!(name: 'foo bar')
-      expect(organization.slug).to eq('foo_bar')
+      expect(organization.slug).to eq('foo-bar')
     end
 
     context 'setting slug seperately' do

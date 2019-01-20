@@ -58,6 +58,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'bullet'
   gem 'annotate'
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.0.5'

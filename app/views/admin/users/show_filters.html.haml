@@ -1,18 +1,11 @@
 = form_tag(admin_users_path, method: :get, class: 'filter-form') do
   .row
     .col-md-12
-      %h1.pull-left Fosters
-      = submit_tag 'Filter', class: 'pull-right btn btn-primary'
-  = form_tag do
-    .row
-      - @tagged_categories.keys.each do |key|
-        .col-md-3= label_tag key
-    .row
-      - @tagged_categories.each do |k, v|
-        .col-md-3= select_tag k, options_for_select(v), multiple: true, include_blank: true, class: "form-control filter-select"
-    .row
-      - @queryable_categories.keys.each do |key|
-        .col-md-3= label_tag key
-    .row
-      - @queryable_categories.each do |k, v|
-        .col-md-3= select_tag k, options_for_select(v), multiple: true, include_blank: true, class: "form-control filter-select"
+      %h1 Filters
+      %h4 Use this tool to find potential fosters that filled out the survey with the answers that you select below!
+  %br
+  - @organization.survey.questions.queryable.each do |q|
+    = render partial: 'shared/question', locals: { question: q, admin: true }
+  .row
+    .col-md-12
+      = submit_tag 'Filter', class: 'btn btn-primary'

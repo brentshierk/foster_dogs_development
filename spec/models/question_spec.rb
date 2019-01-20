@@ -16,6 +16,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  required         :boolean          default(FALSE)
+#  displayable      :boolean          default(FALSE)
 #
 
 require 'rails_helper'
@@ -35,6 +36,8 @@ describe Question, type: :model do
   end
 
   context 'boolean' do
+    subject { FactoryBot.build(:question, :boolean) }
+
     it 'sets the question_choices' do
       expect(subject.question_choices.present?).to be_falsey
       subject.question_type = Question::BOOLEAN

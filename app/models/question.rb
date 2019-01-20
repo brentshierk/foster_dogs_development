@@ -16,6 +16,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  required         :boolean          default(FALSE)
+#  displayable      :boolean          default(FALSE)
 #
 
 class Question < ApplicationRecord
@@ -34,12 +35,16 @@ class Question < ApplicationRecord
   validates_uniqueness_of :slug, :index, scope: :survey_id, allow_blank: true
 
   before_validation :ensure_uuid, :ensure_slug_format
-  before_save :set_question_choices, if: :boolean?
+  before_save :ensure_question_choices_for_boolean, if: :boolean?
 
   belongs_to :survey
 
   def self.ordered_for_survey
     order("index ASC")
+  end
+
+  def self.queryable
+    where(queryable: true)
   end
 
   def boolean?
@@ -60,7 +65,7 @@ class Question < ApplicationRecord
     self.uuid ||= SecureRandom.uuid
   end
 
-  def set_question_choices
+  def ensure_question_choices_for_boolean
     self.question_choices = ['true', 'false']
   end
 end

@@ -4,6 +4,9 @@ class SurveysController < ApplicationController
   def show
   end
 
+  def thanks
+  end
+
   private
 
   def load_organization_and_survey

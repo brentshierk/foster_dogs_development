@@ -4,9 +4,10 @@ module ApplicationHelper
     render(partial: "organizations/partials/#{type}/#{slug}")
   end
 
-  def display_question_choices(question:)
+  # TODO: this needs tests
+  def display_question_choices(question:, admin: false)
     field_name = "survey[#{question.slug}]"
-    basic_params = { class: 'form-control', required: question.required }
+    basic_params = { class: 'form-control', required: (admin ? false : question.required) }
     case question.question_type
     when Question::BOOLEAN
       select_tag field_name, options_for_select([['yes', true], ['no', false]]), basic_params.merge({ include_blank: true })
@@ -23,7 +24,11 @@ module ApplicationHelper
       html = "<div class='form-check-label'>#{choices}</div>"
       html.html_safe
     when Question::COUNT
-      number_field_tag field_name, nil, basic_params
+      if admin
+        select_tag field_name, options_for_select([['yes', true], ['no', false]]), basic_params.merge({ include_blank: true })
+      else
+        number_field_tag field_name, nil, basic_params
+      end
     when Question::LONG_TEXT
       text_area_tag field_name, nil, basic_params
     when Question::SHORT_TEXT
@@ -43,28 +48,17 @@ module ApplicationHelper
     end
   end
 
-  def print_status(dog, status)
-    return '' unless status.present?
-
-    string = status.status
-    string += " with #{link_to(status.user.name, admin_user_path(status.user))}" if status.user.present?
-    string.html_safe
-  end
-
-  def age(dog)
-    years = (Date.current - dog.birthday).to_f/(30 * 12)
-    half = years.floor + 0.5
-    years > half ? "#{years.floor} and a half years old" : "#{years.floor} years old"
-  end
-
-  def bool_to_affirmative(string)
-    case string.to_s
-    when 'true', 'True'
+  def value_to_human_readable(value)
+    if value.is_a?(TrueClass)
       'yes'
-    when 'false', 'False'
+    elsif value.is_a?(FalseClass)
       'no'
+    elsif value.is_a?(Time)
+      value.stamp('May 20, 1989')
+    elsif value.is_a?(Array)
+      value.join(', ')
     else
-      'n/a'
+      value
     end
   end
 

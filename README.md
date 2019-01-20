@@ -33,5 +33,5 @@ Ruby on Rails 5 app
 
 ### Dumping from Production to local
 ```
-heroku pg:backups:capture && heroku pg:backups:download && rake db:environment:set RAILS_ENV=development && rake db:drop && rake db:create && pg_restore --verbose --clean --no-acl --no-owner -h localhost -d foster-roster_development latest.dump
+heroku pg:backups:capture -a foster-roster && heroku pg:backups:download -a foster-roster && rake db:environment:set RAILS_ENV=development && rake db:drop && rake db:create && pg_restore --verbose --clean --no-acl --no-owner -h localhost -d foster-roster_development latest.dump
 ```

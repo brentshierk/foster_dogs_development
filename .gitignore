@@ -17,3 +17,6 @@ latest.dump
 
 # Ignore container data
 /docker
+
+
+dump.rdb

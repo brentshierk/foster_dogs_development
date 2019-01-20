@@ -7,19 +7,18 @@
 #  name         :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  deleted_at   :datetime
 #  published_at :datetime
 #  slug         :string           not null
 #
 
 class Organization < ApplicationRecord
-  acts_as_paranoid
-
   validates_presence_of :name
   validates_uniqueness_of :name
 
   has_many :outreaches
   has_one :survey
+  has_many :survey_responses, through: :survey
+  has_many :users, through: :survey_responses
 
   before_validation :ensure_uuid, :ensure_slug
 
@@ -47,6 +46,6 @@ class Organization < ApplicationRecord
   end
 
   def ensure_slug
-    self.slug ||= name.parameterize.underscore
+    self.slug ||= name.parameterize
   end
 end
