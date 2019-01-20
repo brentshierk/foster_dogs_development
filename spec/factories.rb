@@ -1,5 +1,4 @@
 FactoryBot.define do
-
   factory :user do
     name { Faker::Name.name }
     email { Faker::Internet.email }
@@ -30,7 +29,7 @@ FactoryBot.define do
   end
 
   factory :question do
-    slug { Faker::Lorem.word }
+    slug { SecureRandom.uuid }
     description { Faker::Lorem.paragraph }
     question_text { Faker::Lorem.paragraph }
     question_type { Question::FORMATS.sample }
@@ -42,7 +41,7 @@ FactoryBot.define do
     end
 
     after :build do |q|
-      q.question_choices = ['foo', 'bar'] if q.multiple_answer?
+      q.question_choices = ['foo', 'bar'] if q.multiple_answer? && !q.question_choices.present?
     end
   end
 
