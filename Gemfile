@@ -40,7 +40,6 @@ gem 'dalli'
 
 gem 'oj'
 
-
 group :production, :staging do
   gem 'rails_12factor'
 end
