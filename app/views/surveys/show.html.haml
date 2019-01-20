@@ -7,7 +7,7 @@
       .col-md-12
         %h3 Foster Preferences
     - @survey.questions.ordered_for_survey.each do |q|
-      = render partial: "shared/question", locals: { question: q }
+      = render partial: "shared/question", locals: { question: q, admin: false }
     = organization_template(slug: @organization.slug, type: 'terms')
     .row
       .col-md-12

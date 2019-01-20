@@ -4,9 +4,10 @@ module ApplicationHelper
     render(partial: "organizations/partials/#{type}/#{slug}")
   end
 
-  def display_question_choices(question:)
+  # TODO: this needs tests
+  def display_question_choices(question:, admin: false)
     field_name = "survey[#{question.slug}]"
-    basic_params = { class: 'form-control', required: question.required }
+    basic_params = { class: 'form-control', required: (admin ? false : question.required) }
     case question.question_type
     when Question::BOOLEAN
       select_tag field_name, options_for_select([['yes', true], ['no', false]]), basic_params.merge({ include_blank: true })
@@ -23,7 +24,11 @@ module ApplicationHelper
       html = "<div class='form-check-label'>#{choices}</div>"
       html.html_safe
     when Question::COUNT
-      number_field_tag field_name, nil, basic_params
+      if admin
+        select_tag field_name, options_for_select([['yes', true], ['no', false]]), basic_params.merge({ include_blank: true })
+      else
+        number_field_tag field_name, nil, basic_params
+      end
     when Question::LONG_TEXT
       text_area_tag field_name, nil, basic_params
     when Question::SHORT_TEXT
