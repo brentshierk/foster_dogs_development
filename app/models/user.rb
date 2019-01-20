@@ -62,7 +62,9 @@ class User < ApplicationRecord
   scope :subscribed, -> { where.not(subscribed_at: nil).where(unsubscribed_at: nil) }
 
   def self.for_index_page
-    subscribed.order('created_at DESC')
+    subscribed
+    .includes(outreaches: :organization)
+    .order('created_at DESC')
   end
 
   def self.size_preferences
