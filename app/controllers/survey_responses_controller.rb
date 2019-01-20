@@ -7,6 +7,7 @@ class SurveyResponsesController < ApplicationController
       @user.attributes = user_params
       @user.accepted_terms_at = Date.current
       @user.save!
+
       survey = Survey.find_by(uuid: survey_params[:uuid])
       response_hash = survey_params.tap { |p| p.delete(:uuid) }
       @user.survey_responses.find_or_create_by!(survey: survey) { |response| response.response = response_hash }
