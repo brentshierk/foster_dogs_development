@@ -23,6 +23,8 @@ module ApplicationHelper
 
       html = "<div class='form-check-label'>#{choices}</div>"
       html.html_safe
+    when Question::MULTIPLE_CHOICE
+      select_tag field_name, options_for_select(question.question_choices), basic_params.merge({ include_blank: true })
     when Question::COUNT
       if admin
         select_tag field_name, options_for_select([['yes', true], ['no', false]]), basic_params.merge({ include_blank: true })

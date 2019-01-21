@@ -1,12 +1,17 @@
 .row
   .col-md-12
-    .terms-and-conditions
-      %h3 TERMS & CONDITIONS:
-      %p I will bring my ID/Driver’s License with me when I pick up the animal.
-      %p I am willing and able to provide basic care, safe housing, and necessary care materials for my foster pet.
+    .form-group
+      = check_box_tag :accepted_terms_at, 'true', false, { required: true }
+      I accept the terms and conditions below
 %br
 .row
   .col-md-12
-    .form-group
-      = check_box_tag :accepted_terms_at, 'true', false, { required: true }
-      I accept the terms and conditions above
+    .terms-and-conditions
+      %h3 FOSTER DOGS, INC. TERMS & CONDITIONS:
+      %h4 PRIVACY:
+      %p By applying to Foster Dogs Inc's "Foster Roster," your information will remain private (entered on our secure server) . Foster Dogs will only share your information with the participating shelter upon your offer to foster. We will not otherwise share your application with third parties. All Foster Roster applications are property of Foster Dogs Inc and function as an internal resource.
+      %h4 PARTICIPATION & REMOVAL:
+      %p
+        = "You will typically receive a maximum of one Foster Roster outreach weekly. Foster Dogs may remove you from our list after long-term inactivity. You may request to be removed from the Foster Roster at any time by emailing us with your request at #{ mail_to 'roster@fosterdogsnyc.com', 'roster@fosterdogsnyc.com' }. By signing up for our Foster Roster, you are opting-in to our monthly newsletter. We promise not to spam you or share your information with an unaffiliated third party, and you can unsubscribe at any time from our newsletters.".html_safe
+      %h4 APPLICATION PROCESS & RESCUE LIABILITY:
+      %p While we will keep track of the progress of any dog on our site, we do not handle the foster (or adoption) approval process, as that is the duty of the shelter. Information is provided to us by said organization. Once you begin communication with the third party (shelter), Foster Dogs Inc is here for questions/comments/suggestions, but it becomes the responsibility of the shelter to continue the conversation and to review your application.
