@@ -8,13 +8,13 @@ FactoryBot.define do
     name { Faker::Company.name }
 
     trait :foster_roster do
-      name 'Foster Dogs'
-      uuid Organization::FOSTER_DOGS_UUID
+      name { 'Foster Dogs' }
+      uuid { Organization::FOSTER_DOGS_UUID }
     end
 
     trait :macc do
-      name 'Metro Animal Care & Control'
-      uuid Organization::MACC_UUID
+      name { 'Metro Animal Care & Control' }
+      uuid { Organization::MACC_UUID }
     end
   end
 
@@ -37,7 +37,7 @@ FactoryBot.define do
     survey
 
     trait :boolean do
-      question_type Question::BOOLEAN
+      question_type { Question::BOOLEAN }
     end
 
     after :build do |q|
@@ -60,7 +60,7 @@ FactoryBot.define do
     weight { rand(100) }
 
     trait :urgent do
-      urgent true
+      urgent { true }
     end
   end
 
@@ -68,26 +68,26 @@ FactoryBot.define do
     dog
 
     trait :needs_foster do
-      status Status::NEEDS_FOSTER
+      status { Status::NEEDS_FOSTER }
     end
 
     trait :foster_pending do
-      status Status::FOSTER_PENDING
+      status { Status::FOSTER_PENDING }
       user
     end
 
     trait :in_foster do
-      status Status::IN_FOSTER
+      status { Status::IN_FOSTER }
       user
     end
 
     trait :adoption_pending do
-      status Status::ADOPTION_PENDING
+      status { Status::ADOPTION_PENDING }
       user
     end
 
     trait :adopted do
-      status Status::ADOPTED
+      status { Status::ADOPTED }
       user
     end
   end

@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-ruby '2.5'
+ruby '2.6'
 
-gem 'rails', '~> 5.0.1' # there's an issue with Rails 5.2 and acts_as_taggable compatibility
-gem 'pg', '~> 0.18'
-gem 'puma', '~> 3.0'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
+gem 'rails', '~> 5.2.2'
+gem 'pg'
+gem 'puma'
+gem 'sass-rails'
+gem 'uglifier'
 
 gem 'jquery-rails'
 gem 'haml-rails'
@@ -14,7 +14,6 @@ gem 'bootstrap-sass'
 
 gem 'turbolinks', '~> 5'
 gem 'awesome_print'
-gem 'acts-as-taggable-on'
 
 gem 'faker'
 
@@ -60,11 +59,10 @@ end
 group :development do
   gem 'bullet'
   gem 'annotate'
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '~> 3.0.5'
+  gem 'listen'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen'
 end
 
 group :test do
