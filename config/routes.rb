@@ -36,4 +36,6 @@ Rails.application.routes.draw do
   end
 
   get 'admin' => 'admin/users#index'
+  get 'foster-dogs' => 'surveys#show', organization_slug: 'foster-dogs'
+  get 'macc' => 'surveys#show', organization_slug: 'macc'
 end
