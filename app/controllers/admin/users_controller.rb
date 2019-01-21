@@ -21,7 +21,7 @@ module Admin
       redirect_back(fallback_location: admin_users_path)
     end
 
-    def show_filters
+    def filters
     end
 
     def show

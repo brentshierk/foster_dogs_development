@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :users, except: [:new, :create] do
       collection do
         get 'search'
-        get 'show_filters'
+        get 'filters'
         post 'download_csv'
       end
 
