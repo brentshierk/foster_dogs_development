@@ -16,6 +16,8 @@
 #  subscribed_at     :datetime
 #  unsubscribed_at   :datetime
 #  phone_number      :string
+#  first_name        :string
+#  last_name         :string
 #
 
 require 'rails_helper'

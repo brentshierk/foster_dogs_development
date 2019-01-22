@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_21_223413) do
+ActiveRecord::Schema.define(version: 2019_01_22_002623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -127,6 +127,8 @@ ActiveRecord::Schema.define(version: 2019_01_21_223413) do
     t.datetime "subscribed_at"
     t.datetime "unsubscribed_at"
     t.string "phone_number"
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["uuid"], name: "index_users_on_uuid", unique: true
   end
