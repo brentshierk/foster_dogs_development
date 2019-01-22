@@ -6,7 +6,8 @@ describe SurveyResponsesController, type: :controller do
     let(:survey) { FactoryBot.create(:survey) }
     let(:params) do
       {
-        "name"=>Faker::Name.name,
+        "first_name"=>Faker::Name.last_name,
+        "last_name"=>Faker::Name.first_name,
         "email"=>email,
         "phone_number"=>Faker::PhoneNumber.phone_number,
         "date_of_birth"=>(Date.current - 20.years).stamp("1989-05-20"),
@@ -31,7 +32,8 @@ describe SurveyResponsesController, type: :controller do
     it 'sets all the correct user attributes' do
       post :create, params: params
       user = User.find_by(email: email)
-      expect(user.name).to eq(params["name"])
+      expect(user.first_name).to eq(params["first_name"])
+      expect(user.last_name).to eq(params["last_name"])
       expect(user.email).to eq(params["email"])
       expect(user.phone_number).to eq(params["phone_number"])
       expect(user.date_of_birth).to eq(Date.parse(params["date_of_birth"]))

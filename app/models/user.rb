@@ -26,10 +26,10 @@ class User < ApplicationRecord
   paginates_per 50
 
   validates_uniqueness_of :uuid, :email
-  validates_presence_of :name, :email, :uuid
+  validates_presence_of :first_name, :name, :email, :uuid
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
-  before_validation :ensure_uuid
+  before_validation :ensure_uuid, :ensure_name
 
   has_many :notes
   has_many :survey_responses
@@ -48,19 +48,15 @@ class User < ApplicationRecord
     .order('created_at DESC')
   end
 
-  def first_name
-    name.split(' ', 2).first
-  end
-
-  def last_name
-    name.split(' ', 2).last
-  end
-
   def active?
     !subscribed_at.nil? && unsubscribed_at.nil?
   end
 
   private
+
+  def ensure_name
+    self.name ||= "#{first_name} #{last_name}"
+  end
 
   def ensure_uuid
     self.uuid ||= SecureRandom.uuid

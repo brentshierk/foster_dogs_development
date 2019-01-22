@@ -38,4 +38,14 @@ describe User, type: :model do
       subject.save!
     end
   end
+
+  # no one ever seems to make up their mind about full name vs. first/last
+  # code to keep both for now
+  describe '#ensure_name' do
+    it 'sets name based off of first name' do
+      expect(subject.name).to be_nil
+      subject.valid?
+      expect(subject.name).to_not be_nil
+    end
+  end
 end
