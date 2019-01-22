@@ -32,7 +32,7 @@ class User < ApplicationRecord
   has_many :notes
   has_many :survey_responses
   has_many :outreaches_users
-  has_many :outreaches, through: :outreaches_users
+  has_many :outreaches, -> { order("created_at DESC") }, through: :outreaches_users
 
   geocoded_by :address
   after_validation :geocode, if: ->(obj){ obj.address.present? && obj.address_changed? }
