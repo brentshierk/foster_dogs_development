@@ -1,4 +1,6 @@
+// hack to allow both the "edit" and "new" functionality work using the same partials and passing null objects down through local vars
 - user = user
+
 .row
   .col-md-12
     %h3 Basic Information
@@ -26,7 +28,7 @@
     .form-group
       = label_tag :date_of_birth, "Date of Birth"
       %br
-      = date_field_tag :date_of_birth, user.try(:date_of_birth), { class: 'form-control date-select', required: true }
+      = date_field_tag :date_of_birth, user.try(:date_of_birth).try(:to_date), { class: 'form-control date-select', required: true }
 .row
   .col-md-6
     .form-group

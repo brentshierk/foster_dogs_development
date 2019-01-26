@@ -12,10 +12,8 @@ describe SurveyResponsesController, type: :controller do
         "phone_number"=>Faker::PhoneNumber.phone_number,
         "date_of_birth"=>(Date.current - 20.years).stamp("1989-05-20"),
         "address"=>Faker::Address.full_address,
-        "survey"=>{
-          "uuid"=>survey.uuid,
-          "foo"=>"bar"
-        },
+        "survey_uuid"=>survey.uuid,
+        "survey"=>{ "foo"=>"bar" },
         "organization_slug" => survey.organization.slug,
         "accepted_terms_at"=>"true"
       }
