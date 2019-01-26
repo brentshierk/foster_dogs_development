@@ -5,18 +5,25 @@ module ApplicationHelper
   end
 
   # TODO: this needs tests
-  def display_question_choices(question:, admin: false)
+  def display_question_choices(question:, filter: false, response: nil)
     field_name = "survey[#{question.slug}]"
-    basic_params = { class: 'form-control', required: (admin ? false : question.required) }
+    basic_params = { class: 'form-control', required: (filter ? false : question.required) }
+    answer = existing_answer(response, question)
+
     case question.question_type
     when Question::BOOLEAN
-      select_tag field_name, options_for_select([['yes', true], ['no', false]]), basic_params.merge({ include_blank: true })
+      select_tag(
+        field_name,
+        options_for_select([['yes', true], ['no', false]], answer),
+        basic_params.merge({ include_blank: true })
+      )
     when Question::MULTI_SELECT
       choices = ""
 
       question.question_choices.each do |qc|
+        checked = answer.include?(qc)
         choices += "<div class='form-check-lable'>"
-        choices += check_box_tag "#{field_name}[]", qc, false, { multiple: true, class: 'form-check-input' }
+        choices += check_box_tag "#{field_name}[]", qc, checked, { multiple: true, class: 'form-check-input' }
         choices += " #{qc}"
         choices += "</div>"
       end
@@ -24,17 +31,25 @@ module ApplicationHelper
       html = "<div class='form-check-label'>#{choices}</div>"
       html.html_safe
     when Question::MULTIPLE_CHOICE
-      select_tag field_name, options_for_select(question.question_choices), basic_params.merge({ include_blank: true })
+      select_tag field_name, options_for_select(question.question_choices, answer), basic_params.merge({ include_blank: true })
     when Question::COUNT
-      if admin
+      if filter
         select_tag field_name, options_for_select([['yes', true], ['no', false]]), basic_params.merge({ include_blank: true })
       else
-        number_field_tag field_name, nil, basic_params
+        number_field_tag field_name, answer, basic_params
       end
     when Question::LONG_TEXT
-      text_area_tag field_name, nil, basic_params
+      text_area_tag field_name, answer, basic_params
     when Question::SHORT_TEXT
-      text_field_tag field_name, nil, basic_params
+      text_field_tag field_name, answer, basic_params
+    end
+  end
+
+  def existing_answer(response, question)
+    if response.present? && response[question.slug].present?
+      response[question.slug]
+    else
+      question.question_type == Question::MULTI_SELECT ? [] : nil
     end
   end
 
@@ -62,18 +77,5 @@ module ApplicationHelper
     else
       value
     end
-  end
-
-  def list_to_link(tag_type, tag_list)
-    return "" unless tag_list.present?
-
-    html = ""
-
-    tag_list.each_with_index do |l, i|
-      html += link_to l, admin_users_path(tag_type => l)
-      html += ", " unless i == tag_list.count - 1
-    end
-
-    html.html_safe
   end
 end

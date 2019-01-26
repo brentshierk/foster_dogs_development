@@ -33,6 +33,14 @@ module Admin
     end
 
     def update
+      survey = Survey.find_by(uuid: params[:survey_uuid])
+      SurveyResponseService.new(user: @user, survey: survey).perform!(user_params: user_params, survey_response_params: survey_response_params)
+      flash[:notice] = "Successfully updated #{@user.name}!"
+      redirect_to admin_user_path(@user)
+    rescue => e
+      Rollbar.error(e)
+      flash[:alert] = "Something went wrong while submitting. #{e.message}"
+      redirect_back(fallback_location: admin_users_path)
     end
 
     def download_csv
@@ -49,6 +57,23 @@ module Admin
 
     private
 
+    def user_params
+      params.permit(
+        :name,
+        :last_name,
+        :first_name,
+        :email,
+        :phone_number,
+        :address,
+        :date_of_birth,
+        :accepted_terms_at
+      )
+    end
+
+    def survey_response_params
+      params.require(:survey)
+    end
+
     def sanitize_filter_params
       if params[:survey].present?
         @active_filters = params[:survey].reject { |k, v| v.empty? }
@@ -60,7 +85,8 @@ module Admin
     end
 
     def find_user
-      @user = User.includes(:outreaches).find(params[:id])
+      @user = User.includes(:outreaches, :survey_responses).find(params[:id])
+      @survey_response = @user.survey_responses.find { |r| r.organization_id == @organization.id }
     end
   end
 end
