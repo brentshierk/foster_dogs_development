@@ -17,31 +17,31 @@ namespace :one_time do
           email: 'nancy@fosterdogsnyc.com',
           first_name: 'Nancy',
           last_name: 'Noto',
-          password: password
+          password: password,
         },
         {
           email: 'sarah@fosterdogsnyc.com',
           first_name: 'Sarah',
           last_name: 'Brasky',
-          password: password
+          password: password,
         },
         {
           email: 'elana@fosterdogsnyc.com',
           first_name: 'Elana',
           last_name: 'Buchalter',
-          password: password
+          password: password,
         },
         {
           email: 'kevin@fosterdogsnyc.com',
           first_name: 'Kevin',
           last_name: 'Hsieh',
-          password: 'shaggyozzie123'
+          password: 'shaggyozzie123',
         },
         {
           email: 'taylor@fosterdogsnyc.com',
           first_name: 'Taylor',
           last_name: 'Solomon',
-          password: 'shaggyozzie123'
+          password: 'macc123',
         }
       ]
 
@@ -50,6 +50,13 @@ namespace :one_time do
           user = User.find_or_initialize_by(email: user_info[:email])
           user.attributes = user_info
           user.save!
+          organization =  if user.email == 'taylor@fosterdogsnyc.com'
+                            Organization.macc
+                          else
+                            Organization.foster_dogs
+                          end
+
+          user.add_role(:admin, organization)
         end
       end
     end

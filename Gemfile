@@ -39,6 +39,7 @@ gem 'dalli'
 
 gem 'oj'
 gem 'devise'
+gem "rolify"
 
 group :production, :staging do
   gem 'rails_12factor'
