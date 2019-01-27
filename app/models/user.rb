@@ -2,25 +2,32 @@
 #
 # Table name: users
 #
-#  id                :integer          not null, primary key
-#  name              :string
-#  email             :string
-#  uuid              :uuid
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  accepted_terms_at :datetime
-#  address           :string
-#  latitude          :float
-#  longitude         :float
-#  date_of_birth     :datetime
-#  subscribed_at     :datetime
-#  unsubscribed_at   :datetime
-#  phone_number      :string
-#  first_name        :string
-#  last_name         :string
+#  id                     :integer          not null, primary key
+#  name                   :string
+#  email                  :string
+#  uuid                   :uuid
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  accepted_terms_at      :datetime
+#  address                :string
+#  latitude               :float
+#  longitude              :float
+#  date_of_birth          :datetime
+#  subscribed_at          :datetime
+#  unsubscribed_at        :datetime
+#  phone_number           :string
+#  first_name             :string
+#  last_name              :string
+#  encrypted_password     :string           default(""), not null
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
 #
 
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :recoverable, :rememberable, :validatable
   searchkick callbacks: :async
 
   paginates_per 50

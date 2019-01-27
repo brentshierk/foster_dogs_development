@@ -38,6 +38,7 @@ gem 'sidekiq'
 gem 'dalli'
 
 gem 'oj'
+gem 'devise'
 
 group :production, :staging do
   gem 'rails_12factor'
