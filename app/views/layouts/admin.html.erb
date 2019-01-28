@@ -25,7 +25,10 @@
           </div>
           <%= submit_tag 'Submit', class: 'btn btn-default' %>
         <% end %>
-        <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link"><%= @organization.name %></a></p>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Signed in as <%= current_user.name %></a></li>
+          <li><%= link_to 'Sign Out', destroy_user_session_path, data: { confirm: 'Are you sure?' }, method: :delete %></li>
+        </ul>
       </div>
     </nav>
     <div class="container">
