@@ -1,22 +1,16 @@
 .row
-  .col-md-2
+  .col-md-3
     %h5 Signups Past 24 Hours
-    %p= SurveyResponse.where("created_at >= ? AND created_at <= ?", DateTime.current - 1.day, DateTime.current).count
-  .col-md-2
+    %p= @all_users.where("users.created_at >= ? AND users.created_at <= ?", DateTime.current - 1.day, DateTime.current).count
+  .col-md-3
     %h5 Signups Past 7 Days
-    %p= SurveyResponse.where("created_at >= ? AND created_at <= ?", DateTime.current - 7.days, DateTime.current).count
-  .col-md-2
-    %h5 Outreaches Past 24 Hours
-    %p= OutreachesUser.joins(:outreach).where("outreaches.created_at >= ? AND outreaches.created_at <= ?", DateTime.current - 1.days, DateTime.current).count
-  .col-md-2
-    %h5 Outreaches Past 7 days
+    %p= @all_users.where("users.created_at >= ? AND users.created_at <= ?", DateTime.current - 7.days, DateTime.current).count
+  .col-md-3
+    %h5 Outreaches Past 7 days (Both MACC/Foster Dogs)
     %p= OutreachesUser.joins(:outreach).where("outreaches.created_at >= ? AND outreaches.created_at <= ?", DateTime.current - 7.days, DateTime.current).count
-  .col-md-2
+  .col-md-3
     %h5 Total Signups
-    %p= User.count
-  .col-md-2
-    %h5 Total Outreaches
-    %p= OutreachesUser.count
+    %p= @all_users.count
 - if @active_filters.present? || @search_term.present?
   .row
     .col-md-12

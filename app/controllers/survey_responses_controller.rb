@@ -27,7 +27,8 @@ class SurveyResponsesController < ApplicationController
       :phone_number,
       :address,
       :date_of_birth,
-      :accepted_terms_at
+      :accepted_terms_at,
+      :password
     )
   end
 

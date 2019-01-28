@@ -21,6 +21,12 @@
 .row
   .col-md-6
     .form-group
+      = label_tag :password, "Password"
+      %p Enter a password to easily update your foster preferences in the future
+      = password_field_tag :password, user.try(:email), { class: 'form-control', required: true }
+.row
+  .col-md-6
+    .form-group
       = label_tag :phone_number, "Phone Number"
       = text_field_tag :phone_number, user.try(:phone_number), { class: 'form-control', required: true }
 .row

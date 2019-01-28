@@ -15,7 +15,8 @@ describe SurveyResponsesController, type: :controller do
         "survey_uuid"=>survey.uuid,
         "survey"=>{ "foo"=>"bar" },
         "organization_slug" => survey.organization.slug,
-        "accepted_terms_at"=>"true"
+        "accepted_terms_at"=>"true",
+        "password"=>Faker::Internet.password
       }
     end
 
