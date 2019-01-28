@@ -26,7 +26,7 @@
 
 class User < ApplicationRecord
   rolify
-  
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
@@ -40,8 +40,8 @@ class User < ApplicationRecord
 
   before_validation :ensure_uuid, :ensure_name
 
-  has_many :notes
-  has_many :survey_responses
+  has_many :notes, dependent: :destroy
+  has_many :survey_responses, dependent: :destroy
   has_many :outreaches_users
   has_many :outreaches, -> { order("created_at DESC") }, through: :outreaches_users
 
