@@ -26,7 +26,7 @@ namespace :one_time do
           user = User.find_or_initialize_by(email: user_info[:email])
           user.attributes = user_info
           user.save!
-          user.add_role(:admin, organization)
+          user.add_role(:admin, Organization.foster_dogs)
         end
       end
     end
