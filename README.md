@@ -17,9 +17,9 @@ Ruby on Rails 5 app
 6. `rake db:setup`
 7. `bundle install`
 8. copy the .env file `cp .env-template .env`
-9. fill in `ADMIN_USERNAME` and `ADMIN_PASSWORD` (for GOOGLE_MAPS_KEY and ROLLBAR_ACCESS_TOKEN check with Kevin or check Heroku)
+9. for GOOGLE_MAPS_KEY and ROLLBAR_ACCESS_TOKEN check with Kevin or check Heroku
 10. `rails s` should boot your server
-11. navigate to `localhost:3000` and enter your username and password and you should be g2g
+11. navigate to `localhost:3000`
 
 
 ### Docker
