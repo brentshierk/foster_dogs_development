@@ -45,4 +45,11 @@ Rails.application.configure do
   #   Bullet.enable = true
   #   Bullet.rails_logger = true
   # end
+
+  config.generators do |g|
+    g.test_framework :rspec
+    g.fixture_replacement :factory_bot
+    g.mailer_specs true
+    g.model_specs true
+  end
 end
