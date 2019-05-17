@@ -4,9 +4,9 @@
 = form_tag admin_user_path(@user.id), method: :put do
   = hidden_field_tag 'survey_uuid', @organization.survey.uuid
   = hidden_field_tag 'organization_slug', @organization.slug
-  = render partial: 'shared/basic_user_info', locals: { user: @user }
+  = render partial: 'shared/basic_user_info', locals: { user: @user, admin: true }
   - @organization.survey.questions.ordered_for_survey.each do |q|
-    = render partial: 'shared/question', locals: { question: q, filter: false, user: @user, survey: @organization.survey, survey_response: @survey_response }
+    = render partial: 'shared/question', locals: { question: q, filter: false, admin: true, user: @user, survey: @organization.survey, survey_response: @survey_response }
   .row
     .col-md-12
       .form-group

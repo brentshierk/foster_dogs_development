@@ -7,4 +7,4 @@
     .form-group
       = label_tag question.slug.to_sym, question.question_text
       %p= question.question_subtext.html_safe if question.question_subtext.present? && !filter
-      = display_question_choices(question: question, filter: filter, response: survey_response)
+      = display_question_choices(question: question, filter: filter, admin: admin, response: survey_response)

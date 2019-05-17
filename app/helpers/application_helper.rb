@@ -5,9 +5,10 @@ module ApplicationHelper
   end
 
   # TODO: this needs tests
-  def display_question_choices(question:, filter: false, response: nil)
+  def display_question_choices(question:, filter: false, admin: false, response: nil)
     field_name = "survey[#{question.slug}]"
-    basic_params = { class: 'form-control', required: (filter ? false : question.required) }
+    required = (filter || admin) ? false : question.required
+    basic_params = { class: 'form-control', required: required }
     answer = existing_answer(response, question)
 
     case question.question_type

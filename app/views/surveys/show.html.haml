@@ -3,12 +3,12 @@
   = hidden_field_tag 'survey_uuid', @survey.uuid
   = hidden_field_tag 'organization_slug', @organization.slug
   .fr-form
-    = render partial: 'shared/basic_user_info'
+    = render partial: 'shared/basic_user_info', locals: { admin: false }
     .row
       .col-md-12
         %h3 Foster Preferences
     - @survey.questions.ordered_for_survey.each do |q|
-      = render partial: "shared/question", locals: { question: q, filter: false }
+      = render partial: "shared/question", locals: { question: q, filter: false, admin: false }
     = organization_template(slug: @organization.slug, type: 'terms')
     .row
       .col-md-12
