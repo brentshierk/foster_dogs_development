@@ -5,7 +5,7 @@ start-build:
 	docker-compose up --build -d
 
 install: 
-	- docker network create lambda-local
+	- docker network create roster-local
 	cp .env-template .env
 	make start-build
 
