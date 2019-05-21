@@ -17,6 +17,7 @@ services:
     environment:
       - DOCKER_LOCAL=true
       - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - REDIS_URL=redis://cache:6379
   db:
     restart: 'always'
     image: postgres:10.2-alpine
@@ -30,11 +31,11 @@ services:
   cache:
     image: redis:3.2
     ports:
-      - 6381:6379
+      - 6379:6379
     volumes:
       - ./docker/containers/cache/.data:/data
   elasticsearch:
-    image: elasticsearch
+    image: elasticsearch:6.7.2
     ports:
       - "9200:9200"
     environment:
@@ -52,3 +53,7 @@ services:
         hard: 65536
     volumes:
       - ./docker/elasticsearch/data:/usr/share/elasticsearch/data
+networks:
+  default:
+    external:
+      name: roster-local
