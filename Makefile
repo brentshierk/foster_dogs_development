@@ -5,6 +5,7 @@ start-build:
 	docker-compose up --build -d
 
 install: 
+	- docker network create roster-local
 	cp .env-template .env
 	make start-build
 
@@ -21,9 +22,10 @@ restart:
 	make start
 
 setup-db: 
-	docker exec -it fosterroster_app_1 rake db:setup
+	docker exec -it foster-roster_app_1 rake db:setup
 
 stop:
+	- rm ./tmp/pids/server.pid
 	docker-compose down
 
 #############################################################
