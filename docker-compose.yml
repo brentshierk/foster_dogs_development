@@ -11,6 +11,22 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - worker
+    links:
+      - db
+      - elasticsearch
+    environment:
+      - DOCKER_LOCAL=true
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - REDIS_URL=redis://cache:6379
+  worker:
+    build: .
+    working_dir: /myapp
+    command: bundle exec sidekiq
+    volumes:
+      - .:/myapp:delegated
+    depends_on:
+      - db
     links:
       - db
       - elasticsearch
