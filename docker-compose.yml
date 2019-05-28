@@ -4,27 +4,11 @@ services:
   app:
     build: .
     working_dir: /myapp
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    command: foreman start -f Procfile.docker     # foreman starts the procs specified in Procfile.docker
     volumes:
       - .:/myapp:delegated
     ports:
       - "3000:3000"
-    depends_on:
-      - db
-      - worker
-    links:
-      - db
-      - elasticsearch
-    environment:
-      - DOCKER_LOCAL=true
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
-      - REDIS_URL=redis://cache:6379
-  worker:
-    build: .
-    working_dir: /myapp
-    command: bundle exec sidekiq
-    volumes:
-      - .:/myapp:delegated
     depends_on:
       - db
     links:
