@@ -64,7 +64,7 @@ class User < ApplicationRecord
   private
 
   def ensure_name
-    self.name ||= "#{first_name} #{last_name}"
+    self.name = "#{first_name} #{last_name}"
   end
 
   def ensure_uuid
